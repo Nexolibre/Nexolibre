@@ -57,6 +57,25 @@
     if(slides.length>1) setInterval(()=>go((idx+1)%slides.length),6000);
   }
 
+  /* ---------- carrusel de laboratorios ---------- */
+  document.querySelectorAll('[data-carousel]').forEach(car=>{
+    const track=car.querySelector('.lab-track');
+    const slides=[...car.querySelectorAll('.lab-slide')];
+    const dotsWrap=car.querySelector('.lab-dots');
+    if(!track || slides.length<=1) return;
+    let i=0, timer;
+    slides.forEach((_,n)=>{const b=document.createElement('button'); if(n===0)b.classList.add('active'); b.setAttribute('aria-label','Foto '+(n+1)); b.addEventListener('click',()=>{go(n);start();}); dotsWrap.appendChild(b);});
+    const dots=[...dotsWrap.children];
+    function go(n){i=(n+slides.length)%slides.length; track.style.transform='translateX(-'+(i*100)+'%)'; dots.forEach((d,k)=>d.classList.toggle('active',k===i));}
+    function start(){clearInterval(timer); timer=setInterval(()=>go(i+1),5500);}
+    const next=car.querySelector('.lab-nav.next'), prev=car.querySelector('.lab-nav.prev');
+    if(next) next.addEventListener('click',()=>{go(i+1);start();});
+    if(prev) prev.addEventListener('click',()=>{go(i-1);start();});
+    car.addEventListener('mouseenter',()=>clearInterval(timer));
+    car.addEventListener('mouseleave',start);
+    start();
+  });
+
   /* ---------- form ---------- */
   const form=document.getElementById('demoForm'), ok=document.getElementById('formOk');
   if(form) form.addEventListener('submit',(ev)=>{
