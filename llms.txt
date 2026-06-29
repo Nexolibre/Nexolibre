@@ -7,7 +7,7 @@
 - **Soporte técnico MRI/CT multimarca**: mantenimiento, diagnóstico y reparación de equipos de resonancia magnética y tomografía de cualquier marca.
 - **Laboratorios propios de reparación**: recuperación y testeo de piezas críticas — bobinas MRI, módulos de RF y gradientes, fuentes de poder e inyectores — que se dan por perdidas en el circuito tradicional.
 - **Venta de equipos y repuestos**: equipos MRI/CT, proyectos llave en mano y stock de piezas recuperadas y testeadas.
-- **Software con IA para diagnóstico por imágenes**: Gauss Connect (monitoreo y gestión del área), RadDictate (dictado de informes con IA) y SubtleIA (mejora de imagen con IA para MRI, CT y PET-CT).
+- **Software con IA para diagnóstico por imágenes**: monitoreo y gestión del área, dictado de informes con IA, y mejora de imagen con IA para MRI, CT y PET-CT.
 
 ## Dónde opera
 
@@ -25,7 +25,7 @@ Recuperar una bobina o una pieza crítica en lugar de comprarla nueva evita down
 - [Servicios por país](https://nexolibre.com/servicios.html): soporte e ingeniería en Argentina, Chile y USA.
 - [Productos y stock](https://nexolibre.com/productos.html): equipos MRI/CT y piezas críticas recuperadas.
 - [Catálogo de partes](https://nexolibre.com/catalogo.html): repuestos MRI/CT con búsqueda por marca, modelo o número de parte.
-- [Software con IA](https://nexolibre.com/software.html): Gauss Connect, RadDictate y SubtleIA.
+- [Software con IA](https://nexolibre.com/software.html): monitoreo de equipos, informes con IA y mejora de imagen.
 - [Contacto](https://nexolibre.com/contacto.html): email contacto@nexolibre.com · teléfono +54 9 11 6741-0993.
 
 ## Contacto

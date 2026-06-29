@@ -81,10 +81,13 @@
   .nav-links a:hover{color:var(--text)}
   .nav-right{margin-left:auto;display:flex;align-items:center;gap:14px}
   .lang{
-    display:flex;border:1px solid var(--border-2);border-radius:9px;overflow:hidden;font-size:13px;font-weight:700;
+    display:flex;align-items:stretch;border:1px solid var(--border-2);border-radius:9px;overflow:hidden;font-size:13px;font-weight:700;
   }
-  .lang button{background:transparent;color:var(--muted);border:0;padding:8px 11px;cursor:pointer;transition:.2s}
+  .lang button{background:transparent;color:var(--muted);border:0;padding:8px 11px;cursor:pointer;white-space:nowrap;transition:max-width .28s var(--ease),padding .28s var(--ease),opacity .2s,background .2s}
   .lang button.active{background:var(--accent);color:#fff}
+  /* colapsado: solo el idioma activo; se despliega al pasar el mouse */
+  .lang button:not(.active){max-width:0;padding-left:0;padding-right:0;opacity:0;pointer-events:none}
+  .lang:hover button:not(.active),.lang:focus-within button:not(.active){max-width:48px;padding-left:11px;padding-right:11px;opacity:1;pointer-events:auto}
   .burger{display:none;background:transparent;border:0;color:#fff;cursor:pointer;flex-direction:column;gap:5px}
   .burger span{width:22px;height:2px;background:var(--text);border-radius:2px;transition:.3s}
 
@@ -273,8 +276,8 @@
   .region .rflag{font-size:24px;line-height:1}
   .region .feat{margin-top:14px;margin-bottom:0;gap:11px}
   .region .feat li{font-size:14px}
-  .nav-cta{display:inline-flex;align-items:center;gap:7px}
-  .nav-cta svg{flex:0 0 auto}
+  .nav-cta{display:inline-flex;align-items:center;gap:6px;padding:9px 16px;font-size:14px}
+  .nav-cta svg{flex:0 0 auto;width:15px;height:15px}
   .ctaband{margin-top:30px;border:1px solid var(--border);border-radius:24px;background:radial-gradient(120% 140% at 100% 0%,rgba(241,144,0,.14),transparent 55%),linear-gradient(120deg,var(--surface),var(--bg-2));padding:46px 48px;box-shadow:var(--shadow)}
   .ctaband .cta-inner{display:flex;align-items:center;justify-content:space-between;gap:32px;flex-wrap:wrap}
   .ctaband h3{font-size:28px;margin-bottom:10px}
@@ -372,3 +375,32 @@
 .faq summary::after{content:'+';color:var(--accent);font-size:26px;font-weight:400;line-height:1;flex:0 0 auto}
 .faq details[open] summary::after{content:'\2013'}
 .faq p{margin:0 0 18px;color:var(--muted);line-height:1.65}
+
+/* ---------- roadmap / línea de tiempo ---------- */
+.roadmap{position:relative;margin-top:46px;display:grid;grid-template-columns:repeat(4,1fr);gap:26px}
+.roadmap::before{content:"";position:absolute;top:9px;left:12%;right:12%;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));border-radius:3px;z-index:0}
+.rm-item{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center}
+.rm-dot{width:20px;height:20px;border-radius:50%;background:var(--accent);border:4px solid var(--bg);box-shadow:0 0 0 3px rgba(241,144,0,.28);margin-bottom:16px}
+.rm-year{font-family:'Exo',sans-serif;font-weight:900;font-size:26px;color:var(--accent);line-height:1;margin-bottom:12px}
+.rm-card{border:1px solid var(--border);background:var(--surface);border-radius:16px;padding:20px 18px;box-shadow:var(--shadow);width:100%}
+.rm-card h4{font-family:'Exo',sans-serif;font-size:18px;font-weight:800;color:#645d56;margin-bottom:6px}
+.rm-card p{color:var(--muted);font-size:13px;line-height:1.5}
+.rm-item.future .rm-year{color:var(--accent-bright)}
+.rm-item.future .rm-dot{background:var(--bg);border-color:var(--accent);box-shadow:0 0 0 3px rgba(241,144,0,.28)}
+.rm-item.future .rm-card{border-style:dashed;border-color:rgba(241,144,0,.5)}
+.rm-soon{display:inline-block;margin-top:10px;font-size:10px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;color:var(--accent-bright);background:rgba(241,144,0,.14);border:1px solid rgba(241,144,0,.32);border-radius:30px;padding:3px 10px}
+@media(max-width:860px){.roadmap{grid-template-columns:1fr 1fr;gap:24px}.roadmap::before{display:none}.rm-dot{margin-bottom:12px}}
+@media(max-width:520px){.roadmap{grid-template-columns:1fr}}
+
+/* ---------- acordeón de servicios ---------- */
+.svc-acc{margin-top:20px;display:flex;flex-direction:column;gap:12px}
+.svc-acc details{background:var(--surface);border:1px solid var(--border-2);border-radius:14px;padding:0 22px;transition:border-color .2s,box-shadow .2s}
+.svc-acc details[open]{border-color:var(--accent);box-shadow:var(--shadow)}
+.svc-acc summary{cursor:pointer;list-style:none;padding:18px 0;display:flex;justify-content:space-between;align-items:center;gap:14px}
+.svc-acc summary::-webkit-details-marker{display:none}
+.svc-acc summary .svc-title{display:flex;align-items:center;gap:11px;font-weight:700;font-size:16px;color:var(--text)}
+.svc-acc summary .svc-title svg{flex:0 0 20px;color:var(--accent-bright)}
+.svc-acc summary::after{content:'+';color:var(--accent);font-size:26px;font-weight:400;line-height:1;flex:0 0 auto}
+.svc-acc details[open] summary::after{content:'\2013'}
+.svc-acc details>p{margin:0 0 18px;color:var(--muted);line-height:1.65;font-size:14.5px}
+.hl-ai{color:var(--accent-bright);font-weight:800;background:rgba(241,144,0,.14);border-radius:4px;padding:1px 6px;-webkit-box-decoration-break:clone;box-decoration-break:clone}
