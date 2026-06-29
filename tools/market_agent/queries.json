@@ -1,35 +1,58 @@
 {
-  "_comentario": "Configuración de búsqueda del agente de oportunidades. Editá las listas a gusto. El agente combina cada 'marca_modelo' con cada 'tipo_pieza' y también corre las 'busquedas_extra' tal cual.",
+  "_comentario": "Configuración de búsqueda del agente. El agente combina cada 'marcas_modelos' con cada 'tipos_pieza' (en inglés, que es como se publica en eBay US) y además corre las 'busquedas_extra' tal cual. Editá libremente.",
 
   "marketplace": "EBAY_US",
   "max_resultados_por_busqueda": 25,
   "moneda_destino": "USD",
 
   "marcas_modelos": [
-    "GE Signa", "GE Profile", "GE Optima", "GE Discovery",
-    "Siemens Magnetom", "Siemens Symphony", "Siemens Avanto",
-    "Philips Achieva", "Philips Ingenia", "Philips Intera",
-    "Toshiba Vantage", "Canon Vantage", "Hitachi Airis", "Hitachi Oasis"
+    "Philips MRI",
+    "Siemens MRI",
+    "GE MRI",
+    "General Electric MRI",
+    "Esaote MRI",
+    "Toshiba MRI",
+    "Canon MRI",
+    "Hitachi MRI"
   ],
 
   "tipos_pieza": [
-    "MRI coil", "MRI head coil", "MRI knee coil", "MRI spine coil",
-    "MRI body coil", "MRI surface coil", "MRI gradient", "RF amplifier MRI",
-    "CT injector", "MRI power supply"
+    "coil",
+    "gradient amplifier",
+    "RF amplifier",
+    "RF power amplifier",
+    "power supply",
+    "gradient coil",
+    "board",
+    "PCB",
+    "cable",
+    "phantom",
+    "monitor",
+    "intercom",
+    "electronics",
+    "spare part"
   ],
 
   "busquedas_extra": [
+    "MRI parts lot",
+    "MRI scanner part",
     "MRI coil for parts",
-    "MRI gradient coil assembly",
-    "medical imaging coil lot"
+    "MRI gradient amplifier assembly",
+    "MRI RF amplifier RFPA",
+    "MRI phantom",
+    "MRI patient intercom",
+    "MRI body coil",
+    "MRI head coil",
+    "MRI knee coil",
+    "MRI spine coil"
   ],
 
-  "condiciones_ebay": ["USED", "SELLER_REFURBISHED", "FOR_PARTS_OR_NOT_WORKING"],
+  "condiciones_ebay": ["USED", "SELLER_REFURBISHED", "FOR_PARTS_OR_NOT_WORKING", "NEW"],
 
   "excluir_si_titulo_contiene": [
     "manual", "brochure", "poster", "t-shirt", "sticker", "toy", "model kit",
-    "service guide", "book", "magnet souvenir"
+    "service guide", "book", "magnet souvenir", "keychain", "mug", "patch"
   ],
 
-  "precio_min_usd": 50
+  "precio_min_usd": 30
 }
