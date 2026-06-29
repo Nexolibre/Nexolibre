@@ -18,7 +18,10 @@ MARK_A = "<!-- SEO/GEO inicio -->"
 MARK_B = "<!-- SEO/GEO fin -->"
 
 # === Datos de identidad (completar LinkedIn / GBP / dirección cuando los tengas) ===
-SAMEAS = []          # ej: ["https://www.linkedin.com/company/nexolibre", "https://g.co/kgs/xxxx"]
+SAMEAS = [
+    "https://www.linkedin.com/company/nexo-libre/",
+    "https://share.google/iyGj2og1TmS3GPTS4",
+]
 ADDRESS = None       # ej: {"@type":"PostalAddress","streetAddress":"...","addressLocality":"...","addressCountry":"AR"}
 
 ORG = {
