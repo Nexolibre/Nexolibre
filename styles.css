@@ -419,3 +419,11 @@
 .lab-dots{position:absolute;bottom:12px;left:0;right:0;display:flex;gap:7px;justify-content:center;z-index:2}
 .lab-dots button{width:8px;height:8px;border-radius:50%;border:0;background:rgba(255,255,255,.55);cursor:pointer;padding:0;transition:.2s}
 .lab-dots button.active{background:#fff;width:22px;border-radius:5px}
+
+/* ---------- timeline: tarjetas de igual altura + Colombia destacado ---------- */
+.rm-card{flex:1 1 auto}
+.rm-item.featured .rm-card{background:linear-gradient(160deg,rgba(241,144,0,.16),rgba(255,170,60,.05)),var(--surface);border:1.5px solid var(--accent);box-shadow:0 16px 36px -14px rgba(241,144,0,.55)}
+.rm-item.featured .rm-card h4{color:var(--accent-bright)}
+.rm-item.featured .rm-year{color:var(--accent)}
+.rm-item.featured .rm-dot{width:24px;height:24px;background:var(--accent);border-color:var(--bg);box-shadow:0 0 0 4px rgba(241,144,0,.35)}
+.rm-item.featured .rm-dot{width:20px;height:20px;box-shadow:0 0 0 5px rgba(241,144,0,.30)}
