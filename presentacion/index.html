@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexolibre — Dossier institucional</title>
+
+<!-- Títulos: Exo (Google Fonts). Cuerpos: Helvetica (igual que la web real). -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,500;0,700;0,800;0,900;1,900&display=swap" rel="stylesheet">
+
+<style>
+/* ===========================================================
+   IDENTIDAD ÚNICA — línea Nexolibre (clara)
+   Texto #645d56 · Naranja #ef8f03 · Títulos Exo · Cuerpos Helvetica
+   =========================================================== */
+:root{
+    --paper:#f4f1ec; --paper-2:#eae4da; --white:#ffffff; --cream:#fdf6ea;
+    --text:#645d56; --soft:rgba(100,93,86,.70); --line:rgba(100,93,86,.22); --line-2:rgba(100,93,86,.14);
+    --orange:#ef8f03; --orange-soft:rgba(239,143,3,.12);
+    --display:'Exo',sans-serif; --body:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --stage-bg:#000; --ease:cubic-bezier(.22,1,.36,1); --ease-expo:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+
+/* === FIXED 16:9 STAGE === */
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:var(--stage-bg,#000);}
+.deck-viewport{position:fixed;inset:0;overflow:hidden;background:var(--stage-bg,#000);}
+.deck-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0;background:var(--slide-bg,#fff);}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:block;visibility:hidden;opacity:0;pointer-events:none;background:var(--slide-bg,#fff);}
+.slide.active,.slide.visible{visibility:visible;opacity:1;pointer-events:auto;z-index:1;}
+img,video,canvas,svg{max-width:100%;max-height:100%;}
+@media print{
+    html,body{width:1920px;height:auto;overflow:visible;background:#fff;}
+    .deck-viewport{position:static;overflow:visible;background:#fff;}
+    .deck-stage{position:static;width:auto;height:auto;transform:none!important;background:none;}
+    .slide{position:relative;display:block!important;visibility:visible!important;opacity:1!important;pointer-events:auto!important;width:1920px;height:1080px;break-after:page;page-break-after:always;}
+    .slide:last-child{break-after:auto;page-break-after:auto;}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.2s!important;}}
+
+/* === PIEL === */
+.slide{font-family:var(--body);color:var(--text);background:var(--paper);}
+.slide.alt{background:var(--paper-2);}
+.slide.white{background:var(--white);}
+.slide.fill{background:var(--orange);color:var(--cream);}
+.slide.paper::after,.slide.alt::after,.slide.white::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+    background:radial-gradient(rgba(100,93,86,.05) 1px,transparent 1.3px);background-size:34px 34px;opacity:.55;}
+.slide>*{position:relative;z-index:1;}
+
+/* === CHROME (meta, watermark, regla) === */
+.meta{position:absolute;top:74px;left:120px;right:120px;display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--body);font-size:19px;letter-spacing:.18em;text-transform:uppercase;color:var(--soft);z-index:3;}
+.meta .lbl{display:flex;align-items:center;gap:16px;}
+.meta .mk{width:42px;height:auto;flex:none;}
+.slide.fill .meta{color:rgba(253,246,234,.92);}
+.slide.fill .meta .mk path{fill:var(--cream)!important;}
+.wm{position:absolute;top:-120px;right:48px;font-family:var(--display);font-weight:900;font-size:560px;line-height:1;
+    color:rgba(100,93,86,.055);z-index:0;letter-spacing:-.04em;user-select:none;}
+.slide.fill .wm{color:rgba(253,246,234,.13);}
+.ruler{position:absolute;left:120px;right:120px;bottom:64px;height:1px;background:var(--line);z-index:2;}
+.slide.fill .ruler{background:rgba(253,246,234,.42);}
+.ruler::before,.ruler::after{content:"";position:absolute;top:-5px;width:1px;height:11px;background:inherit;}
+.ruler::before{left:0;}.ruler::after{right:0;}
+.kick{font-family:var(--body);font-weight:700;font-size:21px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange);}
+.slide.fill .kick{color:var(--cream);}
+h1,h2,h3{font-family:var(--display);font-weight:900;line-height:.98;letter-spacing:-.02em;color:var(--text);}
+.slide.fill h1,.slide.fill h2,.slide.fill h3{color:var(--cream);}
+.hl{color:var(--orange);} .slide.fill .hl{color:var(--cream);}
+em{font-style:italic;}
+.stage-pad{position:absolute;inset:0;padding:120px;display:flex;flex-direction:column;justify-content:flex-end;}
+
+/* === REVEAL === */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s var(--ease-expo),transform .8s var(--ease-expo);}
+.slide.visible .reveal{opacity:1;transform:translateY(0);}
+.reveal-l{opacity:0;transform:translateX(-46px);transition:opacity .8s var(--ease-expo),transform .8s var(--ease-expo);}
+.slide.visible .reveal-l{opacity:1;transform:translateX(0);}
+.slide.visible .d1{transition-delay:.10s;}.slide.visible .d2{transition-delay:.22s;}
+.slide.visible .d3{transition-delay:.34s;}.slide.visible .d4{transition-delay:.46s;}
+.slide.visible .d5{transition-delay:.58s;}.slide.visible .d6{transition-delay:.70s;}
+
+/* === COVER === */
+.cover .logo{position:absolute;top:74px;left:120px;z-index:3;}
+.cover .logo img{width:340px;height:auto;display:block;}
+.cover h1{font-size:158px;margin-bottom:34px;}
+.cover h1 small{display:block;font-size:158px;color:var(--orange);}
+.cover .sub{font-family:var(--body);font-size:24px;letter-spacing:.02em;color:var(--soft);max-width:1100px;line-height:1.6;margin-bottom:18px;font-weight:500;}
+.cover .tag{font-family:var(--body);font-size:23px;color:var(--soft);letter-spacing:.02em;}
+
+/* === AGENDA / PORTFOLIO TILES === */
+.portfolio .pwrap{position:absolute;inset:0;padding:96px 120px;display:flex;flex-direction:column;justify-content:center;}
+.portfolio h2{font-size:66px;margin-top:18px;}
+.glabels{display:grid;grid-template-columns:2fr 3fr;gap:20px;margin-top:50px;}
+.glabels span{font-family:var(--body);font-weight:700;font-size:18px;letter-spacing:.12em;text-transform:uppercase;color:var(--soft);border-top:2px solid var(--line);padding-top:14px;}
+.glabels span b{color:var(--orange);font-weight:700;}
+.pgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:20px;margin-top:18px;}
+.tile{border:1px solid var(--line);border-top:4px solid var(--line);border-radius:14px;background:var(--white);padding:28px 24px;display:flex;flex-direction:column;}
+.tile.sw{border-top-color:var(--orange);}
+.tile .tn{font-family:var(--display);font-weight:900;font-size:28px;color:var(--orange);line-height:1;}
+.tile h3{font-family:var(--display);font-weight:800;font-size:24px;margin:14px 0 10px;letter-spacing:-.01em;line-height:1.06;color:var(--text);}
+.tile p{font-size:17px;line-height:1.42;color:var(--soft);}
+
+/* ===========================================================
+   NAVBAR (5 tarjetas arriba · resalta la sección activa)
+   Inyectado por JS en cada .slide[data-sec]
+   =========================================================== */
+.navbar{position:absolute;top:46px;left:120px;right:120px;z-index:6;}
+.navbar .nvmeta{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;
+    font-family:var(--body);font-size:17px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);
+    opacity:0;transition:opacity .5s;}
+.slide.visible .navbar .nvmeta{opacity:1;}
+.navbar .nvmeta .mk{width:38px;height:auto;vertical-align:middle;}
+/* dos grupos: Servicios · Software con IA */
+.nvrow{display:grid;grid-template-columns:2fr 3fr;gap:28px;}
+.grp .glab{font-family:var(--body);font-weight:700;font-size:15px;letter-spacing:.14em;text-transform:uppercase;
+    color:var(--soft);border-top:2px solid var(--line);padding-top:9px;margin-bottom:10px;
+    opacity:0;transition:opacity .5s;transition-delay:.05s;}
+.grp.sw .glab{color:var(--orange);border-top-color:var(--orange);}
+.slide.visible .navbar .glab{opacity:1;}
+.gtiles{display:grid;gap:12px;}
+.gtiles.s2{grid-template-columns:1fr 1fr;}
+.gtiles.s3{grid-template-columns:repeat(3,1fr);}
+.nvt{display:flex;align-items:center;gap:11px;border:1px solid var(--line);border-radius:11px;padding:11px 15px;
+    background:var(--white);min-height:64px;opacity:0;transform:translateY(64px);
+    transition:opacity .6s var(--ease-expo),transform .6s var(--ease-expo),
+        background .45s var(--ease),color .45s var(--ease),box-shadow .45s var(--ease),border-color .45s var(--ease);}
+.slide.visible .navbar .nvt{opacity:1;transform:translateY(0);}
+.nvt b{font-family:var(--display);font-weight:900;font-size:19px;color:var(--soft);flex:none;transition:color .45s;}
+.nvt span{font-family:var(--display);font-weight:700;font-size:15px;color:var(--soft);letter-spacing:-.01em;line-height:1.06;transition:color .45s;}
+.nvt.done b,.nvt.done span{color:var(--text);}
+.nvt.on{background:var(--orange);border-color:var(--orange);box-shadow:0 14px 30px -14px rgba(239,143,3,.65);}
+.nvt.on b,.nvt.on span{color:#fff;}
+/* subida escalonada (transición slide 2 → sección) */
+.slide.visible .navbar .grp.svc .nvt:nth-child(1){transition-delay:.12s,.12s,0s,0s,0s,0s;}
+.slide.visible .navbar .grp.svc .nvt:nth-child(2){transition-delay:.20s,.20s,0s,0s,0s,0s;}
+.slide.visible .navbar .grp.sw .nvt:nth-child(1){transition-delay:.28s,.28s,0s,0s,0s,0s;}
+.slide.visible .navbar .grp.sw .nvt:nth-child(2){transition-delay:.36s,.36s,0s,0s,0s,0s;}
+.slide.visible .navbar .grp.sw .nvt:nth-child(3){transition-delay:.44s,.44s,0s,0s,0s,0s;}
+
+/* Cuerpo de sección (debajo del navbar) */
+.secbody{position:absolute;left:120px;right:120px;top:238px;bottom:76px;}
+.sechead .kick{margin-bottom:18px;}
+.sechead h2{font-size:66px;}
+.sechead .lead{font-size:25px;line-height:1.5;color:var(--soft);max-width:1150px;margin-top:22px;font-weight:500;}
+.sechead .lead b{color:var(--text);font-weight:700;}
+
+/* === CARRUSEL AUTOMÁTICO === */
+.carousel{position:relative;overflow:hidden;width:100%;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);}
+.carousel .track{display:flex;gap:24px;width:max-content;animation:marq 27s linear infinite;}
+.carousel:hover .track{animation-play-state:paused;}
+@keyframes marq{from{transform:translateX(0);}to{transform:translateX(-50%);}}
+.carousel .cd{position:relative;flex:none;border-radius:14px;overflow:hidden;border:1px solid var(--line);
+    box-shadow:0 30px 60px -34px rgba(100,93,86,.55);background:var(--white);}
+.carousel .cd,.carousel .cd img{height:446px;width:auto;display:block;}
+.carousel .cd .cap{position:absolute;left:0;right:0;bottom:0;padding:16px 20px;
+    font-family:var(--body);font-weight:700;font-size:18px;color:#fff;letter-spacing:.03em;
+    background:linear-gradient(0deg,rgba(20,16,10,.78),transparent);}
+.carousel .cd .cap b{color:var(--orange-light,#ffb23e);}
+.carousel .cd .flag{position:absolute;top:16px;left:16px;font-family:var(--body);font-weight:700;font-size:15px;
+    letter-spacing:.08em;text-transform:uppercase;color:#fff;background:rgba(239,143,3,.92);padding:7px 13px;border-radius:8px;}
+
+/* === SPLIT (copy + visual) === */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:70px;height:100%;align-items:center;}
+.split.wide{grid-template-columns:1.05fr .95fr;}
+.split h2{font-size:60px;margin:16px 0 22px;}
+.split .desc{font-size:24px;line-height:1.55;color:var(--soft);max-width:600px;}
+.split .desc b{color:var(--text);font-weight:700;}
+.bignum-stat{margin-top:34px;display:flex;align-items:baseline;gap:18px;}
+.bignum-stat b{font-family:var(--display);font-weight:900;font-size:110px;line-height:.85;color:var(--orange);letter-spacing:-.03em;}
+.bignum-stat>span{font-family:var(--body);font-size:20px;color:var(--soft);max-width:240px;line-height:1.4;font-weight:500;}
+
+/* Instrumento (captura enmarcada) */
+.instrument{width:100%;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--white);
+    box-shadow:0 50px 100px -45px rgba(100,93,86,.55);}
+.instrument .top{height:46px;display:flex;align-items:center;gap:14px;padding:0 22px;border-bottom:1px solid var(--line);
+    font-family:var(--body);font-size:16px;font-weight:600;letter-spacing:.06em;color:var(--soft);background:var(--paper-2);}
+.instrument .top i{width:10px;height:10px;border-radius:50%;background:var(--orange);display:block;}
+.instrument img{display:block;width:100%;}
+
+/* Gauges (criogenia) */
+.gauges{display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+.gauge{border:1px solid var(--line);border-radius:14px;padding:26px 26px 24px;background:var(--white);position:relative;overflow:hidden;}
+.gauge .lab{font-family:var(--body);font-size:15px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);}
+.gauge .val{font-family:var(--display);font-weight:900;font-size:56px;line-height:1;margin-top:12px;letter-spacing:-.02em;color:var(--text);}
+.gauge .val u{font-style:normal;text-decoration:none;font-size:23px;color:var(--soft);font-family:var(--body);font-weight:500;margin-left:5px;}
+.gauge .bar{height:6px;border-radius:3px;background:var(--line-2);margin-top:16px;overflow:hidden;}
+.gauge .bar i{display:block;height:100%;border-radius:3px;background:var(--text);}
+.gauge.crit .val{color:var(--orange);} .gauge.crit .bar i{background:var(--orange);}
+.gauge .st{position:absolute;top:24px;right:24px;font-family:var(--body);font-size:13px;font-weight:600;letter-spacing:.08em;
+    padding:5px 11px;border-radius:999px;border:1px solid var(--line);color:var(--soft);}
+.gauge.crit .st{color:var(--orange);border-color:rgba(239,143,3,.45);background:var(--orange-soft);}
+
+/* Offer cards (informes) */
+.offers{display:grid;grid-template-columns:1fr 1fr;gap:26px;margin-top:14px;}
+.offer{border:1px solid var(--line);border-left:5px solid var(--orange);border-radius:14px;background:var(--white);padding:40px 40px;}
+.offer .tg{font-family:var(--body);font-weight:700;font-size:16px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);}
+.offer h3{font-family:var(--display);font-weight:800;font-size:38px;margin:14px 0 16px;letter-spacing:-.01em;line-height:1.02;}
+.offer p{font-size:21px;line-height:1.5;color:var(--soft);}
+.offer p b{color:var(--text);font-weight:700;}
+.offer ul{list-style:none;margin-top:16px;display:flex;flex-direction:column;gap:10px;}
+.offer li{font-size:20px;color:var(--text);display:flex;gap:12px;line-height:1.35;}
+.offer li::before{content:"";flex:none;width:18px;height:18px;margin-top:3px;border-radius:5px;background:var(--orange-soft);border:2px solid var(--orange);}
+
+/* metrio (3 métricas) */
+.metrio{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.metrio .m{background:var(--paper-2);border:1px solid var(--line);border-radius:16px;padding:28px 26px;}
+.metrio .m b{font-family:var(--display);font-weight:900;font-size:58px;color:var(--orange);line-height:1;letter-spacing:-.02em;}
+.metrio .m>span{font-size:18px;color:var(--soft);margin-top:10px;display:block;line-height:1.35;font-weight:500;}
+
+/* lista de beneficios (imagen IA) */
+.blist{list-style:none;margin-top:26px;display:flex;flex-direction:column;gap:16px;}
+.blist li{display:flex;gap:16px;font-size:23px;line-height:1.4;color:var(--text);}
+.blist li::before{content:"";flex:none;width:24px;height:24px;margin-top:3px;border-radius:7px;background:var(--orange);}
+.blist li b{color:var(--orange);font-weight:800;}
+.hero-num{font-family:var(--display);font-weight:900;font-size:300px;line-height:.78;color:var(--orange);letter-spacing:-.04em;}
+
+/* === RESULTS (naranja) === */
+.results{position:absolute;inset:0;padding:120px;display:flex;flex-direction:column;justify-content:center;}
+.results h2{font-size:72px;color:var(--cream);max-width:1280px;margin-bottom:70px;}
+.resgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:40px;}
+.resgrid .r b{font-family:var(--display);font-weight:900;font-size:150px;line-height:.82;color:var(--cream);letter-spacing:-.03em;display:block;}
+.resgrid .r>span{font-family:var(--body);font-size:21px;color:rgba(253,246,234,.92);line-height:1.4;display:block;margin-top:18px;letter-spacing:.02em;font-weight:500;}
+
+/* === CLOSE === */
+.close .stage-pad{justify-content:center;}
+.close .logo img{width:300px;height:auto;display:block;margin-bottom:42px;}
+.close h2{font-size:120px;}
+.close .lead{font-size:28px;color:var(--soft);max-width:1040px;line-height:1.5;margin-top:30px;font-weight:500;}
+.close .cta{margin-top:50px;align-self:flex-start;display:inline-flex;align-items:center;gap:14px;background:var(--orange);color:var(--cream);
+    font-family:var(--display);font-weight:800;font-size:26px;padding:20px 38px;border-radius:14px;}
+.close .contact{position:absolute;left:120px;bottom:120px;display:flex;gap:60px;font-family:var(--body);font-size:21px;color:var(--soft);font-weight:500;}
+.close .contact b{color:var(--text);font-weight:700;}
+
+/* === LIGHTBOX (ampliar imagen) === */
+img.zoomable{cursor:zoom-in;}
+.zoomhint{position:absolute;top:60px;right:16px;z-index:4;font-family:var(--body);font-weight:600;font-size:14px;
+    letter-spacing:.04em;color:#fff;background:rgba(20,16,10,.6);padding:7px 12px;border-radius:8px;display:flex;align-items:center;gap:7px;}
+.lightbox{position:fixed;inset:0;z-index:9000;background:rgba(18,14,9,.92);display:none;align-items:center;justify-content:center;padding:44px;cursor:zoom-out;}
+.lightbox.open{display:flex;}
+.lightbox img{max-width:95%;max-height:95%;border-radius:12px;box-shadow:0 50px 130px rgba(0,0,0,.7);}
+.lb-close{position:fixed;top:22px;right:30px;width:52px;height:52px;border-radius:12px;border:1px solid rgba(255,255,255,.3);
+    background:rgba(255,255,255,.08);color:#fff;font-size:28px;cursor:pointer;z-index:9001;}
+
+/* === SLIDE FINAL (invitación + tarjetas + Grupo Nexo) === */
+.finalv .pwrap{padding:70px 120px;}
+.finaltop{display:flex;justify-content:space-between;align-items:flex-end;gap:40px;margin-bottom:30px;}
+.finaltop h2{font-size:74px;margin-top:16px;}
+.finalcta{text-align:right;flex:none;}
+.finalcta .cta{display:inline-flex;align-items:center;gap:12px;background:var(--orange);color:var(--cream);
+    font-family:var(--display);font-weight:800;font-size:24px;padding:18px 34px;border-radius:13px;}
+.finalcta .fcont{font-family:var(--body);font-size:18px;color:var(--soft);margin-top:16px;font-weight:500;letter-spacing:.01em;}
+.finalcta .fcont b{color:var(--text);font-weight:700;}
+.finalfoot{display:flex;align-items:center;gap:22px;margin-top:34px;border-top:1px solid var(--line);padding-top:26px;}
+.finalfoot img{height:46px;width:auto;}
+.finalfoot .leg{font-family:var(--body);font-size:20px;color:var(--soft);font-weight:500;}
+.finalfoot .leg b{color:var(--text);font-weight:700;}
+
+/* === CHROME (progreso, sin flechas) === */
+.progress{position:fixed;top:0;left:0;height:4px;background:var(--orange);width:0;z-index:1200;transition:width .5s var(--ease);}
+.nav{display:none!important;}
+.edit-hotzone{position:fixed;top:0;left:0;width:80px;height:80px;z-index:10000;cursor:pointer;}
+.edit-toggle{position:fixed;top:16px;left:16px;width:44px;height:44px;border-radius:10px;border:1px solid var(--line);
+    background:#fff;font-size:19px;cursor:pointer;z-index:10001;opacity:0;pointer-events:none;transition:opacity .3s;}
+.edit-toggle.show,.edit-toggle.active{opacity:1;pointer-events:auto;}.edit-toggle.active{background:var(--orange);}
+.editing [contenteditable]{outline:2px dashed var(--orange);outline-offset:4px;border-radius:4px;}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+
+<div class="deck-viewport">
+<main class="deck-stage" id="deckStage">
+
+<!-- ===== 1 · COVER ===== -->
+<section class="slide paper cover active">
+    <div class="logo reveal d1"><img src="assets/nexolibre-logo.svg" alt="Nexolibre"></div>
+    <div class="wm">01</div>
+    <div class="stage-pad">
+        <p class="sub reveal d2">Ingeniería médica multimarca · MRI · CT · PET-CT</p>
+        <h1 class="reveal d3">Software, IA y<br><small>optimización de recursos.</small></h1>
+        <div class="tag reveal d4">Del estado técnico del equipo, hasta el informe&nbsp;final.</div>
+    </div>
+    <div class="ruler reveal d5"></div>
+</section>
+
+<!-- ===== 2 · AGENDA (5 tarjetas) ===== -->
+<section class="slide white portfolio">
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">Lo que ofrecemos</span><span>02 / 13</span></div>
+    <div class="wm">02</div>
+    <div class="pwrap">
+        <div class="kick reveal d2">Un único socio</div>
+        <h2 class="reveal d3">De la pieza crítica<br>al <span class="hl">informe final.</span></h2>
+        <div class="glabels reveal d4">
+            <span><b>Servicios</b> — Ingeniería médica multimarca</span>
+            <span><b>Software con IA</b> — FDA · Multimarca · PACS / RIS</span>
+        </div>
+        <div class="pgrid">
+            <div class="tile svc reveal d4"><div class="tn">01</div><h3>Ingeniería y reparación</h3><p>Soporte multimarca y laboratorios propios que recuperan piezas críticas de MRI /&nbsp;CT.</p></div>
+            <div class="tile svc reveal d5"><div class="tn">02</div><h3>Equipos y repuestos</h3><p>Venta y proyectos llave en mano de MRI/CT, más stock de piezas&nbsp;testeadas.</p></div>
+            <div class="tile sw reveal d5"><div class="tn">03</div><h3>Monitoreo y Operaciones</h3><p>Estado técnico 24/7 e inteligencia de producción y&nbsp;personal.</p></div>
+            <div class="tile sw reveal d6"><div class="tn">04</div><h3>Informes Radiológicos</h3><p>Servicio de informes y herramientas de dictado con&nbsp;IA.</p></div>
+            <div class="tile sw reveal d6"><div class="tn">05</div><h3>Mejora de Imagen</h3><p>IA que acelera el MRI y mejora la calidad, sobre tus&nbsp;equipos.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 3 · SEC 1-A · Ingeniería + carrusel labs ===== -->
+<section class="slide paper" data-sec="1" data-count="03 / 13">
+    <div class="secbody">
+        <div class="sechead">
+            <div class="kick reveal d2">01 · Ingeniería y reparación</div>
+            <h2 class="reveal d3">Laboratorios propios en <span class="hl">tres países.</span></h2>
+            <p class="lead reveal d4">Soporte técnico multimarca y bancos de reparación que recuperan <b>piezas críticas de MRI/CT</b> — con ingenieros en Argentina, Chile y&nbsp;Estados Unidos.</p>
+        </div>
+        <div class="carousel land reveal d5" data-carousel="labs" style="margin-top:36px;"></div>
+    </div>
+</section>
+
+<!-- ===== 4 · SEC 1-B · Ingeniería detalle ===== -->
+<section class="slide white" data-sec="1" data-count="04 / 13">
+    <div class="secbody">
+        <div class="split">
+            <div>
+                <div class="kick reveal d2">01 · Ingeniería y reparación</div>
+                <h2 class="reveal d3" style="font-size:60px;margin:16px 0 22px;">Alargamos la vida útil<br>de cada <span class="hl">equipo.</span></h2>
+                <p class="desc reveal d4">Bancos propios de electrónica y biomedicina que <b>recuperan y testean</b> bobinas, módulos de RF y gradientes, fuentes e inyectores — para evitarte el costo y la demora de una pieza&nbsp;nueva.</p>
+            </div>
+            <div class="metrio reveal d4" style="align-self:center;">
+                <div class="m"><b><span data-count-num="15" data-suffix="+">0</span></b><span>años de experiencia</span></div>
+                <div class="m"><b><span data-count-num="2500" data-suffix="+">0</span></b><span>reparaciones realizadas</span></div>
+                <div class="m"><b><span data-count-num="3">0</span></b><span>laboratorios propios</span></div>
+                <div class="m" style="grid-column:span 3;"><b>AR · CL · USA</b><span>ingeniería y soporte multimarca en toda la región</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 5 · SEC 2-A · Equipos + carrusel stock ===== -->
+<section class="slide paper" data-sec="2" data-count="05 / 13">
+    <div class="secbody">
+        <div class="sechead">
+            <div class="kick reveal d2">02 · Equipos y repuestos</div>
+            <h2 class="reveal d3">Depósitos propios y <span class="hl">stock recuperado.</span></h2>
+            <p class="lead reveal d4">Piezas de MRI/CT recuperadas en nuestros laboratorios y verificadas antes de despacharse — con <b>depósitos en Argentina y Estados Unidos</b>, donde concentramos el mayor&nbsp;stock.</p>
+        </div>
+        <div class="carousel reveal d5" data-carousel="stock" style="margin-top:30px;"></div>
+    </div>
+</section>
+
+<!-- ===== 6 · SEC 2-B · Proyectos llave en mano (movimientos de equipos) ===== -->
+<section class="slide white" data-sec="2" data-count="06 / 13">
+    <div class="secbody">
+        <div class="sechead">
+            <div class="kick reveal d2">02 · Equipos y repuestos</div>
+            <h2 class="reveal d3">Del repuesto al proyecto <span class="hl">llave en mano.</span></h2>
+            <p class="lead reveal d4">Vendemos, trasladamos e instalamos MRI y CT completos — <b>izaje, logística, montaje y puesta en marcha</b>, con nuestro propio equipo de&nbsp;ingeniería.</p>
+        </div>
+        <div class="carousel reveal d5" data-carousel="moves" style="margin-top:30px;"></div>
+    </div>
+</section>
+
+<!-- ===== 7 · SEC 3-A · Monitoreo plataforma ===== -->
+<section class="slide paper" data-sec="3" data-count="07 / 13">
+    <div class="secbody">
+        <div class="split wide">
+            <div>
+                <div class="kick reveal d2">03 · Monitoreo y Operaciones</div>
+                <h2 class="reveal d3">El equipo, bajo<br>control <span class="hl">24/7.</span></h2>
+                <p class="desc reveal d4">Un dispositivo no invasivo más una plataforma en la nube monitorean cada resonador <b>sin acceder a datos de pacientes</b>, y cruzan el estado técnico con los datos de producción del&nbsp;centro.</p>
+                <div class="bignum-stat reveal d4"><b><span data-count-num="40" data-prefix="+" data-suffix="%">+0%</span></b><span>más producción, sin sumar&nbsp;hardware</span></div>
+            </div>
+            <div class="reveal d4">
+                <div class="instrument" style="position:relative;">
+                    <div class="top"><i></i> PLATAFORMA DE MONITOREO · PANEL OPERATIVO</div>
+                    <span class="zoomhint">⤢ Clic para ampliar</span>
+                    <img class="zoomable" src="assets/gc-dashboard.png" alt="Panel operativo de monitoreo">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 8 · SEC 3-B · Criogenia / quench ===== -->
+<section class="slide white" data-sec="3" data-count="08 / 13">
+    <div class="secbody">
+        <div class="split">
+            <div>
+                <div class="kick reveal d2">03 · Monitoreo crítico — Criogenia</div>
+                <h2 class="reveal d3" style="font-size:60px;margin:16px 0 22px;">Detectar el quench<br>antes de que <span class="hl">ocurra.</span></h2>
+                <p class="desc reveal d4">Helio, presión del magneto, cold head y criocompresor en tiempo real. Ante un valor crítico, el sistema avisa — <b>antes</b> de la pérdida de helio y semanas de&nbsp;inactividad.</p>
+            </div>
+            <div class="gauges reveal d4" style="align-self:center;">
+                <div class="gauge crit"><span class="st">CRÍTICO</span><div class="lab">Nivel de Helio</div><div class="val">78.6<u>%</u></div><div class="bar"><i style="width:79%"></i></div></div>
+                <div class="gauge"><span class="st">OK</span><div class="lab">Presión vessel</div><div class="val">1.91<u>psi</u></div><div class="bar"><i style="width:46%"></i></div></div>
+                <div class="gauge"><span class="st">OK</span><div class="lab">Cold Head</div><div class="val">4.16<u>K</u></div><div class="bar"><i style="width:38%"></i></div></div>
+                <div class="gauge"><span class="st">OK</span><div class="lab">Shield Temp</div><div class="val">41.5<u>K</u></div><div class="bar"><i style="width:62%"></i></div></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 9 · SEC 4-A · Informes Radiológicos (servicio + herramientas) ===== -->
+<section class="slide paper" data-sec="4" data-count="09 / 13">
+    <div class="secbody" style="display:flex;flex-direction:column;justify-content:center;">
+        <div class="sechead" style="margin-bottom:6px;">
+            <div class="kick reveal d2">04 · Informes Radiológicos</div>
+            <h2 class="reveal d3" style="font-size:60px;">Informamos por vos, o le damos <span class="hl">herramientas a tu equipo.</span></h2>
+        </div>
+        <div class="offers reveal d4" style="margin-top:26px;">
+            <div class="offer"><div class="tg">Servicio</div><h3>Informes a demanda</h3><p>Para instituciones con <b>alta demanda de radiólogos</b>: contamos con la estructura y el equipo para informar tus estudios y entregar resultados en&nbsp;tiempo.</p></div>
+            <div class="offer"><div class="tg">Herramientas</div><h3>Dictado que acelera la redacción</h3><p>IA de transcripción que reduce hasta <b>70%</b> el tiempo de redacción — para tus radiólogos o para adquirir en la&nbsp;institución.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 10 · SEC 4-B · IA de dictado + visor ===== -->
+<section class="slide white" data-sec="4" data-count="10 / 13">
+    <div class="secbody">
+        <div class="split wide">
+            <div>
+                <div class="kick reveal d2">04 · Informes Radiológicos</div>
+                <h2 class="reveal d3" style="font-size:58px;">Dictado con IA<br>+ <span class="hl">visor de estudios.</span></h2>
+                <p class="desc reveal d4">Un visor DICOM de alto rendimiento creado por radiólogos, integrado con dictado por voz: el radiólogo dicta, las mediciones se inyectan solas y el informe estructurado queda listo — <b>sin cambiar de&nbsp;ventana</b>.</p>
+                <ul class="offer" style="border:none;padding:0;background:none;margin-top:22px;"><li style="color:var(--text);font-size:20px;">Hanging protocols · 2D · MPR · 3D · VR · estudios de 1000+ cortes</li><li style="color:var(--text);font-size:20px;margin-top:10px;">Plantillas y exportación a Word/PDF con firma&nbsp;digital</li></ul>
+            </div>
+            <div class="metrio reveal d4" style="grid-template-columns:1fr;align-self:center;gap:18px;">
+                <div class="m"><b>−70%</b><span>tiempo de redacción del radiólogo</span></div>
+                <div class="m"><b>+40%</b><span>producción de informes</span></div>
+                <div class="m"><b>−60%</b><span>tiempo de entrega al paciente</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 11 · SEC 5-A · Mejora de Imagen (IA MRI) ===== -->
+<section class="slide paper" data-sec="5" data-count="11 / 13">
+    <div class="secbody">
+        <div class="split wide">
+            <div>
+                <div class="kick reveal d2">05 · Mejora de Imagen</div>
+                <h2 class="reveal d3" style="font-size:58px;">IA que acelera el MRI<br>y mejora la <span class="hl">calidad.</span></h2>
+                <p class="desc reveal d4">Deep learning que reconstruye y acelera los estudios sobre tus equipos actuales — <b>sin comprar hardware nuevo</b> y sin cambiar tu&nbsp;flujo.</p>
+                <ul class="blist reveal d4">
+                    <li><b>Hasta −50%</b> de tiempo de escaneo, con la misma calidad&nbsp;diagnóstica</li>
+                    <li>Imágenes <b>más nítidas</b> y más capacidad de estudios por&nbsp;día</li>
+                    <li>Compatible con <b>todas las marcas</b> de resonador</li>
+                </ul>
+            </div>
+            <div style="display:flex;flex-direction:column;justify-content:center;align-items:flex-end;">
+                <div class="hero-num reveal d4">−50<span style="font-size:150px;">%</span></div>
+                <div class="reveal d4" style="font-family:var(--body);font-weight:600;font-size:22px;color:var(--soft);text-align:right;margin-top:6px;">tiempo de escaneo&nbsp;MRI</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 12 · SEC 5-B · Mejora de Imagen · cuantificación ===== -->
+<section class="slide white" data-sec="5" data-count="12 / 13">
+    <div class="secbody">
+        <div class="split">
+            <div>
+                <div class="kick reveal d2">05 · Mejora de Imagen</div>
+                <h2 class="reveal d3" style="font-size:58px;">Medí al paciente,<br>no al <span class="hl">equipo.</span></h2>
+                <p class="desc reveal d4">La IA suma <b>mediciones cuantitativas reproducibles</b> — por ejemplo en MRI cerebral — para seguimiento longitudinal y decisiones más&nbsp;objetivas.</p>
+            </div>
+            <div class="offers reveal d4" style="grid-template-columns:1fr;align-content:center;">
+                <div class="offer"><div class="tg">Cuantificación</div><h3>Resultados reproducibles</h3><p>Mediciones consistentes entre estudios y en el tiempo, independientes del&nbsp;operador.</p></div>
+                <div class="offer"><div class="tg">Estandarización</div><h3>Una sola vara para todo el parque</h3><p>Resultados comparables aunque tengas <b>equipos de distinta marca</b> o&nbsp;antigüedad.</p></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 13 · CIERRE (invitación + tarjetas + Grupo Nexo) ===== -->
+<section class="slide white portfolio finalv">
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">¿Empezamos?</span><span>13 / 13</span></div>
+    <div class="wm">13</div>
+    <div class="pwrap">
+        <div class="finaltop reveal d2">
+            <div>
+                <div class="kick">Probá lo que Nexolibre puede hacer por tu servicio</div>
+                <h2>Todo el diagnóstico<br>por imágenes, <span class="hl">en un socio.</span></h2>
+            </div>
+            <div class="finalcta">
+                <span class="cta">Solicitar un demo →</span>
+                <div class="fcont"><b>contacto@nexolibre.com</b><br>+54 9 11 6741-0993 · AR · CL · USA</div>
+            </div>
+        </div>
+        <div class="glabels reveal d3">
+            <span><b>Servicios</b> — Ingeniería médica multimarca</span>
+            <span><b>Software con IA</b> — FDA · Multimarca · PACS / RIS</span>
+        </div>
+        <div class="pgrid">
+            <div class="tile svc reveal d3"><div class="tn">01</div><h3>Ingeniería y reparación</h3><p>Laboratorios propios que recuperan piezas críticas de MRI /&nbsp;CT.</p></div>
+            <div class="tile svc reveal d4"><div class="tn">02</div><h3>Equipos y repuestos</h3><p>Proyectos llave en mano y stock recuperado y&nbsp;testeado.</p></div>
+            <div class="tile sw reveal d4"><div class="tn">03</div><h3>Monitoreo y Operaciones</h3><p>Estado técnico 24/7 e inteligencia de&nbsp;producción.</p></div>
+            <div class="tile sw reveal d5"><div class="tn">04</div><h3>Informes Radiológicos</h3><p>Servicio de informes y dictado con&nbsp;IA.</p></div>
+            <div class="tile sw reveal d5"><div class="tn">05</div><h3>Mejora de Imagen</h3><p>IA que acelera el MRI y mejora la&nbsp;calidad.</p></div>
+        </div>
+        <div class="finalfoot reveal d6">
+            <img src="assets/gruponexo-logo.svg" alt="Grupo Nexo">
+            <span class="leg">Nexolibre es miembro de <b>Grupo Nexo</b></span>
+        </div>
+    </div>
+</section>
+
+</main>
+</div>
+
+<div class="lightbox" id="lightbox"><button class="lb-close" aria-label="Cerrar">×</button><img id="lightboxImg" src="" alt="Vista ampliada"></div>
+<div class="edit-hotzone" id="editHotzone"></div>
+<button class="edit-toggle" id="editToggle" title="Modo edición (E)">✏️</button>
+
+<script>
+/* ===========================================================
+   DATOS — 5 secciones (navbar) + carruseles
+   =========================================================== */
+const SECTIONS=[
+    {n:'01',label:'Ingeniería y reparación',grp:'svc'},
+    {n:'02',label:'Equipos y repuestos',grp:'svc'},
+    {n:'03',label:'Monitoreo y Operaciones',grp:'sw'},
+    {n:'04',label:'Informes Radiológicos',grp:'sw'},
+    {n:'05',label:'Mejora de Imagen',grp:'sw'},
+];
+const CAROUSELS={
+    labs:[
+        ['assets/labs/lab-arg-1.jpg','Argentina','Laboratorio · reparación de bobinas'],
+        ['assets/labs/lab-usa-1.jpg','USA','Laboratorio de electrónica y RF'],
+        ['assets/labs/lab-chile-1.jpg','Chile','Soporte en resonancia y tomografía'],
+        ['assets/labs/lab-arg-3.jpg','Argentina','Banco de pruebas y biomedicina'],
+        ['assets/labs/lab-usa-4.jpg','USA','Restauración de bobinas y gradientes'],
+        ['assets/labs/lab-chile-3.jpg','Chile','Diagnóstico por imágenes'],
+    ],
+    stock:[
+        ['assets/photos/depot1.jpg','Depósito','Estanterías de stock crítico'],
+        ['assets/photos/depot2.jpg','Depósito','Recepción y despacho de piezas'],
+        ['assets/stock/NX-AR-001-1.jpg','','Bobina MRI · recuperada y testeada'],
+        ['assets/photos/depot3.jpg','Depósito','Parque de equipos y repuestos'],
+        ['assets/stock/NX-AR-027-1.jpg','','Componente crítico MRI/CT'],
+    ],
+    moves:[
+        ['assets/photos/move1.jpg','Llave en mano','Traslado e instalación de MRI'],
+        ['assets/photos/move2.jpg','Proyecto','Izaje de imán a transporte'],
+        ['assets/photos/move4.jpg','Montaje','Instalación de sistema MRI'],
+        ['assets/photos/move3.jpg','Logística','Manipulación de imán en depósito'],
+    ],
+};
+
+/* Inyecta el navbar en cada slide de sección */
+function buildNavbars(){
+    document.querySelectorAll('.slide[data-sec]').forEach(slide=>{
+        const sec=+slide.dataset.sec, count=slide.dataset.count||'';
+        const nav=document.createElement('div');
+        nav.className='navbar';
+        const tile=(s,i)=>{
+            const idx=i+1;
+            const cls=idx===sec?'on':(idx<sec?'done':'');
+            return `<div class="nvt ${s.grp} ${cls}"><b>${s.n}</b><span>${s.label}</span></div>`;
+        };
+        const svc=SECTIONS.map((s,i)=>tile(s,i)).filter((_,i)=>SECTIONS[i].grp==='svc').join('');
+        const sw=SECTIONS.map((s,i)=>tile(s,i)).filter((_,i)=>SECTIONS[i].grp==='sw').join('');
+        nav.innerHTML=`
+          <div class="nvmeta"><span><img class="mk" src="assets/nexolibre-mark.svg" alt=""></span><span>${count}</span></div>
+          <div class="nvrow">
+            <div class="grp svc"><div class="glab">Servicios</div><div class="gtiles s2">${svc}</div></div>
+            <div class="grp sw"><div class="glab">Software con IA</div><div class="gtiles s3">${sw}</div></div>
+          </div>`;
+        slide.insertBefore(nav,slide.firstChild);
+    });
+}
+
+/* Construye los carruseles (imágenes duplicadas para loop continuo) */
+function buildCarousels(){
+    document.querySelectorAll('[data-carousel]').forEach(el=>{
+        const set=CAROUSELS[el.dataset.carousel]||[];
+        const cards=set.map(([src,flag,cap])=>
+            `<div class="cd"><img src="${src}" alt="${cap}">${flag?`<span class="flag">${flag}</span>`:''}<div class="cap">${cap}</div></div>`).join('');
+        const track=document.createElement('div');
+        track.className='track';
+        track.innerHTML=cards+cards; /* duplicado → animación al -50% es continua */
+        el.appendChild(track);
+    });
+}
+buildNavbars();
+buildCarousels();
+
+/* === LIGHTBOX (ampliar imágenes con .zoomable) === */
+const _lb=document.getElementById('lightbox'),_lbImg=document.getElementById('lightboxImg');
+function closeLightbox(){_lb.classList.remove('open');}
+document.querySelectorAll('img.zoomable').forEach(img=>img.addEventListener('click',()=>{_lbImg.src=img.src;_lb.classList.add('open');}));
+_lb.addEventListener('click',closeLightbox);
+addEventListener('keydown',e=>{if(e.key==='Escape')closeLightbox();});
+
+/* ===========================================================
+   CONTROLLER
+   =========================================================== */
+class Deck{
+    constructor(){
+        this.slides=[...document.querySelectorAll('.slide')];this.i=0;
+        this.stage=document.getElementById('deckStage');this.progress=document.getElementById('progress');
+        this.scale();addEventListener('resize',()=>this.scale());
+        this.keys();this.touch();this.wheel();this.show(0);
+    }
+    scale(){const f=Math.min(innerWidth/1920,innerHeight/1080);
+        this.stage.style.transform=`translate(${(innerWidth-1920*f)/2}px,${(innerHeight-1080*f)/2}px) scale(${f})`;}
+    show(n){this.i=Math.max(0,Math.min(n,this.slides.length-1));
+        this.slides.forEach((s,k)=>{const on=k===this.i;s.classList.toggle('active',on);s.classList.toggle('visible',on);});
+        this.progress.style.width=((this.i+1)/this.slides.length*100)+'%';this.counters(this.slides[this.i]);}
+    go(n){if(n!==this.i&&n>=0&&n<this.slides.length)this.show(n);}
+    counters(slide){slide.querySelectorAll('[data-count-num]').forEach(el=>{
+        if(el.dataset.done)return;el.dataset.done='1';
+        const t=+el.dataset.countNum,pre=el.dataset.prefix||'',suf=el.dataset.suffix||'',t0=performance.now(),dur=1100;
+        const tick=now=>{const p=Math.min((now-t0)/dur,1),e=1-Math.pow(1-p,3);
+            el.textContent=pre+Math.round(t*e).toLocaleString('es-AR')+suf;if(p<1)requestAnimationFrame(tick);};
+        requestAnimationFrame(tick);});}
+    keys(){addEventListener('keydown',e=>{if(e.target.getAttribute&&e.target.getAttribute('contenteditable'))return;
+        if(document.getElementById('lightbox').classList.contains('open'))return;
+        if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();this.go(this.i+1);}
+        if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();this.go(this.i-1);}
+        if(e.key==='Home')this.go(0);if(e.key==='End')this.go(this.slides.length-1);});}
+    touch(){let x=0;addEventListener('touchstart',e=>x=e.touches[0].clientX,{passive:true});
+        addEventListener('touchend',e=>{const d=e.changedTouches[0].clientX-x;if(Math.abs(d)>60)d<0?this.go(this.i+1):this.go(this.i-1);},{passive:true});}
+    wheel(){let lock=false;addEventListener('wheel',e=>{if(lock||Math.abs(e.deltaY)<24)return;lock=true;
+        e.deltaY>0?this.go(this.i+1):this.go(this.i-1);setTimeout(()=>lock=false,700);},{passive:true});}
+}
+const deck=new Deck();
+
+/* === EDICIÓN INLINE === */
+const editor={isActive:false,toggle(){this.isActive=!this.isActive;
+    document.body.classList.toggle('editing',this.isActive);
+    const t=document.getElementById('editToggle');t.classList.toggle('active',this.isActive);t.classList.toggle('show',this.isActive);
+    document.querySelectorAll('h1,h2,h3,p,span,small,b,li,.kick,.sub,.desc,.lead').forEach(el=>el.contentEditable=this.isActive);}};
+const ez=document.getElementById('editHotzone'),et=document.getElementById('editToggle');let ht=null;
+ez.addEventListener('mouseenter',()=>{clearTimeout(ht);et.classList.add('show');});
+ez.addEventListener('mouseleave',()=>{ht=setTimeout(()=>{if(!editor.isActive)et.classList.remove('show');},400);});
+et.addEventListener('mouseenter',()=>clearTimeout(ht));
+et.addEventListener('mouseleave',()=>{ht=setTimeout(()=>{if(!editor.isActive)et.classList.remove('show');},400);});
+et.addEventListener('click',()=>editor.toggle());ez.addEventListener('click',()=>editor.toggle());
+addEventListener('keydown',e=>{if((e.key==='e'||e.key==='E')&&!e.target.getAttribute('contenteditable'))editor.toggle();
+    if((e.ctrlKey||e.metaKey)&&e.key==='s'&&editor.isActive){e.preventDefault();
+        const b=new Blob([document.documentElement.outerHTML],{type:'text/html'});const a=document.createElement('a');
+        a.href=URL.createObjectURL(b);a.download='nexolibre-keynote.html';a.click();}});
+</script>
+</body>
+</html>
