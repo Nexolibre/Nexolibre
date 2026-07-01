@@ -427,3 +427,14 @@
 .rm-item.featured .rm-year{color:var(--accent)}
 .rm-item.featured .rm-dot{width:24px;height:24px;background:var(--accent);border-color:var(--bg);box-shadow:0 0 0 4px rgba(241,144,0,.35)}
 .rm-item.featured .rm-dot{width:20px;height:20px;box-shadow:0 0 0 5px rgba(241,144,0,.30)}
+
+/* ---------- clientes (marquee de logos) ---------- */
+.clients{padding:62px 0 44px}
+.clients .wrap{margin-bottom:32px}
+.logos{overflow:hidden;position:relative;-webkit-mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.logos-track{display:flex;align-items:center;gap:60px;width:max-content;animation:logos-scroll 60s linear infinite}
+.logos:hover .logos-track{animation-play-state:paused}
+.logos img{height:44px;width:auto;flex:0 0 auto;object-fit:contain;filter:grayscale(1) opacity(.5);transition:filter .3s var(--ease),opacity .3s var(--ease)}
+.logos img:hover{filter:grayscale(0) opacity(1)}
+@keyframes logos-scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media(max-width:560px){.logos img{height:34px}.logos-track{gap:42px;animation-duration:45s}}

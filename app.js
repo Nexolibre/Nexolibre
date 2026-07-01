@@ -57,6 +57,12 @@
     if(slides.length>1) setInterval(()=>go((idx+1)%slides.length),6000);
   }
 
+  /* ---------- marquee de clientes (loop infinito) ---------- */
+  document.querySelectorAll('[data-marquee]').forEach(track=>{
+    const originals=[...track.children];
+    originals.forEach(node=>track.appendChild(node.cloneNode(true)));
+  });
+
   /* ---------- carrusel de laboratorios ---------- */
   document.querySelectorAll('[data-carousel]').forEach(car=>{
     const track=car.querySelector('.lab-track');
