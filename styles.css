@@ -468,3 +468,7 @@
 
 /* ---------- mensaje de error del formulario ---------- */
 .form-err{color:#b42318;background:rgba(220,60,50,.08);border-color:rgba(220,60,50,.35)}
+
+/* ---------- carrusel ancho (showcase Empresa) ---------- */
+.lab-carousel.wide{aspect-ratio:16/9}
+@media(max-width:640px){.lab-carousel.wide{aspect-ratio:4/3}}

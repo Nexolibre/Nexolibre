@@ -57,6 +57,17 @@
     if(slides.length>1) setInterval(()=>go((idx+1)%slides.length),6000);
   }
 
+  /* ---------- video de fondo: forzar autoplay al cargar ---------- */
+  (function(){
+    const vids=[...document.querySelectorAll('.statshero-vid, .topmedia-vid')];
+    if(!vids.length) return;
+    function play(){vids.forEach(v=>{try{v.muted=true;v.setAttribute('muted','');const p=v.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}});}
+    play();
+    // reintenta apenas haya interacción o cuando la pestaña vuelve a estar visible
+    ['click','touchstart','scroll','keydown'].forEach(ev=>window.addEventListener(ev,play,{once:true,passive:true}));
+    document.addEventListener('visibilitychange',()=>{if(!document.hidden)play();});
+  })();
+
   /* ---------- marquee de clientes (loop infinito) ---------- */
   document.querySelectorAll('[data-marquee]').forEach(track=>{
     const originals=[...track.children];
