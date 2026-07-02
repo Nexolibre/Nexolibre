@@ -98,6 +98,10 @@
       </div>
       <div class="demo-right">
         <form id="demoForm" novalidate>
+          <input type="hidden" name="access_key" value="REEMPLAZAR_CON_ACCESS_KEY_WEB3FORMS" />
+          <input type="hidden" name="subject" value="Nueva consulta desde nexolibre.com" />
+          <input type="hidden" name="from_name" value="Web Nexolibre" />
+          <input type="checkbox" name="botcheck" style="display:none !important" tabindex="-1" autocomplete="off" aria-hidden="true" />
           <div class="frow">
             <div class="field">
               <label data-en="Full name" data-es="Nombre y apellido" data-pt="Nome e sobrenome">Nombre y apellido</label>
@@ -158,7 +162,8 @@
           </div>
           <button type="submit" class="btn btn-primary" style="width:100%;padding:15px" data-en="Send inquiry" data-es="Enviar consulta" data-pt="Enviar consulta">Enviar consulta</button>
           <p class="form-note" data-en="By submitting you agree to be contacted by the Nexolibre team. We never share your data." data-es="Al enviar aceptás ser contactado por el equipo de Nexolibre. Nunca compartimos tus datos." data-pt="Ao enviar, você aceita ser contatado pela equipe da Nexolibre. Nunca compartilhamos os seus dados.">Al enviar aceptás ser contactado por el equipo de Nexolibre. Nunca compartimos tus datos.</p>
-          <div class="form-ok" id="formOk" data-en="Thanks! Your inquiry was prepared. We'll be in touch shortly." data-es="¡Gracias! Tu consulta fue preparada. Te contactaremos a la brevedad." data-pt="Obrigado! Sua consulta foi preparada. Entraremos em contato em breve.">¡Gracias! Tu consulta fue preparada. Te contactaremos a la brevedad.</div>
+          <div class="form-ok" id="formOk" data-en="Thanks! Your inquiry was sent. We'll be in touch shortly." data-es="¡Gracias! Tu consulta fue enviada. Te contactaremos a la brevedad." data-pt="Obrigado! Sua consulta foi enviada. Entraremos em contato em breve.">¡Gracias! Tu consulta fue enviada. Te contactaremos a la brevedad.</div>
+          <div class="form-ok form-err" id="formErr" data-en="Could not send. Please email contacto@nexolibre.com" data-es="No se pudo enviar. Escribinos a contacto@nexolibre.com" data-pt="Não foi possível enviar. Escreva para contacto@nexolibre.com">No se pudo enviar. Escribinos a contacto@nexolibre.com</div>
         </form>
       </div>
     </div>

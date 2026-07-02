@@ -451,3 +451,20 @@
   .topmedia-vid{display:none}
   .topmedia-veil{background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(250,247,242,.90))}
 }
+
+/* ---------- valores con video de fondo (Inicio) ---------- */
+.statshero{position:relative;overflow:hidden;min-height:360px;display:flex;align-items:center;padding:72px 0;
+  border-top:1px solid var(--border);border-bottom:1px solid var(--border);background:#faf7f2 center/cover no-repeat}
+.statshero-vid{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0;filter:grayscale(1) contrast(1.02);pointer-events:none}
+.statshero-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(255,255,255,.82),rgba(250,247,242,.90))}
+.statshero-inner{position:relative;z-index:2;width:100%}
+.statshero .stats-grid{background:transparent}
+@media(max-width:760px){.statshero{background-image:url('assets/hero-bg-poster.jpg')}.statshero-vid{display:none}}
+
+/* ---------- marquee de clientes: variante sutil (Empresa) ---------- */
+.clients-sub{padding:20px 0 8px}
+.clients-sub .logos img{height:30px;filter:grayscale(1) opacity(.42)}
+.clients-sub .logos-track{gap:48px;animation-duration:70s}
+
+/* ---------- mensaje de error del formulario ---------- */
+.form-err{color:#b42318;background:rgba(220,60,50,.08);border-color:rgba(220,60,50,.35)}

@@ -82,26 +82,26 @@
     start();
   });
 
-  /* ---------- form ---------- */
+  /* ---------- form (Web3Forms) ---------- */
   const form=document.getElementById('demoForm'), ok=document.getElementById('formOk');
-  if(form) form.addEventListener('submit',(ev)=>{
+  const formErr=document.getElementById('formErr');
+  if(form) form.addEventListener('submit',async (ev)=>{
     ev.preventDefault();
     if(!form.checkValidity()){form.reportValidity();return;}
-    const d=new FormData(form);
     const lang=document.documentElement.lang;
-    const subject=encodeURIComponent((lang==='en'?'Demo request — ':'Solicitud de Demo — ')+(d.get('producto')||'Nexolibre'));
-    const body=encodeURIComponent(
-      (lang==='en'?'Name':'Nombre')+': '+d.get('nombre')+'\n'+
-      (lang==='en'?'Institution':'Institución')+': '+d.get('institucion')+'\n'+
-      (lang==='en'?'Role':'Rol')+': '+d.get('rol')+'\n'+
-      (lang==='en'?'Product':'Producto')+': '+(d.get('producto')||'-')+'\n'+
-      'Email: '+d.get('email')+'\n'+
-      (lang==='en'?'Phone':'Teléfono')+': '+(d.get('telefono')||'-')+'\n'+
-      (lang==='en'?'Studies/month':'Estudios/mes')+': '+(d.get('volumen')||'-')+'\n'+
-      (lang==='en'?'Message':'Mensaje')+': '+(d.get('mensaje')||'-')
-    );
-    ok.classList.add('show');
-    window.location.href='mailto:contacto@nexolibre.com?subject='+subject+'&body='+body;
+    const btn=form.querySelector('button[type=submit]');
+    const orig=btn?btn.innerHTML:'';
+    if(btn){btn.disabled=true;btn.textContent=(lang==='en'?'Sending…':lang==='pt'?'Enviando…':'Enviando…');}
+    if(ok)ok.classList.remove('show'); if(formErr)formErr.classList.remove('show');
+    try{
+      const res=await fetch('https://api.web3forms.com/submit',{
+        method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)
+      });
+      const json=await res.json();
+      if(json.success){ if(ok)ok.classList.add('show'); form.reset(); }
+      else { if(formErr)formErr.classList.add('show'); }
+    }catch(e){ if(formErr)formErr.classList.add('show'); }
+    finally{ if(btn){btn.disabled=false;btn.innerHTML=orig;} }
   });
 
   /* ---------- prefill from catalog (?parte=) ---------- */
