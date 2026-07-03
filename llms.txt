@@ -21,12 +21,12 @@ Recuperar una bobina o una pieza crítica en lugar de comprarla nueva evita down
 ## Páginas
 
 - [Inicio](https://nexolibre.com/): visión general de servicios, productos y software.
-- [Empresa](https://nexolibre.com/empresa.html): quiénes son, equipo y laboratorios.
-- [Servicios por país](https://nexolibre.com/servicios.html): soporte e ingeniería en Argentina, Chile y USA.
-- [Productos y stock](https://nexolibre.com/productos.html): equipos MRI/CT y piezas críticas recuperadas.
-- [Catálogo de partes](https://nexolibre.com/catalogo.html): repuestos MRI/CT con búsqueda por marca, modelo o número de parte.
-- [Software con IA](https://nexolibre.com/software.html): monitoreo de equipos, informes con IA y mejora de imagen.
-- [Contacto](https://nexolibre.com/contacto.html): email contacto@nexolibre.com · teléfono +54 9 11 6741-0993.
+- [Empresa](https://nexolibre.com/empresa/): quiénes son, equipo y laboratorios.
+- [Servicios por país](https://nexolibre.com/servicios/): soporte e ingeniería en Argentina, Chile y USA.
+- [Productos y stock](https://nexolibre.com/productos/): equipos MRI/CT y piezas críticas recuperadas.
+- [Catálogo de partes](https://nexolibre.com/catalogo/): repuestos MRI/CT con búsqueda por marca, modelo o número de parte.
+- [Software con IA](https://nexolibre.com/software/): monitoreo de equipos, informes con IA y mejora de imagen.
+- [Contacto](https://nexolibre.com/contacto/): email contacto@nexolibre.com · teléfono +54 9 11 6741-0993.
 
 ## Contacto
 

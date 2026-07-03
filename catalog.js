@@ -18,7 +18,7 @@
   const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
   window.catPh=()=>'<svg width="40" height="40" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg>';
 
-  function imgSrc(v){ if(!v) return ''; return /^https?:\/\//i.test(v)?v:('assets/parts/'+v); }
+  function imgSrc(v){ if(!v) return ''; return /^https?:\/\//i.test(v)?v:('/assets/parts/'+v); }
   // Una pieza puede tener varias fotos: separadas por ; o , o salto de línea
   function imgsOf(p){ return String(p.imagen||'').split(/[;,\n]+/).map(s=>s.trim()).filter(Boolean).map(imgSrc); }
   function uniq(key){return [...new Set(parts.map(p=>p[key]).filter(Boolean))].sort((a,b)=>a.localeCompare(b));}
@@ -61,7 +61,7 @@
       +'<div class="meta">'+meta+'</div>'
       +(p.descripcion?'<p class="meta">'+esc(p.descripcion)+'</p>':'')
       +'<div class="part-foot">'+badge(p.disponibilidad)
-      +'<a class="btn btn-primary" style="padding:9px 16px;font-size:14px" href="contacto.html?parte='+encodeURIComponent(p.ref||p.nombre||'')+'">'+tt.consultar+'</a>'
+      +'<a class="btn btn-primary" style="padding:9px 16px;font-size:14px" href="/contacto/?parte='+encodeURIComponent(p.ref||p.nombre||'')+'">'+tt.consultar+'</a>'
       +'</div>'+(ext?'<div style="padding-top:4px">'+ext+'</div>':'')
       +'</div></article>';
   }
@@ -149,7 +149,7 @@
     const a=t().all; fillSelect(fCat,'categoria',a[0]);fillSelect(fMod,'modalidad',a[1]);fillSelect(fMarca,'marca',a[2]);fillSelect(fLoc,'ubicacion',a[3]); render();
   },0)));
 
-  fetch('parts.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(data=>{
+  fetch('/parts.json?v='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(data=>{
     parts=Array.isArray(data)?data:[];
     const a=t().all;
     fillSelect(fCat,'categoria',a[0]);fillSelect(fMod,'modalidad',a[1]);fillSelect(fMarca,'marca',a[2]);fillSelect(fLoc,'ubicacion',a[3]);
@@ -175,7 +175,7 @@
           image:imgs.length?imgs:undefined,
           itemCondition:/usad|used|recond|recuper/i.test(p.estado||'')?'https://schema.org/UsedCondition':'https://schema.org/RefurbishedCondition',
           offers:{'@type':'Offer',availability:'https://schema.org/'+avail,priceCurrency:'USD',seller:{'@id':BASE+'/#organization'},
-                  url:BASE+'/contacto.html?parte='+encodeURIComponent(p.ref||p.nombre||'')}
+                  url:BASE+'/contacto/?parte='+encodeURIComponent(p.ref||p.nombre||'')}
         };
         Object.keys(prod).forEach(function(k){if(prod[k]===undefined)delete prod[k];});
         return {'@type':'ListItem',position:i+1,item:prod};
