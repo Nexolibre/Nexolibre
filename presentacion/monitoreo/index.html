@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nexolibre — Monitoreo y Operaciones con IA</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,500;0,700;0,800;0,900;1,900&display=swap" rel="stylesheet">
+<style>
+/* ===========================================================
+   MONITOREO — deck full-dark (gama taupe del deck institucional)
+   Fondo #645d56 · paneles #585149 · texto #f4efe6 · naranja #ef8f03/#ffa62e
+   =========================================================== */
+:root{
+    --bg:#645d56; --bg-d:#5a534c; --panel:#585149; --panel-2:#514b43;
+    --frame:#49443e; --frame-bar:#524b43;
+    --text:#f4efe6; --soft:rgba(244,239,230,.72); --soft-2:rgba(244,239,230,.5);
+    --line:rgba(244,239,230,.24); --line-2:rgba(244,239,230,.14);
+    --orange:#ef8f03; --orange-br:#ffa62e; --orange-soft:rgba(239,143,3,.14); --crit:#ff8a5c;
+    --display:'Exo',sans-serif; --body:'Helvetica Neue',Helvetica,Arial,sans-serif;
+    --stage-bg:#000; --ease:cubic-bezier(.22,1,.36,1); --ease-expo:cubic-bezier(.16,1,.3,1);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+html,body{width:100%;height:100%;margin:0;overflow:hidden;background:#000;}
+.deck-viewport{position:fixed;inset:0;overflow:hidden;background:#000;}
+.deck-stage{position:absolute;left:0;top:0;width:1920px;height:1080px;overflow:hidden;transform-origin:0 0;background:var(--bg);}
+.slide{position:absolute;inset:0;width:1920px;height:1080px;overflow:hidden;display:block;visibility:hidden;opacity:0;pointer-events:none;
+    background:var(--bg);color:var(--text);font-family:var(--body);}
+.slide.alt{background:var(--bg-d);}
+.slide.active,.slide.visible{visibility:visible;opacity:1;pointer-events:auto;z-index:1;}
+img,svg{max-width:100%;max-height:100%;}
+@media print{
+    html,body{width:1920px;height:auto;overflow:visible;background:#000;}
+    .deck-viewport{position:static;overflow:visible;}.deck-stage{position:static;width:auto;height:auto;transform:none!important;}
+    .slide{position:relative;display:block!important;visibility:visible!important;opacity:1!important;width:1920px;height:1080px;break-after:page;}
+}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms!important;transition-duration:.2s!important;}}
+
+/* atmósfera */
+.slide::after{content:"";position:absolute;inset:0;pointer-events:none;z-index:0;
+    background:
+        radial-gradient(rgba(255,255,255,.045) 1px,transparent 1.3px),
+        radial-gradient(ellipse 70% 55% at 84% -6%, rgba(239,143,3,.13), transparent 60%),
+        radial-gradient(ellipse 60% 50% at 4% 106%, rgba(239,143,3,.06), transparent 60%);
+    background-size:34px 34px,auto,auto;}
+.slide>*{position:relative;z-index:1;}
+
+/* chrome */
+.meta{position:absolute;top:74px;left:120px;right:120px;display:flex;justify-content:space-between;align-items:center;
+    font-family:var(--body);font-size:18px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);z-index:3;}
+.meta .lbl{display:flex;align-items:center;gap:16px;}
+.meta .mk{width:40px;height:auto;}
+.wm{position:absolute;top:-120px;right:44px;font-family:var(--display);font-weight:900;font-size:560px;line-height:1;
+    color:rgba(255,255,255,.05);z-index:0;letter-spacing:-.04em;}
+.ruler{position:absolute;left:120px;right:120px;bottom:64px;height:1px;background:var(--line);z-index:2;}
+.ruler::before,.ruler::after{content:"";position:absolute;top:-5px;width:1px;height:11px;background:inherit;}
+.ruler::before{left:0}.ruler::after{right:0}
+.kick{font-family:var(--body);font-weight:700;font-size:21px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange-br);}
+h1,h2,h3{font-family:var(--display);font-weight:900;line-height:.99;letter-spacing:-.02em;color:var(--text);}
+.hl{color:var(--orange-br);} em{font-style:italic;}
+.stage-pad{position:absolute;inset:0;padding:120px;display:flex;flex-direction:column;justify-content:flex-end;}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(40px);transition:opacity .8s var(--ease-expo),transform .8s var(--ease-expo);}
+.slide.visible .reveal{opacity:1;transform:translateY(0);}
+.reveal-l{opacity:0;transform:translateX(-46px);transition:opacity .8s var(--ease-expo),transform .8s var(--ease-expo);}
+.slide.visible .reveal-l{opacity:1;transform:translateX(0);}
+.slide.visible .d1{transition-delay:.10s}.slide.visible .d2{transition-delay:.22s}.slide.visible .d3{transition-delay:.34s}
+.slide.visible .d4{transition-delay:.46s}.slide.visible .d5{transition-delay:.58s}.slide.visible .d6{transition-delay:.70s}.slide.visible .d7{transition-delay:.82s}
+
+/* cover */
+.cover .logo{position:absolute;top:70px;left:120px;z-index:3;}
+.cover .logo img{width:330px;filter:brightness(0) invert(1);opacity:.92;}
+.cover .badge-mk{position:absolute;top:74px;right:120px;font-family:var(--body);font-weight:700;font-size:18px;letter-spacing:.16em;text-transform:uppercase;color:var(--soft);z-index:3;}
+.cover h1{font-size:112px;margin-bottom:30px;max-width:1550px;}
+.cover .sub{font-size:29px;color:var(--soft);max-width:1150px;line-height:1.5;font-weight:500;}
+.cover .chips{display:flex;gap:12px;margin-top:40px;flex-wrap:wrap;}
+
+/* chips / pills */
+.chips{display:flex;flex-wrap:wrap;gap:12px;}
+.chip{font-family:var(--body);font-weight:600;font-size:18px;color:var(--text);border:1px solid var(--line);
+    border-radius:999px;padding:10px 18px;background:rgba(255,255,255,.04);}
+.chip::before{content:"";display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--orange);margin-right:10px;vertical-align:middle;box-shadow:0 0 10px var(--orange-soft);}
+
+/* statement */
+.stmt h2{font-size:100px;max-width:1560px;}
+.stmt .kick{margin-bottom:30px;}
+.probgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:26px 60px;margin-top:52px;}
+.prob{display:flex;gap:24px;}
+.prob .n{font-family:var(--display);font-weight:900;font-size:44px;color:var(--orange);opacity:.6;width:70px;flex:none;line-height:1;}
+.prob h3{font-size:29px;} .prob p{font-size:21px;color:var(--soft);line-height:1.45;margin-top:6px;max-width:560px;}
+
+/* head + secbody */
+.head{max-width:1500px;} .head h2{font-size:64px;} .head .lead{font-size:26px;color:var(--soft);margin-top:20px;line-height:1.5;max-width:1200px;font-weight:500;}
+.body{position:absolute;left:120px;right:120px;top:230px;bottom:80px;}
+
+/* split copy + visual */
+.split{display:grid;grid-template-columns:1fr 1fr;gap:70px;height:100%;align-items:center;}
+.split.wide{grid-template-columns:1.05fr .95fr;} .split.wideL{grid-template-columns:.95fr 1.05fr;}
+.split .copy h2{font-size:58px;margin:16px 0 22px;}
+.split .desc{font-size:23px;line-height:1.55;color:var(--soft);max-width:620px;} .split .desc b{color:var(--text);font-weight:700;}
+.flist{list-style:none;margin-top:22px;display:flex;flex-direction:column;gap:14px;}
+.flist li{display:flex;gap:15px;font-size:21px;line-height:1.4;color:var(--text);}
+.flist li::before{content:"";flex:none;width:22px;height:22px;margin-top:2px;border-radius:6px;background:radial-gradient(circle at 30% 30%,var(--orange-br),var(--orange));box-shadow:0 0 12px var(--orange-soft);}
+.flist li b{color:var(--orange-br);font-weight:800;}
+.stat{margin-top:34px;display:flex;align-items:baseline;gap:18px;}
+.stat b{font-family:var(--display);font-weight:900;font-size:104px;line-height:.85;color:var(--orange-br);letter-spacing:-.03em;}
+.stat>span{font-family:var(--body);font-size:20px;color:var(--soft);max-width:260px;line-height:1.4;font-weight:500;}
+
+/* instrument (captura) */
+.instrument{width:100%;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--frame);
+    box-shadow:0 50px 100px -40px #000,0 0 0 1px rgba(239,143,3,.10);}
+.instrument .top{height:44px;display:flex;align-items:center;gap:13px;padding:0 20px;border-bottom:1px solid var(--line);
+    font-family:var(--body);font-size:15px;font-weight:600;letter-spacing:.05em;color:var(--soft);background:var(--frame-bar);}
+.instrument .top i{width:9px;height:9px;border-radius:50%;background:var(--orange);}
+.instrument img{display:block;width:100%;}
+.zhint{position:absolute;top:56px;right:14px;z-index:4;font-family:var(--body);font-weight:600;font-size:13px;color:#fff;background:rgba(20,16,10,.6);padding:6px 11px;border-radius:8px;}
+img.zoomable{cursor:zoom-in;}
+
+/* audience grid */
+.audgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:54px;}
+.aud{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--orange);border-radius:16px;padding:34px 28px;}
+.aud .ico{font-size:34px;} .aud h3{font-size:25px;margin:16px 0 12px;line-height:1.05;}
+.aud .role{font-family:var(--body);font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-br);}
+.aud p{font-size:18.5px;color:var(--soft);line-height:1.42;}
+
+/* gauges */
+.gauges{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.gauge{border:1px solid var(--line);border-radius:14px;padding:24px 24px 22px;background:var(--panel);position:relative;overflow:hidden;}
+.gauge .lab{font-family:var(--body);font-size:14px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--soft);}
+.gauge .val{font-family:var(--display);font-weight:900;font-size:50px;line-height:1;margin-top:10px;letter-spacing:-.02em;color:var(--text);}
+.gauge .val u{font-style:normal;font-size:22px;color:var(--soft);font-family:var(--body);font-weight:500;margin-left:5px;}
+.gauge .bar{height:6px;border-radius:3px;background:var(--line-2);margin-top:14px;overflow:hidden;}
+.gauge .bar i{display:block;height:100%;border-radius:3px;background:var(--soft);}
+.gauge.crit .val{color:var(--crit);} .gauge.crit .bar i{background:var(--crit);}
+.gauge .st{position:absolute;top:22px;right:22px;font-family:var(--body);font-size:12px;font-weight:600;letter-spacing:.08em;padding:4px 10px;border-radius:999px;border:1px solid var(--line);color:var(--soft);}
+.gauge.crit .st{color:var(--crit);border-color:rgba(255,138,92,.5);background:rgba(255,138,92,.12);}
+
+/* metrio / offers */
+.metrio{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
+.metrio .m{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:28px 26px;}
+.metrio .m b{font-family:var(--display);font-weight:900;font-size:56px;color:var(--orange-br);line-height:1;letter-spacing:-.02em;}
+.metrio .m>span{font-size:18px;color:var(--soft);margin-top:10px;display:block;line-height:1.35;font-weight:500;}
+.offers{display:grid;grid-template-columns:1fr 1fr;gap:24px;}
+.offer{border:1px solid var(--line);border-left:5px solid var(--orange);border-radius:14px;background:var(--panel);padding:36px 36px;}
+.offer .tg{font-family:var(--body);font-weight:700;font-size:15px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-br);}
+.offer h3{font-size:32px;margin:12px 0 14px;} .offer p{font-size:20px;line-height:1.5;color:var(--soft);} .offer p b{color:var(--text);font-weight:700;}
+
+/* comply lines */
+.lines{display:flex;flex-direction:column;margin-top:26px;}
+.lines .ln{display:flex;gap:26px;align-items:baseline;padding:22px 0;border-top:1px solid var(--line);}
+.lines .ln:last-child{border-bottom:1px solid var(--line);}
+.lines .ln .ck{font-family:var(--display);font-weight:900;font-size:22px;color:var(--orange-br);}
+.lines .ln .tx{font-family:var(--display);font-weight:800;font-size:34px;}
+.lines .ln .tx small{display:block;font-family:var(--body);font-weight:400;font-size:20px;color:var(--soft);margin-top:6px;}
+
+/* steps (implementación) */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:50px;}
+.step{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:30px 26px;}
+.step .n{font-family:var(--display);font-weight:900;font-size:40px;color:var(--orange);}
+.step h3{font-size:23px;margin:12px 0 8px;} .step p{font-size:18px;color:var(--soft);line-height:1.4;}
+
+/* results */
+.results{position:absolute;inset:0;padding:120px;display:flex;flex-direction:column;justify-content:center;}
+.results h2{font-size:64px;max-width:1300px;margin-bottom:64px;}
+.resgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:34px;}
+.resgrid .r b{font-family:var(--display);font-weight:900;font-size:120px;line-height:.82;letter-spacing:-.03em;display:block;
+    background:linear-gradient(160deg,var(--orange-br),var(--orange));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.resgrid .r>span{font-family:var(--body);font-size:20px;color:var(--soft);display:block;margin-top:16px;line-height:1.4;font-weight:500;}
+
+/* close */
+.close .stage-pad{justify-content:center;}
+.close .logo img{width:300px;filter:brightness(0) invert(1);opacity:.92;margin-bottom:40px;}
+.close h2{font-size:104px;} .close .lead{font-size:27px;color:var(--soft);max-width:1050px;line-height:1.5;margin-top:28px;font-weight:500;}
+.close .cta{margin-top:46px;align-self:flex-start;display:inline-flex;align-items:center;gap:12px;background:var(--orange);color:#20180d;font-family:var(--display);font-weight:800;font-size:25px;padding:19px 36px;border-radius:13px;}
+.close .foot{position:absolute;left:120px;right:120px;bottom:100px;display:flex;justify-content:space-between;align-items:flex-end;}
+.close .contact{display:flex;gap:44px;font-family:var(--body);font-size:20px;color:var(--soft);font-weight:500;}
+.close .contact b{color:var(--text);font-weight:700;}
+.close .gn{display:flex;align-items:center;gap:16px;}
+.close .gn img{height:42px;filter:brightness(0) invert(1);opacity:.9;} .close .gn span{font-size:18px;color:var(--soft);}
+
+/* chrome */
+.progress{position:fixed;top:0;left:0;height:4px;background:var(--orange);width:0;z-index:1200;transition:width .5s var(--ease);}
+.lightbox{position:fixed;inset:0;z-index:9000;background:rgba(14,11,7,.94);display:none;align-items:center;justify-content:center;padding:44px;cursor:zoom-out;}
+.lightbox.open{display:flex;} .lightbox img{max-width:95%;max-height:95%;border-radius:12px;box-shadow:0 50px 130px rgba(0,0,0,.8);}
+.lb-x{position:fixed;top:22px;right:30px;width:50px;height:50px;border-radius:12px;border:1px solid rgba(255,255,255,.3);background:rgba(255,255,255,.08);color:#fff;font-size:26px;cursor:pointer;z-index:9001;}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<div class="deck-viewport"><main class="deck-stage" id="deckStage">
+
+<!-- 1 · COVER -->
+<section class="slide cover active">
+    <div class="logo reveal d1"><img src="assets/nexolibre-logo.svg" alt="Nexolibre"></div>
+    <div class="badge-mk reveal d1">Monitoreo y Operaciones con IA</div>
+    <div class="wm">01</div>
+    <div class="stage-pad">
+        <div class="kick reveal d2">Plataforma de monitoreo · MRI · CT</div>
+        <h1 class="reveal d3">El pulso de tu servicio<br>de imágenes, <span class="hl">en tiempo real.</span></h1>
+        <p class="sub reveal d4">Vigilamos el estado técnico de cada equipo y lo cruzamos con la producción del centro — datos accionables para <b style="color:var(--text)">ingeniería, radiología, finanzas y dirección</b>.</p>
+        <div class="chips reveal d5"><span class="chip">24/7 en tiempo real</span><span class="chip">Sin datos de pacientes</span><span class="chip">Multimarca</span><span class="chip">DICOM · PACS / RIS</span></div>
+    </div>
+    <div class="ruler reveal d6"></div>
+</section>
+
+<!-- 2 · EL DESAFÍO -->
+<section class="slide alt stmt">
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">El desafío</span><span>02 / 15</span></div>
+    <div class="wm">02</div>
+    <div class="stage-pad" style="justify-content:center;">
+        <div class="kick reveal d2">Por qué importa</div>
+        <h2 class="reveal d3" style="font-size:84px;">El activo más caro del servicio,<br>operando <em>a ciegas.</em></h2>
+        <div class="probgrid reveal d4">
+            <div class="prob"><div class="n">01</div><div><h3>Fallas sin aviso</h3><p>Un quench del imán o una degradación silenciosa: días de inactividad y un costo enorme, sin alertas&nbsp;tempranas.</p></div></div>
+            <div class="prob"><div class="n">02</div><div><h3>Capacidad desperdiciada</h3><p>Turnos mal distribuidos, salas ociosas y tiempos de giro que no se&nbsp;miden.</p></div></div>
+            <div class="prob"><div class="n">03</div><div><h3>Decisiones sin datos</h3><p>Producción, finanzas y personal se gestionan por intuición, no por&nbsp;métricas.</p></div></div>
+            <div class="prob"><div class="n">04</div><div><h3>Cada área, su isla</h3><p>Ingeniería, radiología y administración no comparten una misma fuente de&nbsp;verdad.</p></div></div>
+        </div>
+    </div>
+</section>
+
+<!-- 3 · QUÉ ES -->
+<section class="slide">
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">La plataforma</span><span>03 / 15</span></div>
+    <div class="body">
+        <div class="split wide">
+            <div class="copy">
+                <div class="kick reveal-l d2">Qué es</div>
+                <h2 class="reveal-l d3">Un tablero vivo<br>de tu <span class="hl">servicio.</span></h2>
+                <p class="desc reveal-l d4">Un <b>dispositivo compacto y no invasivo</b> más una plataforma en la nube monitorean cada equipo 24/7 — <b>sin acceder a datos de pacientes</b> — y cruzan el estado técnico con la producción del&nbsp;centro.</p>
+                <ul class="flist">
+                    <li class="reveal-l d5">Conecta con <b>DICOM, PACS y RIS</b> · integra tu parque multimarca</li>
+                    <li class="reveal-l d6">Un único tablero para todas tus <b>sedes, equipos y marcas</b></li>
+                </ul>
+                <div class="stat reveal-l d6"><b><span data-count="40" data-prefix="+" data-suffix="%">+0%</span></b><span>más producción, sin sumar hardware clínico</span></div>
+            </div>
+            <div class="reveal d4">
+                <div class="instrument" style="position:relative;">
+                    <div class="top"><i></i> PANEL OPERATIVO · PRODUCCIÓN Y FLUJO</div>
+                    <span class="zhint">⤢ ampliar</span>
+                    <img class="zoomable" src="assets/dashboard.png" alt="Panel operativo">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 4 · UNA PLATAFORMA, 4 MIRADAS -->
+<section class="slide alt">
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">A quién le sirve</span><span>04 / 15</span></div>
+    <div class="wm">04</div>
+    <div class="stage-pad" style="justify-content:center;">
+        <div class="kick reveal d2">Una plataforma, cuatro miradas</div>
+        <h2 class="reveal d3" style="font-size:66px;">Cada perfil, <span class="hl">su dato de valor.</span></h2>
+        <div class="audgrid">
+            <div class="aud reveal d3"><div class="ico">🛠️</div><div class="role">Ingeniería · Biomédica</div><h3>Salud técnica del equipo</h3><p>Helio, cold head, presión, riesgo de quench y mantenimiento predictivo.</p></div>
+            <div class="aud reveal d4"><div class="ico">🩻</div><div class="role">Radiología</div><h3>Producción y flujo</h3><p>Volumen, tiempos de giro, turnos, worklist y calidad de protocolo.</p></div>
+            <div class="aud reveal d5"><div class="ico">📊</div><div class="role">Finanzas · Contaduría</div><h3>Ingresos y eficiencia</h3><p>Utilización, downtime evitado, previsión de producción y costos.</p></div>
+            <div class="aud reveal d6"><div class="ico">🧭</div><div class="role">Dirección</div><h3>Control multi-sede</h3><p>Un tablero único con metas, alertas y comparación entre equipos.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- 5 · INGENIERÍA · CRIOGENIA / QUENCH -->
+<section class="slide">
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">Ingeniería · Biomédica</span><span>05 / 15</span></div>
+    <div class="body">
+        <div class="split">
+            <div class="copy">
+                <div class="kick reveal-l d2">Salud técnica · Criogenia</div>
+                <h2 class="reveal-l d3">Detectar el quench<br>antes de que <span class="hl">ocurra.</span></h2>
+                <p class="desc reveal-l d4">Nivel de helio, presión del magneto, cold head y criocompresor, relevados en tiempo real. Ante un valor crítico, el sistema avisa — <b>antes</b> de la pérdida de helio y semanas de&nbsp;inactividad.</p>
+                <ul class="flist">
+                    <li class="reveal-l d5"><b>Mantenimiento predictivo:</b> detecta anomalías y degradación temprana</li>
+                    <li class="reveal-l d6">Historial de alertas y <b>soporte remoto</b> integrado</li>
+                </ul>
+            </div>
+            <div class="reveal d4" style="align-self:center;">
+                <div class="instrument" style="position:relative;margin-bottom:20px;">
+                    <div class="top"><i></i> CRIOGENIA · TIEMPO REAL</div>
+                    <span class="zhint">⤢ ampliar</span>
+                    <img class="zoomable" src="assets/cryogenics.png" alt="Monitoreo criogénico">
+                </div>
+                <div class="gauges">
+                    <div class="gauge crit"><span class="st">CRÍTICO</span><div class="lab">Nivel de Helio</div><div class="val">78.6<u>%</u></div><div class="bar"><i style="width:79%"></i></div></div>
+                    <div class="gauge"><span class="st">OK</span><div class="lab">Presión vessel</div><div class="val">1.91<u>psi</u></div><div class="bar"><i style="width:46%"></i></div></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 6 · INGENIERÍA · EQUIPOS / BENCHMARKS -->
+<section class="slide alt">
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">Ingeniería · Biomédica</span><span>06 / 15</span></div>
+    <div class="body">
+        <div class="split wideL">
+            <div class="reveal d3">
+                <div class="instrument" style="position:relative;">
+                    <div class="top"><i></i> REGISTRO DE EQUIPOS · MULTIMARCA</div>
+                    <span class="zhint">⤢ ampliar</span>
+                    <img class="zoomable" src="assets/devices.png" alt="Registro de equipos">
+                </div>
+            </div>
+            <div class="copy">
+                <div class="kick reveal-l d2">Desempeño por equipo</div>
+                <h2 class="reveal-l d3">Cada resonador,<br>bajo la <span class="hl">lupa.</span></h2>
+                <p class="desc reveal-l d4">Registro de todo el parque — Philips, GE, Fujifilm — con exámenes, duración media y tipos por estación. El sistema <b>compara equipos entre sí</b> y contra pares del sector para detectar degradación.</p>
+                <ul class="flist">
+                    <li class="reveal-l d5">Radar de desempeño y <b>benchmark interno</b> por equipo</li>
+                    <li class="reveal-l d6">Alertas de bajo throughput o duración atípica</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 7 · RADIOLOGÍA · PRODUCCIÓN / WORKLIST -->
+<section class="slide">
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">Radiología</span><span>07 / 15</span></div>
+    <div class="body">
+        <div class="split wide">
+            <div class="copy">
+                <div class="kick reveal-l d2">Producción y flujo</div>
+                <h2 class="reveal-l d3">Del agendado<br>al <span class="hl">informe.</span></h2>
+                <p class="desc reveal-l d4">Volumen de estudios, exámenes por día y tiempo de giro por equipo. La worklist cruza <b>agendado vs. realizado</b>: puntualidad, no-shows, encajes y atraso medio — el pulso real del&nbsp;flujo.</p>
+                <ul class="flist">
+                    <li class="reveal-l d5">Tiempo de giro y <b>giro de paciente</b> entre estudios</li>
+                    <li class="reveal-l d6">Detección de <b>exámenes atípicos</b> y lacunas de protocolo</li>
+                </ul>
+            </div>
+            <div class="reveal d4">
+                <div class="instrument" style="position:relative;">
+                    <div class="top"><i></i> WORKLIST · AGENDADO VS. REALIZADO</div>
+                    <span class="zhint">⤢ ampliar</span>
+                    <img class="zoomable" src="assets/worklist.png" alt="Worklist">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 8 · RADIOLOGÍA · TURNOS / CALIDAD -->
+<section class="slide alt">
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">Radiología</span><span>08 / 15</span></div>
+    <div class="body">
+        <div class="split wideL">
+            <div class="reveal d3">
+                <div class="instrument" style="position:relative;">
+                    <div class="top"><i></i> TURNOS · PRODUCTIVIDAD Y MAPA DE CALOR</div>
+                    <span class="zhint">⤢ ampliar</span>
+                    <img class="zoomable" src="assets/shifts.png" alt="Turnos y productividad">
+                </div>
+            </div>
+            <div class="copy">
+                <div class="kick reveal-l d2">Turnos y ocupación</div>
+                <h2 class="reveal-l d3">Dónde ganar<br><span class="hl">capacidad.</span></h2>
+                <p class="desc reveal-l d4">Productividad por turno (mañana, tarde, noche), mapa de calor hora×día y tendencia mensual. Muestra las <b>franjas ociosas</b> y sugiere cómo redistribuir la agenda y anticipar la&nbsp;demanda.</p>
+                <ul class="flist">
+                    <li class="reveal-l d5">Ocupación real vs. meta · <b>¿lista para expandir?</b></li>
+                    <li class="reveal-l d6">Línea de tiempo por estudio y por serie</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 9 · FINANZAS -->
+<section class="slide">
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">Finanzas · Contaduría</span><span>09 / 15</span></div>
+    <div class="body">
+        <div class="split wide">
+            <div class="copy">
+                <div class="kick reveal-l d2">Producción = ingresos</div>
+                <h2 class="reveal-l d3">Cada hora de equipo,<br><span class="hl">medida.</span></h2>
+                <p class="desc reveal-l d4">Utilización y ocupación por equipo, downtime evitado y previsión de producción. Convierte la operación en <b>números para presupuestar</b> y proteger los&nbsp;ingresos.</p>
+                <div class="metrio reveal-l d5" style="margin-top:26px;">
+                    <div class="m"><b><span data-count="40" data-prefix="+" data-suffix="%">+0%</span></b><span>más producción sin nuevo hardware</span></div>
+                    <div class="m"><b>24/7</b><span>prevención de downtime costoso</span></div>
+                    <div class="m"><b>1</b><span>tablero de finanzas y eficiencia</span></div>
+                </div>
+            </div>
+            <div class="reveal d4">
+                <div class="instrument" style="position:relative;">
+                    <div class="top"><i></i> BENCHMARKS · KPIs Y OCUPACIÓN</div>
+                    <span class="zhint">⤢ ampliar</span>
+                    <img class="zoomable" src="assets/benchmarks.png" alt="Benchmarks y KPIs">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 10 · DIRECCIÓN -->
+<section class="slide alt">
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">Dirección</span><span>10 / 15</span></div>
+    <div class="body">
+        <div class="split wideL">
+            <div class="reveal d3">
+                <div class="instrument" style="position:relative;">
+                    <div class="top"><i></i> ORGANIZACIÓN · SEDES Y EQUIPO</div>
+                    <span class="zhint">⤢ ampliar</span>
+                    <img class="zoomable" src="assets/myorg.png" alt="Organización y sedes">
+                </div>
+            </div>
+            <div class="copy">
+                <div class="kick reveal-l d2">Control centralizado</div>
+                <h2 class="reveal-l d3">Todo el servicio,<br>en una <span class="hl">pantalla.</span></h2>
+                <p class="desc reveal-l d4">Un tablero único para todas las sedes, equipos y marcas, con roles por usuario. La dirección ve el estado global y <b>compara centros</b> sin pedir reportes&nbsp;manuales.</p>
+                <ul class="flist">
+                    <li class="reveal-l d5">Metas de productividad y <b>alertas automáticas</b> configurables</li>
+                    <li class="reveal-l d6">Una sola fuente de verdad para todas las áreas</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 11 · ALERTAS E INTELIGENCIA -->
+<section class="slide">
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">Inteligencia operativa</span><span>11 / 15</span></div>
+    <div class="body">
+        <div class="split wide">
+            <div class="copy">
+                <div class="kick reveal-l d2">No solo mide: avisa</div>
+                <h2 class="reveal-l d3">Alertas que se<br><span class="hl">adelantan.</span></h2>
+                <p class="desc reveal-l d4">El sistema genera <b>insights automáticos</b> — prioriza oportunidades de mejora por equipo — y dispara <b>reglas de alerta</b> configurables: equipo ocioso, meta alcanzada, valor&nbsp;crítico.</p>
+                <ul class="flist">
+                    <li class="reveal-l d5">Metas diarias por estación y <b>notificaciones automáticas</b></li>
+                    <li class="reveal-l d6">Soporte remoto integrado para actuar a distancia</li>
+                </ul>
+            </div>
+            <div class="reveal d4">
+                <div class="instrument" style="position:relative;">
+                    <div class="top"><i></i> METAS Y ALERTAS · CONFIGURABLES</div>
+                    <span class="zhint">⤢ ampliar</span>
+                    <img class="zoomable" src="assets/goals.png" alt="Metas y alertas">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- 12 · SEGURIDAD -->
+<section class="slide alt stmt">
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">Seguridad y cumplimiento</span><span>12 / 15</span></div>
+    <div class="wm">12</div>
+    <div class="stage-pad" style="justify-content:center;">
+        <div class="kick reveal d2">Adoptarse con confianza</div>
+        <h2 class="reveal d3" style="font-size:74px;">Sin datos de pacientes.<br>Cifrado de <span class="hl">punta a punta.</span></h2>
+        <div class="lines" style="max-width:1400px;">
+            <div class="ln reveal d4"><span class="ck">A</span><span class="tx">Solo metadatos operativos<small>Exámenes, duraciones, modalidades, estaciones — sin PHI. El monitoreo técnico no toca datos clínicos.</small></span></div>
+            <div class="ln reveal d5"><span class="ck">B</span><span class="tx">Túnel WireGuard · sin puertos entrantes<small>TLS en tránsito y cifrado en reposo. El conector no abre puertos en la red del centro.</small></span></div>
+            <div class="ln reveal d6"><span class="ck">C</span><span class="tx">Roles, auditoría y grado clínico<small>Control de acceso por usuario, registro de auditoría y herramientas autorizadas por FDA · alineado con HIPAA.</small></span></div>
+        </div>
+    </div>
+</section>
+
+<!-- 13 · IMPLEMENTACIÓN -->
+<section class="slide">
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">Implementación</span><span>13 / 15</span></div>
+    <div class="wm">13</div>
+    <div class="stage-pad" style="justify-content:center;">
+        <div class="kick reveal d2">Rápido y sin fricción</div>
+        <h2 class="reveal d3" style="font-size:66px;">En marcha en <span class="hl">días, no meses.</span></h2>
+        <div class="steps">
+            <div class="step reveal d3"><div class="n">01</div><h3>Conector local</h3><p>Instalador Ubuntu de un solo comando, con túnel cifrado a la nube.</p></div>
+            <div class="step reveal d4"><div class="n">02</div><h3>Se conecta al PACS</h3><p>Lee metadatos DICOM del PACS/RIS existente. Sin abrir puertos.</p></div>
+            <div class="step reveal d5"><div class="n">03</div><h3>Dispositivo no invasivo</h3><p>Releva el estado técnico del equipo sin intervenir el escáner.</p></div>
+            <div class="step reveal d6"><div class="n">04</div><h3>Tablero en vivo</h3><p>El equipo ve sus métricas y alertas — multimarca, sin hardware clínico nuevo.</p></div>
+        </div>
+        <div class="chips reveal d6" style="margin-top:46px;justify-content:center;"><span class="chip">Multimarca</span><span class="chip">Sin hardware clínico nuevo</span><span class="chip">Integración PACS / RIS</span><span class="chip">Autorizado por FDA</span></div>
+    </div>
+</section>
+
+<!-- 14 · RESULTADOS -->
+<section class="slide alt results">
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">Impacto</span><span>14 / 15</span></div>
+    <h2 class="reveal d2">Lo que cambia cuando<br>todo el servicio se <span class="hl">mide.</span></h2>
+    <div class="resgrid">
+        <div class="r reveal d3"><b><span data-count="40" data-prefix="+" data-suffix="%">+0%</span></b><span>más producción de estudios</span></div>
+        <div class="r reveal d4"><b>24/7</b><span>monitoreo técnico en tiempo real</span></div>
+        <div class="r reveal d5"><b>0</b><span>datos de pacientes procesados</span></div>
+        <div class="r reveal d6"><b>1</b><span>tablero para todas las sedes y áreas</span></div>
+    </div>
+</section>
+
+<!-- 15 · CIERRE -->
+<section class="slide close">
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">¿Empezamos?</span><span>15 / 15</span></div>
+    <div class="wm">15</div>
+    <div class="stage-pad">
+        <div class="logo reveal d2"><img src="assets/nexolibre-logo.svg" alt="Nexolibre"></div>
+        <h2 class="reveal d3">Veámoslo sobre<br><span class="hl">tus equipos.</span></h2>
+        <p class="lead reveal d4">Agendá un demo y te mostramos el impacto sobre tu producción, tus tiempos y tu mantenimiento — con tus equipos y tu&nbsp;flujo.</p>
+        <span class="cta reveal d5">Solicitar un demo →</span>
+    </div>
+    <div class="foot reveal d6">
+        <div class="contact"><div><b>contacto@nexolibre.com</b></div><div><b>+54 9 11 6741-0993</b></div><div>AR · CL · USA</div></div>
+        <div class="gn"><img src="assets/gruponexo-logo.svg" alt="Grupo Nexo"><span>Nexolibre es miembro de Grupo Nexo</span></div>
+    </div>
+</section>
+
+</main></div>
+
+<div class="lightbox" id="lightbox"><button class="lb-x" aria-label="Cerrar">×</button><img id="lbimg" src="" alt="Vista ampliada"></div>
+
+<script>
+class Deck{
+    constructor(){this.slides=[...document.querySelectorAll('.slide')];this.i=0;
+        this.stage=document.getElementById('deckStage');this.progress=document.getElementById('progress');
+        this.scale();addEventListener('resize',()=>this.scale());this.keys();this.touch();this.wheel();this.show(0);}
+    scale(){const f=Math.min(innerWidth/1920,innerHeight/1080);
+        this.stage.style.transform=`translate(${(innerWidth-1920*f)/2}px,${(innerHeight-1080*f)/2}px) scale(${f})`;}
+    show(n){this.i=Math.max(0,Math.min(n,this.slides.length-1));
+        this.slides.forEach((s,k)=>{const on=k===this.i;s.classList.toggle('active',on);s.classList.toggle('visible',on);});
+        this.progress.style.width=((this.i+1)/this.slides.length*100)+'%';this.count(this.slides[this.i]);}
+    go(n){if(n!==this.i&&n>=0&&n<this.slides.length)this.show(n);}
+    count(s){s.querySelectorAll('[data-count]').forEach(el=>{if(el.dataset.done)return;el.dataset.done='1';
+        const t=+el.dataset.count,pre=el.dataset.prefix||'',su=el.dataset.suffix||'',t0=performance.now(),d=1100;
+        const tick=now=>{const p=Math.min((now-t0)/d,1),e=1-Math.pow(1-p,3);el.textContent=pre+Math.round(t*e).toLocaleString('es-AR')+su;if(p<1)requestAnimationFrame(tick);};requestAnimationFrame(tick);});}
+    keys(){addEventListener('keydown',e=>{if(document.getElementById('lightbox').classList.contains('open')){if(e.key==='Escape')lbclose();return;}
+        if(['ArrowRight','ArrowDown',' ','PageDown'].includes(e.key)){e.preventDefault();this.go(this.i+1);}
+        if(['ArrowLeft','ArrowUp','PageUp'].includes(e.key)){e.preventDefault();this.go(this.i-1);}
+        if(e.key==='Home')this.go(0);if(e.key==='End')this.go(this.slides.length-1);});}
+    touch(){let x=0;addEventListener('touchstart',e=>x=e.touches[0].clientX,{passive:true});
+        addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-x;if(Math.abs(dx)>60)dx<0?this.go(this.i+1):this.go(this.i-1);},{passive:true});}
+    wheel(){let l=false;addEventListener('wheel',e=>{if(l||Math.abs(e.deltaY)<24)return;l=true;e.deltaY>0?this.go(this.i+1):this.go(this.i-1);setTimeout(()=>l=false,700);},{passive:true});}
+}
+const deck=new Deck();
+const _lb=document.getElementById('lightbox'),_im=document.getElementById('lbimg');
+function lbclose(){_lb.classList.remove('open');}
+document.querySelectorAll('img.zoomable').forEach(im=>im.addEventListener('click',()=>{_im.src=im.src;_lb.classList.add('open');}));
+_lb.addEventListener('click',lbclose);
+</script>
+</body>
+</html>
