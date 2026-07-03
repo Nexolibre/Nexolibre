@@ -472,3 +472,32 @@
 /* ---------- carrusel ancho (showcase Empresa) ---------- */
 .lab-carousel.wide{aspect-ratio:16/9}
 @media(max-width:640px){.lab-carousel.wide{aspect-ratio:4/3}}
+
+/* ================= TEMA OSCURO (Software) ================= */
+body.theme-dark{
+  --bg:#0d0d11; --bg-2:#131318; --surface:#17171e; --surface-2:#20202a;
+  --border:rgba(244,241,236,.13); --border-2:rgba(244,241,236,.20);
+  --text:#f4f1ec; --muted:rgba(244,241,236,.66); --muted-2:rgba(244,241,236,.44);
+  --accent:#f19000; --accent-bright:#ffab34; --accent-2:#ffb23e;
+  --shadow:0 2px 10px rgba(0,0,0,.5),0 26px 64px -26px rgba(0,0,0,.85);
+  background:var(--bg); color:var(--text);
+}
+.theme-dark h1,.theme-dark h2,.theme-dark h3,
+.theme-dark .brand-name,.theme-dark .tcard h4,.theme-dark .foot-col h5,
+.theme-dark .foot-name,.theme-dark .rm-card h4,.theme-dark .mk-logo{color:#f4f1ec}
+.theme-dark header{background:rgba(13,13,17,.72)}
+.theme-dark header.scrolled{background:rgba(13,13,17,.93);box-shadow:0 6px 24px -16px rgba(0,0,0,.7)}
+.theme-dark .burger span{background:#f4f1ec}
+.theme-dark .btn-dark{background:var(--surface);color:var(--accent);border-color:var(--accent)}
+.theme-dark .demo-points li{color:var(--muted)}
+.theme-dark .field input,.theme-dark .field select,.theme-dark .field textarea{background:var(--surface-2);color:var(--text);border-color:var(--border-2)}
+.theme-dark .field input::placeholder,.theme-dark .field textarea::placeholder{color:var(--muted-2)}
+.theme-dark .form-ok{color:var(--accent-bright)}
+.theme-dark .foot-logo{filter:brightness(0) invert(1);opacity:.82}
+.theme-dark .logos img{filter:grayscale(1) brightness(0) invert(1) opacity(.55)}
+.theme-dark .logos img:hover{filter:none;opacity:1}
+
+/* botón "Software" en el navbar: señal del mundo dark (en todas las páginas) */
+.nav-links a.nav-soft{background:#14141a;color:#ffab34;border:1px solid rgba(255,171,52,.34)}
+.nav-links a.nav-soft:hover{background:#1d1d25;color:#ffb84d;border-color:rgba(255,171,52,.6)}
+.theme-dark .nav-links a.nav-soft{background:rgba(241,144,0,.16);border-color:rgba(255,171,52,.5);color:#ffab34}
