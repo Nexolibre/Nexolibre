@@ -490,6 +490,8 @@
 .theme-dark .burger span{background:#f4efe6}
 .theme-dark .btn-dark{background:var(--surface);color:var(--accent-bright);border-color:var(--accent)}
 .theme-dark .demo-points li{color:var(--muted)}
+.theme-dark .feat li{color:var(--text)}
+.theme-dark .product .visual{background:var(--surface-2)}
 .theme-dark .field input,.theme-dark .field select,.theme-dark .field textarea{background:var(--surface-2);color:var(--text);border-color:var(--border-2)}
 .theme-dark .field input::placeholder,.theme-dark .field textarea::placeholder{color:var(--muted-2)}
 .theme-dark .form-ok{color:var(--accent-bright)}
