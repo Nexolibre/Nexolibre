@@ -8,11 +8,25 @@
 - **Laboratorios propios de reparación**: recuperación y testeo de piezas críticas — bobinas MRI, módulos de RF y gradientes, fuentes de poder e inyectores — que se dan por perdidas en el circuito tradicional.
 - **Venta de equipos y repuestos**: equipos MRI/CT, proyectos llave en mano y stock de piezas recuperadas y testeadas.
 - **Software con IA para diagnóstico por imágenes**: monitoreo y gestión del área, dictado de informes con IA, y mejora de imagen con IA para MRI, CT y PET-CT.
+- **Informes radiológicos 24/7**: estructura de médicos radiólogos informantes con guardia activa las 24 horas, los 7 días de la semana, en Argentina, Chile y USA. Cubre MRI, CT, RX, mamografía y ecografía; informes firmados por radiólogos matriculados, con SLA por tipo de estudio e integración DICOM a PACS/RIS.
 
 ## Dónde opera
 
 - **Argentina, Chile y Estados Unidos**: soporte, laboratorios y comercialización.
 - **Colombia**: software con IA.
+
+## Las herramientas de software con IA (en detalle)
+
+- **Monitoreo y Operaciones con IA**: dispositivo no invasivo + plataforma en la nube que monitorea equipos MRI/CT 24/7 sin acceder a datos de pacientes (nivel de helio, cold head, presión del magneto, riesgo de quench) y cruza el estado técnico con la producción del centro. Resultado típico: +40% de producción sin sumar hardware.
+- **Informes con IA (dictado por voz)**: el radiólogo dicta y la IA transcribe y estructura el informe. 5× más rápido que tipear, 99% de precisión, informe estructurado listo en ~90 segundos, con visor DICOM profesional incluido.
+- **Mejora de Imagen con IA**: deep learning autorizado por FDA que reduce hasta 50% el tiempo de escaneo de MRI manteniendo calidad diagnóstica, compatible con GE, Siemens, Philips, Canon y Fujifilm; también denoising PET con hasta 75% menos dosis en PET-CT.
+
+## Contexto del sector (datos con fuentes)
+
+- La demanda de estudios por imágenes crece 3–4% por año, con proyección de crecimiento sostenido hasta 2055 (Neiman Health Policy Institute / RSNA).
+- 1 de cada 3 radiólogos activos tiene 55 años o más; el abandono de la práctica creció 50% desde 2020 por burnout (ACR).
+- Más del 80% de los hospitales de EE.UU. usa telerradiología nocturna (ACR).
+- Por eso Nexolibre ofrece capacidad de informes elástica, dotación garantizada por contrato y descompresión de los equipos propios.
 
 ## Por qué importa
 
