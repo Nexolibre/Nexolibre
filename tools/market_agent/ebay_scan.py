@@ -16,6 +16,9 @@ HERE      = os.path.dirname(os.path.abspath(__file__))
 ROOT      = os.path.abspath(os.path.join(HERE, "..", ".."))
 CFG       = json.load(open(os.path.join(HERE, "queries.json"), encoding="utf-8"))
 OUT_DIR   = os.path.join(HERE, "out")
+SEEN_FILE = os.path.join(HERE, "seen.json")          # ids ya enviados (dedupe entre corridas)
+MAX_NUEVOS= int(os.environ.get("MAX_NUEVOS", "60"))   # tope de candidatos nuevos por corrida
+FLOW_URL  = os.environ.get("FLOW_CANDIDATOS_URL", "").strip()  # webhook de Power Automate
 TOKEN_URL = "https://api.ebay.com/identity/v1/oauth2/token"
 SEARCH_URL= "https://api.ebay.com/buy/browse/v1/item_summary/search"
 
@@ -79,6 +82,23 @@ def excluded(title):
     t = (title or "").lower()
     return any(w.lower() in t for w in CFG.get("excluir_si_titulo_contiene", []))
 
+def _num(v):
+    try: return float(v)
+    except Exception: return None
+
+def post_al_flujo(cands):
+    """Envía los candidatos al webhook de Power Automate (si está configurado)."""
+    if not FLOW_URL:
+        print("(FLOW_CANDIDATOS_URL no configurado — no se envía a SharePoint)"); return False
+    body = json.dumps(cands, ensure_ascii=False).encode("utf-8")
+    r = urllib.request.Request(FLOW_URL, data=body,
+                               headers={"Content-Type": "application/json"}, method="POST")
+    try:
+        with urllib.request.urlopen(r, timeout=60) as resp:
+            print(f"Enviados a SharePoint: {len(cands)} (HTTP {resp.status})"); return True
+    except Exception as e:
+        print("! error enviando al flujo:", e); return False
+
 def main():
     os.makedirs(OUT_DIR, exist_ok=True)
     token = get_token()
@@ -89,7 +109,11 @@ def main():
     print(f"Consultas a correr: {len(queries)}")
 
     sigs = existing_signatures()
-    seen, candidatos = set(), []
+    try:
+        enviados = set(json.load(open(SEEN_FILE, encoding="utf-8")))
+    except Exception:
+        enviados = set()
+    seen, candidatos = set(enviados), []   # arranca con lo ya enviado -> no se re-envía
     for q in queries:
         for it in search(token, q):
             iid = it.get("itemId")
@@ -102,7 +126,7 @@ def main():
             seen.add(iid)
             candidatos.append({
                 "titulo": title,
-                "precio_origen": (it.get("price") or {}).get("value"),
+                "precio_origen": _num((it.get("price") or {}).get("value")),
                 "moneda": (it.get("price") or {}).get("currency"),
                 "condicion": it.get("condition"),
                 "ubicacion": (it.get("itemLocation") or {}).get("country"),
@@ -116,15 +140,25 @@ def main():
             })
         time.sleep(0.3)
 
-    candidatos.sort(key=lambda c: (c.get("titulo") or "").lower())
+    # priorizar por valor y aplicar tope diario
+    candidatos.sort(key=lambda c: (c.get("precio_origen") or 0), reverse=True)
+    nuevos = candidatos[:MAX_NUEVOS]
+
     fecha = datetime.date.today().isoformat()
     path = os.path.join(OUT_DIR, f"candidates-{fecha}.json")
-    json.dump(candidatos, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
-    print(f"\nCandidatos nuevos: {len(candidatos)}  ->  {path}")
-    for c in candidatos[:15]:
-        print(f"  · {c['titulo'][:70]}  | {c['moneda']} {c['precio_origen']} | {c['ubicacion']}")
-    if len(candidatos) > 15:
-        print(f"  … y {len(candidatos)-15} más")
+    json.dump(nuevos, open(path, "w", encoding="utf-8"), ensure_ascii=False, indent=2)
+    print(f"\nCandidatos nuevos (tope {MAX_NUEVOS}): {len(nuevos)} de {len(candidatos)} encontrados  ->  {path}")
+    for c in nuevos[:15]:
+        print(f"  · {(c['titulo'] or '')[:70]}  | {c['moneda']} {c['precio_origen']} | {c['ubicacion']}")
+    if len(nuevos) > 15:
+        print(f"  … y {len(nuevos)-15} más")
+
+    # enviar al flujo de SharePoint y registrar como enviados (dedupe)
+    if nuevos:
+        if post_al_flujo(nuevos):
+            enviados |= {c["ebay_id"] for c in nuevos}
+            # mantener el archivo acotado (últimos 5000 ids)
+            json.dump(sorted(enviados)[-5000:], open(SEEN_FILE, "w", encoding="utf-8"), ensure_ascii=False)
 
 if __name__ == "__main__":
     main()
