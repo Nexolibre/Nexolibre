@@ -10,7 +10,7 @@ Credenciales (NO van en el código): variables de entorno
 Salida: tools/market_agent/out/candidates-AAAA-MM-DD.json  + resumen por consola.
 Sin dependencias externas (solo stdlib).
 """
-import os, json, re, base64, time, datetime, urllib.parse, urllib.request
+import os, json, re, base64, time, datetime, urllib.parse, urllib.request, urllib.error
 
 HERE      = os.path.dirname(os.path.abspath(__file__))
 ROOT      = os.path.abspath(os.path.join(HERE, "..", ".."))
@@ -96,6 +96,12 @@ def post_al_flujo(cands):
     try:
         with urllib.request.urlopen(r, timeout=60) as resp:
             print(f"Enviados a SharePoint: {len(cands)} (HTTP {resp.status})"); return True
+    except urllib.error.HTTPError as e:
+        detalle = ""
+        try: detalle = e.read().decode("utf-8", "ignore")[:400]
+        except Exception: pass
+        print(f"! error enviando al flujo: HTTP {e.code} — {detalle}")
+        return False
     except Exception as e:
         print("! error enviando al flujo:", e); return False
 
