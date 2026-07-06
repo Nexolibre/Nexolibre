@@ -51,7 +51,7 @@
       (p.garantia&&p.garantia!=='-')?'<div><b>'+tt.garantia+':</b> '+esc(p.garantia)+'</div>':''
     ].join('');
     const tags=[p.categoria,p.modalidad,p.estado].filter(Boolean).map(x=>'<span class="badge badge-soft">'+esc(x)+'</span>').join('');
-    const ext=p.link_externo?'<a class="part-ext" href="'+esc(p.link_externo)+'" target="_blank" rel="noopener">'+tt.ver+' ↗</a>':'';
+    const ext='';  // link externo NO se muestra: el cliente consulta a Nexolibre (el dato queda solo para uso interno)
     return '<article class="part">'
       +'<div class="part-img'+(imgs.length?' has-img':'')+'"'+imgsAttr+'>'+mainHtml+'</div>'
       + thumbs
