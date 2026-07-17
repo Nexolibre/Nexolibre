@@ -364,21 +364,21 @@
         </div>
         <div class="grid2">
           <div class="card"><div class="lbl">Por qué alianza</div><h3>Alineación total</h3><p>Nadie cobra por traer un cliente y desaparecer. Ambos ganan mes a mes con la recurrencia y con el crecimiento de la red.</p></div>
-          <div class="card"><div class="lbl">Transparencia</div><h3>Números abiertos</h3><p>La calculadora que sigue muestra en vivo cuánto invertiría un centro de la red según su país, sus equipos y su volumen de estudios.</p></div>
+          <div class="card"><div class="lbl">Transparencia</div><h3>Números abiertos</h3><p>El reparto se calcula sobre la ganancia neta real, con costos e impuestos a la vista. La calculadora que sigue lo muestra en vivo.</p></div>
         </div>
       </div>
     </section>
 
-    <!-- 6 · CALCULADORA (version publica, sin margenes) -->
+    <!-- 6 · CALCULADORA -->
     <section class="slide calcslide" data-wide><span class="wm">06</span>
       <div class="inner">
-        <div class="kicker">Simulá un centro de la red</div>
-        <h2>Cuánto costaría <span class="or">monitorear un centro</span></h2>
+        <div class="kicker">La economía, en vivo</div>
+        <h2>Cuánto deja la sinergia, <span class="or">estudio por estudio</span></h2>
         <div class="calcfit" id="calcfit"><div class="calcstage" id="calcstage">
         <div class="calcgrid">
 
           <section class="col col-a" aria-labelledby="bA">
-            <header class="colh"><span class="cbadge">A</span><h3 id="bA">País y precio</h3></header>
+            <header class="colh"><span class="cbadge">A</span><h3 id="bA">Configuración de países</h3></header>
             <div class="colb">
               <div class="cchips" id="countrySel"></div>
               <div class="cfield">
@@ -386,54 +386,75 @@
                 <select id="pais"><option>Chile</option><option>Uruguay</option><option selected>Argentina</option><option>Colombia</option><option>USA</option></select>
               </div>
               <table class="ctab cpar">
-                <thead><tr><th scope="col">País</th><th scope="col">Precio / estudio</th><th scope="col">IVA&nbsp;%</th></tr></thead>
+                <thead><tr><th scope="col">País</th><th scope="col">Precio venta</th><th scope="col">IVA&nbsp;%</th><th scope="col">IIBB&nbsp;%</th><th scope="col">Gan.&nbsp;%</th></tr></thead>
                 <tbody id="paramsBody"></tbody>
               </table>
-              <p class="chint">Marcá con los chips los países del ejercicio. El precio por estudio es editable; el IVA se aplica según el país.</p>
+              <p class="chint">Marcá con los chips los países del ejercicio. <b>Simulá el precio de venta</b> por estudio (sin IVA) y las alícuotas. La fila resaltada es la que se simula.</p>
             </div>
           </section>
 
           <section class="col col-b" aria-labelledby="bB">
-            <header class="colh"><span class="cbadge">B</span><h3 id="bB">El centro</h3></header>
+            <header class="colh"><span class="cbadge">B</span><h3 id="bB">Configuración del cliente</h3></header>
             <div class="colb">
               <div class="ctwo">
-                <div class="cfield"><label for="sedes">Sedes</label><input id="sedes" type="number" min="1" step="1" value="1" inputmode="numeric" spellcheck="false"></div>
-                <div class="cfield"><label for="rmplan">Plan</label><select id="rmplan"><option value="saas">SaaS Full + Cryogenics</option><option value="ebox">EBOX Full</option></select></div>
+                <div class="cfield"><label for="sedes">Sedes</label><input id="sedes" type="number" min="1" step="1" value="2" inputmode="numeric" spellcheck="false"></div>
+                <div class="cfield"><label for="rmplan">Plan para RM</label><select id="rmplan"><option value="saas">SaaS Full + Cryogenics</option><option value="ebox">EBOX Full</option></select></div>
               </div>
               <table class="ctab ccli">
                 <thead><tr><th scope="col">Modalidad</th><th scope="col">Equipos<br><i>total</i></th><th scope="col">Pacientes<br><i>×equipo</i></th><th scope="col">Coef.</th><th scope="col">Estudios<br><i>total</i></th></tr></thead>
                 <tbody id="modsBody"></tbody>
-                <tfoot><tr><td>Total</td><td id="tEq">—</td><td></td><td></td><td id="tVol">—</td></tr></tfoot>
+                <tfoot><tr><td>Total cliente</td><td id="tEq">—</td><td></td><td></td><td id="tVol">—</td></tr></tfoot>
               </table>
-              <p class="chint">Estudios = (pacientes × coeficiente) × equipos. Los equipos son el total del centro entre todas las sedes; los pacientes, por equipo y por mes.</p>
+              <p class="chint">Estudios = (pacientes × coeficiente) × equipos. Los <b>equipos son el total del cliente</b> entre todas las sedes; los pacientes son por equipo y por mes.</p>
             </div>
           </section>
 
           <section class="col col-c" aria-labelledby="bC">
-            <header class="colh"><span class="cbadge">C</span><h3 id="bC">Inversión del centro</h3></header>
+            <header class="colh"><span class="cbadge">C</span><h3 id="bC">Resultados</h3></header>
             <div class="colb">
-              <div class="cgroup cres">
-                <h5>Inversión mensual estimada</h5>
-                <div class="cres-row">
-                  <div class="cstat hi"><div class="ck">Por mes · sin IVA</div><div class="cvv" id="oMes">—</div><div class="cff" id="oMesSub">—</div></div>
-                  <div class="cstat"><div class="ck">Estudios / mes</div><div class="cvv" id="oVol">—</div><div class="cff">Volumen del centro.</div></div>
-                  <div class="cstat"><div class="ck">Precio / estudio</div><div class="cvv" id="oPre">—</div><div class="cff" id="oPreF">Neto de IVA.</div></div>
-                </div>
+              <div class="cverdict" id="verdict" role="status" aria-live="polite">
+                <span class="cdot" aria-hidden="true"></span>
+                <div><div class="cst" id="vSt">—</div><div class="cds" id="vDs">—</div></div>
               </div>
               <div class="crgrid">
                 <div class="cgroup">
-                  <h5>Detalle mensual</h5>
-                  <div class="crow"><div class="cl">Precio facturado / estudio<span class="cf">Precio + IVA: lo que paga el centro.</span></div><div class="cv" id="oPreIva">—</div></div>
-                  <div class="crow"><div class="cl">Facturación total / mes (c/IVA)<span class="cf" id="ofFact">—</span></div><div class="cv" id="oFact">—</div></div>
-                  <div class="crow"><div class="cl">Inversión anual · sin IVA<span class="cf">12 meses.</span></div><div class="cv" id="oAnual">—</div></div>
+                  <h5>1 · Precios de venta</h5>
+                  <div class="crow"><div class="cl">Precio de venta / estudio<span class="cf">Lo que se le cobra al centro por estudio, sin IVA.</span></div><div class="cv" id="oPre">—</div></div>
+                  <div class="crow"><div class="cl">IVA / estudio<span class="cf" id="ofIvaU">—</span></div><div class="cv soft" id="oIvaU">—</div></div>
+                  <div class="crow"><div class="cl">Precio facturado / estudio<span class="cf">Precio + IVA: lo que paga el cliente.</span></div><div class="cv" id="oPreIva">—</div></div>
                 </div>
                 <div class="cgroup">
-                  <h5>Inversión inicial</h5>
-                  <div class="crow"><div class="cl">Hardware · pago único<span class="cf" id="ofHW">—</span></div><div class="cv" id="oHW">—</div></div>
-                  <div class="crow"><div class="cl">Abono fijo por equipo<span class="cf">Sumás equipos sin sumar abono.</span></div><div class="cv obr">$0</div></div>
+                  <h5>2 · Ingresos</h5>
+                  <div class="crow"><div class="cl">Estudios / mes<span class="cf" id="ofVol">—</span></div><div class="cv" id="oVol">—</div></div>
+                  <div class="crow"><div class="cl">Ingreso bruto / mes<span class="cf" id="ofIng">—</span></div><div class="cv" id="oIng">—</div></div>
+                  <div class="crow"><div class="cl">Facturación total / mes (c/IVA)<span class="cf" id="ofFact">—</span></div><div class="cv" id="oFact">—</div></div>
+                </div>
+                <div class="cgroup">
+                  <h5>3 · Costos <span class="ctag">fijos</span></h5>
+                  <div class="crow"><div class="cl">Costo del proveedor / mes<span class="cf" id="ofCosto">—</span></div><div class="cv" id="oCosto">—</div></div>
+                  <div class="crow"><div class="cl">Costo efectivo / estudio<span class="cf" id="ofCef">—</span></div><div class="cv" id="oCef">—</div></div>
+                  <div class="crow"><div class="cl">Hardware (pago único)<span class="cf" id="ofHW">—</span></div><div class="cv soft" id="oHW">—</div></div>
+                </div>
+                <div class="cgroup">
+                  <h5>4 · Impuestos</h5>
+                  <div class="crow"><div class="cl">IVA trasladado / mes<span class="cf" id="ofIva">—</span></div><div class="cv soft" id="oIva">—</div></div>
+                  <div class="crow"><div class="cl">Ingresos Brutos (IIBB) / mes<span class="cf" id="ofIIBB">—</span></div><div class="cv" id="oIIBB">—</div></div>
+                  <div class="crow"><div class="cl">Impuesto a las ganancias / mes<span class="cf" id="ofGan">—</span></div><div class="cv" id="oGan">—</div></div>
                 </div>
               </div>
-              <div class="cgroup"><div class="crow" style="border:none;padding-top:2px"><div class="cl" style="font-size:11px"><span id="valueMsg">—</span></div></div></div>
+              <div class="cgroup cres">
+                <h5>5 · Resultado y reparto de la alianza</h5>
+                <div class="cres-row">
+                  <div class="cstat"><div class="ck">Margen bruto / mes</div><div class="cvv" id="oBruto">—</div><div class="cff" id="ofBruto">—</div></div>
+                  <div class="cstat hi"><div class="ck">Ganancia neta / mes</div><div class="cvv" id="oNeta">—</div><div class="cff" id="ofNeta">—</div></div>
+                  <div class="cstat hi"><div class="ck">Ganancia neta anual</div><div class="cvv" id="oAnual">—</div><div class="cff">Ganancia neta mensual × 12.</div></div>
+                </div>
+                <div class="cres-row" style="margin-top:7px">
+                  <div class="cstat"><div class="ck">% para Biotrust</div><div class="cvv"><input id="bpct" type="number" min="0" max="100" step="5" value="50" inputmode="numeric" spellcheck="false" aria-label="Porcentaje para Biotrust" style="width:100%;background:transparent;border:none;color:var(--obright);font:inherit;padding:0"></div><div class="cff">Editable. El resto queda para Nexolibre.</div></div>
+                  <div class="cstat hi"><div class="ck">Biotrust · año</div><div class="cvv" id="oBio">—</div><div class="cff" id="ofBio">—</div></div>
+                  <div class="cstat hi"><div class="ck">Nexolibre · año</div><div class="cvv" id="oNexo">—</div><div class="cff">Ganancia neta anual restante.</div></div>
+                </div>
+              </div>
             </div>
           </section>
 
@@ -441,6 +462,7 @@
         </div></div>
       </div>
     </section>
+
     <!-- 7 · POR QUÉ JUNTOS -->
     <section class="slide"><span class="wm">07</span>
       <div class="inner">
@@ -511,28 +533,27 @@
   });
   go(0);
 
-  /* ---------- calculadora (publica, sin margenes) ---------- */
+  /* ---------- calculadora ---------- */
   var ORDER=["Chile","Uruguay","Argentina","Colombia","USA"];
   var COUNTRY={
-    Chile:{price:1.20,iva:19,ref:200}, Uruguay:{price:1.00,iva:22,ref:180},
-    Argentina:{price:0.50,iva:21,ref:80}, Colombia:{price:0.60,iva:19,ref:120}, USA:{price:2.00,iva:0,ref:400}
+    Chile:{price:1.20,iva:19,iibb:0,tax:27}, Uruguay:{price:1.00,iva:22,iibb:0,tax:25},
+    Argentina:{price:0.40,iva:21,iibb:3,tax:35}, Colombia:{price:0.60,iva:19,iibb:0,tax:35},
+    USA:{price:2.00,iva:0,iibb:0,tax:21}
   };
   var VISIBLE={Chile:true,Uruguay:true,Argentina:true,Colombia:true,USA:true};
   var MODS=[
-    {k:"RM",n:"Resonancia",eq:1,pac:800,cf:1.2},
-    {k:"CT",n:"Tomografía",eq:1,pac:700,cf:1.2},
+    {k:"RM",n:"Resonancia",eq:6,pac:800,cf:1.2},
+    {k:"CT",n:"Tomografía",eq:9,pac:700,cf:1.2},
     {k:"US",n:"Ultrasonido",eq:0,pac:900,cf:1.2},
     {k:"RX",n:"Rayos X",eq:0,pac:1000,cf:1.2},
     {k:"MG",n:"Mamografía",eq:0,pac:300,cf:1.2}
   ];
-  var PLAN={
-    saas:{hw:150, piso:0.50}, ebox:{hw:500, piso:1.50}
-  };
+  /* costos fijos del proveedor (propuesta adjunta) */
+  var COST={saasModMes:1200/12, eboxRMMes:10000/12, eboxAdicMes:2100/12, hwCryo:150, hwEbox:500};
   var $=function(id){return document.getElementById(id);};
   function num(id){var e=$(id);if(!e)return 0;var v=parseFloat(e.value);return isNaN(v)?0:v;}
   function money(n){return (n<0?"–":"")+"$"+Math.round(Math.abs(n)).toLocaleString("es-ES");}
   function money2(n){return (n<0?"–":"")+"$"+Math.abs(n).toFixed(2).replace(".",",");}
-  function piso(){return PLAN[$("rmplan").value].piso;}
 
   $("countrySel").innerHTML=ORDER.map(function(n){
     return '<label id="chip-'+n+'" class="on"><input type="checkbox" id="chk-'+n+'" checked>'+n+'</label>';
@@ -548,16 +569,21 @@
     var c=COUNTRY[n];
     return '<tr id="prow-'+n+'"><td>'+n+'</td>'+
       '<td><input type="number" min="0" step="0.05" id="p-price-'+n+'" value="'+c.price.toFixed(2)+'" inputmode="decimal" spellcheck="false" aria-label="Precio de venta en '+n+'"></td>'+
-      '<td><input type="number" min="0" step="1" id="p-iva-'+n+'" value="'+c.iva+'" inputmode="decimal" spellcheck="false" aria-label="IVA en '+n+'"></td></tr>';
+      '<td><input type="number" min="0" step="1" id="p-iva-'+n+'" value="'+c.iva+'" inputmode="decimal" spellcheck="false" aria-label="IVA en '+n+'"></td>'+
+      '<td><input type="number" min="0" step="0.5" id="p-iibb-'+n+'" value="'+c.iibb+'" inputmode="decimal" spellcheck="false" aria-label="Ingresos Brutos en '+n+'"></td>'+
+      '<td><input type="number" min="0" step="1" id="p-tax-'+n+'" value="'+c.tax+'" inputmode="decimal" spellcheck="false" aria-label="Ganancias en '+n+'"></td></tr>';
   }).join("");
 
-  function syncParams(){ORDER.forEach(function(n){COUNTRY[n].price=num("p-price-"+n);COUNTRY[n].iva=num("p-iva-"+n);});}
+  function syncParams(){ORDER.forEach(function(n){
+    COUNTRY[n].price=num("p-price-"+n);COUNTRY[n].iva=num("p-iva-"+n);
+    COUNTRY[n].iibb=num("p-iibb-"+n);COUNTRY[n].tax=num("p-tax-"+n);});}
   function rebuildPais(){
     var sel=$("pais"),prev=sel.value,vis=ORDER.filter(function(n){return VISIBLE[n];});
     if(!vis.length){VISIBLE[prev]=true;$("chk-"+prev).checked=true;vis=[prev];}
     if(vis.indexOf(prev)<0)prev=vis[0];
     sel.innerHTML=vis.map(function(n){return '<option'+(n===prev?" selected":"")+'>'+n+'</option>';}).join("");
-    ORDER.forEach(function(n){var r=$("prow-"+n);if(r)r.hidden=!VISIBLE[n];var c=$("chip-"+n);if(c)c.classList.toggle("on",VISIBLE[n]);});
+    ORDER.forEach(function(n){var r=$("prow-"+n);if(r)r.hidden=!VISIBLE[n];
+      var c=$("chip-"+n);if(c)c.classList.toggle("on",VISIBLE[n]);});
   }
   function fitCalc(){
     var w=$("calcfit"),s=$("calcstage"); if(!w||!s)return;
@@ -571,46 +597,91 @@
   function calc(){
     syncParams(); rebuildPais();
     var active=$("pais").value,c=COUNTRY[active];
-    var precio=Math.max(piso(),num("p-price-"+active)), iva=c.iva/100;
+    var precio=c.price,iva=c.iva/100,iibb=c.iibb/100,tax=c.tax/100;
     var sedes=Math.max(0,num("sedes")),ebox=$("rmplan").value==="ebox";
-    var estTot=0,eqTot=0,rmEq=0;
+
+    var activas=0,volTot=0,rmEq=0,eqTot=0,adic=0;
     MODS.forEach(function(m){
-      var eq=num("eq-"+m.k),porEq=num("pac-"+m.k)*num("cf-"+m.k),vol=porEq*eq,on=eq>0;
-      var vc=$("vol-"+m.k); if(vc) vc.innerHTML=Math.round(vol).toLocaleString("es-ES")+(on?'<i>'+Math.round(porEq).toLocaleString("es-ES")+"/eq.</i>":"");
-      if(on){estTot+=vol;eqTot+=eq;}
-      if(m.k==="RM")rmEq=eq;
+      var eq=num("eq-"+m.k),pac=num("pac-"+m.k),cf=num("cf-"+m.k);
+      var porEq=pac*cf,vol=porEq*eq,on=eq>0;
+      var vc=$("vol-"+m.k);
+      if(vc) vc.innerHTML=Math.round(vol).toLocaleString("es-ES")+(on?'<i>'+Math.round(porEq).toLocaleString("es-ES")+"/eq.</i>":"");
+      if(on){activas++;volTot+=vol;eqTot+=eq;}
+      if(m.k==="RM")rmEq=eq; else if(on)adic++;
       var r=$("row-"+m.k); if(r) r.classList.toggle("dim",!on);
     });
     ORDER.forEach(function(n){var r=$("prow-"+n);if(r)r.classList.toggle("active",n===active);});
     $("tEq").textContent=eqTot;
-    $("tVol").textContent=Math.round(estTot).toLocaleString("es-ES");
+    $("tVol").textContent=Math.round(volTot).toLocaleString("es-ES");
 
-    var neto=estTot*precio, ivaAmt=neto*iva, total=neto+ivaAmt;
-    var hw=(ebox?PLAN.ebox.hw:PLAN.saas.hw)*rmEq;
-    $("oMes").textContent=money(neto);
-    $("oMesSub").textContent = iva>0 ? "Con IVA "+c.iva+"%: "+money(total)+"/mes" : "IVA no aplica";
-    $("oVol").textContent=Math.round(estTot).toLocaleString("es-ES");
+    var costoTot = ebox ? COST.eboxRMMes*rmEq + COST.eboxAdicMes*adic*sedes
+                        : COST.saasModMes*activas*sedes;
+    var ivaU=precio*iva, preIva=precio+ivaU;
+    var ingBruto=volTot*precio, ivaAmt=ingBruto*iva, factura=ingBruto+ivaAmt;
+    var iibbAmt=factura*iibb;                       // IIBB sobre la factura CON IVA
+    var margenBruto=ingBruto-costoTot;              // precio de venta − costo
+    var ganAmt=margenBruto>0?margenBruto*tax:0;     // ganancias sobre el margen
+    var neta=margenBruto-iibbAmt-ganAmt, netaAnual=neta*12;
+    var cef=volTot>0?costoTot/volTot:0;
+    var hwTot=(ebox?COST.hwEbox:COST.hwCryo)*rmEq;
+
     $("oPre").textContent=money2(precio);
-    $("oPreIva").textContent=money2(precio*(1+iva));
-    $("oFact").textContent=money(total);
-    $("ofFact").textContent=money(neto)+" + IVA "+money(ivaAmt)+".";
-    $("oAnual").textContent=money(neto*12);
-    $("oHW").textContent = rmEq>0 ? money(hw) : "—";
-    $("ofHW").textContent=(ebox?"$500":"$150")+"/RM × "+rmEq+" resonador(es). El equipo queda del centro.";
-    var pct=c.ref>0?precio/c.ref*100:0;
-    var pctTxt=pct>0?(pct<1?"menos del 1%":Math.round(pct)+"%"):"una fracción mínima";
-    $("valueMsg").innerHTML="El monitoreo representa <b>"+pctTxt+"</b> de lo que factura cada estudio: se paga por estudio realizado, sin abonos fijos por equipo.";
+    $("oIvaU").textContent=money2(ivaU);
+    $("ofIvaU").textContent=money2(precio)+" × IVA "+c.iva+"%. Se traslada al fisco.";
+    $("oPreIva").textContent=money2(preIva);
+    $("oVol").textContent=Math.round(volTot).toLocaleString("es-ES");
+    $("ofVol").textContent="Suma de (pacientes × coef.) × equipos. "+eqTot+" equipos en "+sedes+" sedes.";
+    $("oIng").textContent=money(ingBruto);
+    $("ofIng").textContent=Math.round(volTot).toLocaleString("es-ES")+" × "+money2(precio)+" (sin IVA). Antes de costos.";
+    $("oFact").textContent=money(factura);
+    $("ofFact").textContent=money(ingBruto)+" + IVA "+money(ivaAmt)+". Base del IIBB.";
+    $("oCosto").textContent=money(costoTot);
+    $("ofCosto").textContent=ebox
+      ? rmEq+" resonadores × $833"+(adic>0?" + "+adic+" mod. × $175 × "+sedes+" sedes":"")+". Fijo."
+      : activas+" modalidad(es) × $100 × "+sedes+" sedes. Por modalidad y sede.";
+    $("oCef").textContent=money2(cef);
+    $("ofCef").textContent=money(costoTot)+" ÷ "+Math.round(volTot).toLocaleString("es-ES")+" est. Baja con la densidad.";
+    $("oHW").textContent=money(hwTot);
+    $("ofHW").textContent=(ebox?"$500":"$150")+" × "+rmEq+" resonadores. Pago único.";
+    $("oIva").textContent=money(ivaAmt);
+    $("ofIva").textContent=money(ingBruto)+" × "+c.iva+"%. Lo paga el cliente: no afecta la ganancia.";
+    $("oIIBB").textContent=iibb>0?money(iibbAmt):"—";
+    $("ofIIBB").textContent=iibb>0?"Factura "+money(factura)+" (precio + IVA) × "+c.iibb+"%.":"No aplica en "+active+".";
+    $("oGan").textContent=money(ganAmt);
+    $("ofGan").textContent="Margen bruto "+money(margenBruto)+" × "+c.tax+"% (precio − costo).";
+    $("oBruto").textContent=money(margenBruto);
+    $("ofBruto").textContent=money(ingBruto)+" − "+money(costoTot)+" de costo.";
+    $("oNeta").textContent=money(neta);
+    $("ofNeta").textContent=money(margenBruto)+" − IIBB "+money(iibbAmt)+" − gan. "+money(ganAmt)+".";
+    $("oAnual").textContent=money(netaAnual);
+
+    var bp=Math.max(0,Math.min(100,num("bpct")));
+    var bio=netaAnual*bp/100;
+    $("oBio").textContent=money(bio);
+    $("ofBio").textContent=money(netaAnual)+" × "+bp+"%.";
+    $("oNexo").textContent=money(netaAnual-bio);
+
+    var v=$("verdict"),st=$("vSt"),ds=$("vDs");
+    v.classList.remove("good","warn","bad");
+    var pct=ingBruto>0?neta/ingBruto:-1;
+    if(volTot<=0||activas<=0){v.classList.add("bad");st.textContent="SIN CONFIGURAR";
+      ds.textContent="Agregá al menos una modalidad con equipos y pacientes.";}
+    else if(neta<=0){v.classList.add("bad");st.textContent="NO RENTABLE";
+      ds.textContent="Después de costos e impuestos la ganancia es negativa.";}
+    else if(pct<0.25){v.classList.add("warn");st.textContent="MARGEN AJUSTADO";
+      ds.textContent="Rentable pero fino ("+Math.round(pct*100)+"% del ingreso).";}
+    else{v.classList.add("good");st.textContent="RENTABLE";
+      ds.textContent="Ganancia neta sólida ("+Math.round(pct*100)+"% del ingreso). Costo efectivo "+money2(cef)+" vs precio "+money2(precio)+".";}
 
     if(fitRAF)cancelAnimationFrame(fitRAF);
     fitRAF=requestAnimationFrame(function(){fitRAF=0;fitCalc();});
   }
 
   $("pais").addEventListener("change",calc);
+  ["sedes","bpct"].forEach(function(id){$(id).addEventListener("input",calc);});
   $("rmplan").addEventListener("change",calc);
-  $("sedes").addEventListener("input",calc);
   ORDER.forEach(function(n){
-    $("p-price-"+n).addEventListener("input",calc);
-    $("p-iva-"+n).addEventListener("input",calc);
+    ["p-price-","p-iva-","p-iibb-","p-tax-"].forEach(function(x){$(x+n).addEventListener("input",calc);});
     $("chk-"+n).addEventListener("change",function(){VISIBLE[n]=this.checked;calc();});
   });
   MODS.forEach(function(m){["eq-","pac-","cf-"].forEach(function(x){$(x+m.k).addEventListener("input",calc);});});
