@@ -1,0 +1,52 @@
+{
+  "_comentario": "Config del agente que sincroniza el catálogo con DOTmed. Editá los mapeos si hace falta.",
+
+  "base_url_imagenes": "https://nexolibre.com/assets/parts/",
+  "moneda": "US Dollars",
+  "prefijo_sku": "NX-",
+  "_nota_prefijo": "Solo se borran/editan listings de DOTmed cuyo SKU empiece así. Protege publicaciones que hayas creado a mano.",
+
+  "categoria_default": "MRI Accessories",
+  "categorias": {
+    "bobina": "MRI Coil",
+    "coil": "MRI Coil",
+    "amplificador": "MRI Amplifier",
+    "amplificador de rf": "MRI Amplifier",
+    "amplificador de gradientes": "MRI Amplifier",
+    "gradiente": "MRI Amplifier",
+    "coldhead": "MRI Coldhead",
+    "cold head": "MRI Coldhead",
+    "compresor": "MRI Compressor",
+    "chiller": "MRI Chiller",
+    "inyector": "Injector MRI",
+    "fuente": "MRI Accessories",
+    "fuente de poder": "MRI Accessories",
+    "cable": "MRI Accessories",
+    "placa": "MRI Accessories",
+    "electronica": "MRI Accessories",
+    "monitor": "MRI Accessories",
+    "intercomunicador": "MRI Accessories",
+    "fantoma": "MRI Accessories",
+    "tomografo": "CT Scanner",
+    "ct": "CT Scanner"
+  },
+
+  "condicion_default": "Good",
+  "condiciones": {
+    "nuevo": "New",
+    "new": "New",
+    "excelente": "Excellent",
+    "reacondicionado": "Excellent",
+    "refurbished": "Excellent",
+    "usado": "Good",
+    "used": "Good",
+    "bueno": "Good",
+    "regular": "Fair",
+    "para partes": "Parts",
+    "parts": "Parts"
+  },
+
+  "make_offer": "y",
+  "auto_renew": "1",
+  "quantity_default": 1
+}

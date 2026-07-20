@@ -1,0 +1,28 @@
+name: Sincronizar catálogo con DOTmed
+
+on:
+  schedule:
+    - cron: "30 11 * * *"   # todos los días ~08:30 Argentina (después del agente de eBay)
+  workflow_dispatch:
+    inputs:
+      aplicar:
+        description: "Aplicar de verdad (si no, corre en simulación)"
+        type: boolean
+        default: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Sincronizar con DOTmed
+        env:
+          DOTMED_AUTH: ${{ secrets.DOTMED_AUTH }}
+          # En la corrida programada aplica; a mano solo si tildás "aplicar"
+          DOTMED_APPLY: ${{ (github.event_name == 'schedule' && vars.DOTMED_ACTIVO == '1') && '1' || (inputs.aplicar && '1' || '') }}
+        run: python3 tools/dotmed_sync/dotmed_sync.py
