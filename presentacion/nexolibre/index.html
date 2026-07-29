@@ -340,6 +340,25 @@ img.zoomable{cursor:zoom-in;}
 .tile.sw .tn{color:var(--orange-bright);}
 .tile.sw h3{color:var(--d-text);}
 .tile.sw p{color:var(--d-soft);}
+
+/* === 4 miradas (slide 8) === */
+.audgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
+.aud{background:var(--white);border:1px solid var(--line);border-top:4px solid var(--orange);border-radius:16px;padding:32px 26px;}
+.aud .role{font-family:var(--body);font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);}
+.aud h3{font-family:var(--display);font-weight:800;font-size:24px;margin:14px 0 11px;line-height:1.05;letter-spacing:-.01em;}
+.aud p{font-size:18.5px;color:var(--soft);line-height:1.42;}
+.slide.dark .aud{background:var(--d-surface);border-color:var(--d-line);border-top-color:var(--orange);}
+.slide.dark .aud .role{color:var(--orange-bright);}
+.slide.dark .aud h3{color:var(--d-text);}
+.slide.dark .aud p{color:var(--d-soft);}
+
+/* === criogenia: gauges + carrusel (slide 9) === */
+.cryowrap{display:grid;grid-template-columns:.42fr .58fr;gap:34px;align-items:center;margin-top:30px;}
+.cryogauges{grid-template-columns:1fr 1fr;gap:16px;}
+.cryogauges .gauge{padding:20px 20px 18px;}
+.cryogauges .gauge .val{font-size:44px;}
+.cryocar{border-radius:14px;}
+.cryocar .cd,.cryocar .cd img{height:376px;}
 </style>
 </head>
 <body>
@@ -362,7 +381,7 @@ img.zoomable{cursor:zoom-in;}
 
 <!-- ===== 2 · AGENDA (5 tarjetas) ===== -->
 <section class="slide white portfolio">
-    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">Lo que ofrecemos</span><span>02 / 13</span></div>
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">Lo que ofrecemos</span><span>02 / 14</span></div>
     <div class="wm">02</div>
     <div class="pwrap">
         <div class="kick reveal d2">Un único socio</div>
@@ -382,7 +401,7 @@ img.zoomable{cursor:zoom-in;}
 </section>
 
 <!-- ===== 3 · SEC 1-A · Ingeniería + carrusel labs ===== -->
-<section class="slide paper" data-sec="1" data-count="03 / 13">
+<section class="slide paper" data-sec="1" data-count="03 / 14">
     <div class="secbody">
         <div class="sechead">
             <div class="kick reveal d2">01 · Ingeniería y reparación</div>
@@ -394,7 +413,7 @@ img.zoomable{cursor:zoom-in;}
 </section>
 
 <!-- ===== 4 · SEC 1-B · Ingeniería detalle ===== -->
-<section class="slide white" data-sec="1" data-count="04 / 13">
+<section class="slide white" data-sec="1" data-count="04 / 14">
     <div class="secbody">
         <div class="split">
             <div>
@@ -404,7 +423,7 @@ img.zoomable{cursor:zoom-in;}
             </div>
             <div class="metrio reveal d4" style="align-self:center;">
                 <div class="m"><b><span data-count-num="15" data-suffix="+">0</span></b><span>años de experiencia</span></div>
-                <div class="m"><b><span data-count-num="2500" data-suffix="+">0</span></b><span>reparaciones realizadas</span></div>
+                <div class="m"><b><span data-count-num="3000" data-suffix="+">0</span></b><span>reparaciones realizadas</span></div>
                 <div class="m"><b><span data-count-num="3">0</span></b><span>laboratorios propios</span></div>
                 <div class="m" style="grid-column:span 3;"><b>AR · CL · USA</b><span>ingeniería y soporte multimarca en toda la región</span></div>
             </div>
@@ -413,7 +432,7 @@ img.zoomable{cursor:zoom-in;}
 </section>
 
 <!-- ===== 5 · SEC 2-A · Equipos + carrusel stock ===== -->
-<section class="slide paper" data-sec="2" data-count="05 / 13">
+<section class="slide paper" data-sec="2" data-count="05 / 14">
     <div class="secbody">
         <div class="sechead">
             <div class="kick reveal d2">02 · Equipos y repuestos</div>
@@ -425,7 +444,7 @@ img.zoomable{cursor:zoom-in;}
 </section>
 
 <!-- ===== 6 · SEC 2-B · Proyectos llave en mano (movimientos de equipos) ===== -->
-<section class="slide white" data-sec="2" data-count="06 / 13">
+<section class="slide white" data-sec="2" data-count="06 / 14">
     <div class="secbody">
         <div class="sechead">
             <div class="kick reveal d2">02 · Equipos y repuestos</div>
@@ -437,80 +456,103 @@ img.zoomable{cursor:zoom-in;}
 </section>
 
 <!-- ===== 7 · SEC 3-A · Monitoreo plataforma ===== -->
-<section class="slide dark" data-sec="3" data-count="07 / 13">
+<section class="slide dark" data-sec="3" data-count="07 / 14">
     <div class="secbody">
         <div class="split wide">
             <div>
                 <div class="kick reveal d2">03 · Monitoreo y Operaciones</div>
                 <h2 class="reveal d3">El equipo, bajo<br>control <span class="hl">24/7.</span></h2>
                 <p class="desc reveal d4">Un dispositivo no invasivo más una plataforma en la nube monitorean cada resonador <b>sin acceder a datos de pacientes</b>, y cruzan el estado técnico con los datos de producción del&nbsp;centro.</p>
-                <div class="bignum-stat reveal d4"><b><span data-count-num="40" data-prefix="+" data-suffix="%">+0%</span></b><span>más producción, sin sumar&nbsp;hardware</span></div>
             </div>
             <div class="reveal d4">
                 <div class="instrument" style="position:relative;">
                     <div class="top"><i></i> PLATAFORMA DE MONITOREO · PANEL OPERATIVO</div>
                     <span class="zoomhint">⤢ Clic para ampliar</span>
-                    <img class="zoomable" src="assets/gc-dashboard.png" alt="Panel operativo de monitoreo">
+                    <img class="zoomable" src="assets/ebox-panel.png" alt="Panel operativo de la plataforma de monitoreo">
                 </div>
             </div>
         </div>
     </div>
 </section>
 
-<!-- ===== 8 · SEC 3-B · Criogenia / quench ===== -->
-<section class="slide dark" data-sec="3" data-count="08 / 13">
+<!-- ===== 8 · SEC 3 · A quién le sirve (4 miradas) ===== -->
+<section class="slide dark" data-sec="3" data-count="08 / 14">
+    <div class="secbody" style="display:flex;flex-direction:column;justify-content:center;">
+        <div class="sechead">
+            <div class="kick reveal d2">Una plataforma, cuatro miradas</div>
+            <h2 class="reveal d3" style="font-size:60px;">Cada perfil, <span class="hl">su dato de valor.</span></h2>
+        </div>
+        <div class="audgrid reveal d4" style="margin-top:34px;">
+            <div class="aud"><div class="role">Ingeniería · Biomédica</div><h3>Salud técnica del equipo</h3><p>Helio, cold head, presión, riesgo de quench y mantenimiento predictivo.</p></div>
+            <div class="aud"><div class="role">Radiología</div><h3>Producción y flujo</h3><p>Volumen, tiempos de giro, turnos, worklist y calidad de protocolo.</p></div>
+            <div class="aud"><div class="role">Finanzas · Contaduría</div><h3>Ingresos y eficiencia</h3><p>Utilización, downtime evitado, previsión de producción y costos.</p></div>
+            <div class="aud"><div class="role">Dirección</div><h3>Control multi-sede</h3><p>Un tablero único con metas, alertas y comparación entre equipos.</p></div>
+        </div>
+    </div>
+</section>
+
+<!-- ===== 9 · SEC 3-C · Criogenia / cadena de frío ===== -->
+<section class="slide dark" data-sec="3" data-count="09 / 14">
     <div class="secbody">
-        <div class="split">
-            <div>
-                <div class="kick reveal d2">03 · Monitoreo crítico — Criogenia</div>
-                <h2 class="reveal d3" style="font-size:60px;margin:16px 0 22px;">Detectar el quench<br>antes de que <span class="hl">ocurra.</span></h2>
-                <p class="desc reveal d4">Helio, presión del magneto, cold head y criocompresor en tiempo real. Ante un valor crítico, el sistema avisa — <b>antes</b> de la pérdida de helio y semanas de&nbsp;inactividad.</p>
+        <div class="sechead">
+            <div class="kick reveal d2">03 · Monitoreo crítico — Criogenia</div>
+            <h2 class="reveal d3" style="font-size:56px;">Control y <span class="hl">previsibilidad</span><br>de la cadena de frío.</h2>
+            <p class="lead reveal d4" style="max-width:1500px;">Helio, presión del magneto, cold head y criocompresor medidos en continuo, con histórico y alertas escalonadas — <b>antes</b> de la pérdida de helio y semanas de&nbsp;inactividad.</p>
+        </div>
+        <div class="cryowrap reveal d5">
+            <div class="gauges cryogauges">
+                <div class="gauge crit"><span class="st">CRÍTICO</span><div class="lab">Nivel de Helio</div><div class="val">78.7<u>%</u></div><div class="bar"><i style="width:79%"></i></div></div>
+                <div class="gauge"><span class="st">OK</span><div class="lab">Presión vessel</div><div class="val">2.01<u>psi</u></div><div class="bar"><i style="width:48%"></i></div></div>
+                <div class="gauge"><span class="st">OK</span><div class="lab">Cold Head</div><div class="val">4.11<u>K</u></div><div class="bar"><i style="width:38%"></i></div></div>
+                <div class="gauge"><span class="st">OK</span><div class="lab">Shield Temp</div><div class="val">42.2<u>K</u></div><div class="bar"><i style="width:62%"></i></div></div>
             </div>
-            <div class="gauges reveal d4" style="align-self:center;">
-                <div class="gauge crit"><span class="st">CRÍTICO</span><div class="lab">Nivel de Helio</div><div class="val">78.6<u>%</u></div><div class="bar"><i style="width:79%"></i></div></div>
-                <div class="gauge"><span class="st">OK</span><div class="lab">Presión vessel</div><div class="val">1.91<u>psi</u></div><div class="bar"><i style="width:46%"></i></div></div>
-                <div class="gauge"><span class="st">OK</span><div class="lab">Cold Head</div><div class="val">4.16<u>K</u></div><div class="bar"><i style="width:38%"></i></div></div>
-                <div class="gauge"><span class="st">OK</span><div class="lab">Shield Temp</div><div class="val">41.5<u>K</u></div><div class="bar"><i style="width:62%"></i></div></div>
-            </div>
+            <div class="carousel cryocar" data-carousel="cryo"></div>
         </div>
     </div>
 </section>
 
 <!-- ===== 9 · SEC 4-A · Informes Radiológicos (servicio + herramientas) ===== -->
-<section class="slide dark" data-sec="4" data-count="09 / 13">
+<section class="slide dark" data-sec="4" data-count="10 / 14">
     <div class="secbody" style="display:flex;flex-direction:column;justify-content:center;">
         <div class="sechead" style="margin-bottom:6px;">
             <div class="kick reveal d2">04 · Informes Radiológicos</div>
             <h2 class="reveal d3" style="font-size:60px;">Informamos por vos, o le damos <span class="hl">herramientas a tu equipo.</span></h2>
         </div>
         <div class="offers reveal d4" style="margin-top:26px;">
-            <div class="offer"><div class="tg">Servicio</div><h3>Informes a demanda</h3><p>Para instituciones con <b>alta demanda de radiólogos</b>: contamos con la estructura y el equipo para informar tus estudios y entregar resultados en&nbsp;tiempo.</p></div>
+            <div class="offer"><div class="tg">Servicio</div><h3>Informes radiológicos 24/7</h3><p>Para instituciones con <b>alta demanda de radiólogos</b>: contamos con la estructura y el equipo para informar tus estudios y entregar resultados en&nbsp;tiempo.</p></div>
             <div class="offer"><div class="tg">Herramientas</div><h3>Dictado que acelera la redacción</h3><p>IA de transcripción que reduce hasta <b>70%</b> el tiempo de redacción — para tus radiólogos o para adquirir en la&nbsp;institución.</p></div>
         </div>
     </div>
 </section>
 
 <!-- ===== 10 · SEC 4-B · IA de dictado + visor ===== -->
-<section class="slide dark" data-sec="4" data-count="10 / 13">
+<section class="slide dark" data-sec="4" data-count="11 / 14">
     <div class="secbody">
         <div class="split wide">
             <div>
                 <div class="kick reveal d2">04 · Informes Radiológicos</div>
                 <h2 class="reveal d3" style="font-size:58px;">Dictado con IA<br>+ <span class="hl">visor de estudios.</span></h2>
                 <p class="desc reveal d4">Un visor DICOM de alto rendimiento creado por radiólogos, integrado con dictado por voz: el radiólogo dicta, las mediciones se inyectan solas y el informe estructurado queda listo — <b>sin cambiar de&nbsp;ventana</b>.</p>
-                <ul class="offer" style="border:none;padding:0;background:none;margin-top:22px;"><li style="color:var(--text);font-size:20px;">Hanging protocols · 2D · MPR · 3D · VR · estudios de 1000+ cortes</li><li style="color:var(--text);font-size:20px;margin-top:10px;">Plantillas y exportación a Word/PDF con firma&nbsp;digital</li></ul>
+                <ul class="offer" style="border:none;padding:0;background:none;margin-top:22px;"><li style="color:var(--d-text);font-size:20px;">Hanging protocols · 2D · MPR · 3D · VR · estudios de 1000+ cortes</li><li style="color:var(--d-text);font-size:20px;margin-top:10px;">Plantillas y exportación a Word/PDF con firma&nbsp;digital</li></ul>
             </div>
-            <div class="metrio reveal d4" style="grid-template-columns:1fr;align-self:center;gap:18px;">
-                <div class="m"><b>−70%</b><span>tiempo de redacción del radiólogo</span></div>
-                <div class="m"><b>+40%</b><span>producción de informes</span></div>
-                <div class="m"><b>−60%</b><span>tiempo de entrega al paciente</span></div>
+            <div class="reveal d4" style="align-self:center;">
+                <div class="instrument" style="position:relative;margin-bottom:20px;">
+                    <div class="top"><i></i> VISOR DICOM · MPR · 3D · VR</div>
+                    <span class="zoomhint">⤢ Clic para ampliar</span>
+                    <img class="zoomable" src="assets/tomografia-hero.jpg" alt="Visor DICOM de estudios">
+                </div>
+                <div class="metrio" style="gap:14px;">
+                    <div class="m"><b>−70%</b><span>tiempo de redacción</span></div>
+                    <div class="m"><b>+40%</b><span>producción de informes</span></div>
+                    <div class="m"><b>−60%</b><span>tiempo de entrega</span></div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- ===== 11 · SEC 5-A · Mejora de Imagen (IA MRI) ===== -->
-<section class="slide dark" data-sec="5" data-count="11 / 13">
+<section class="slide dark" data-sec="5" data-count="12 / 14">
     <div class="secbody">
         <div class="split wide">
             <div>
@@ -532,7 +574,7 @@ img.zoomable{cursor:zoom-in;}
 </section>
 
 <!-- ===== 12 · SEC 5-B · Mejora de Imagen · cuantificación ===== -->
-<section class="slide dark" data-sec="5" data-count="12 / 13">
+<section class="slide dark" data-sec="5" data-count="13 / 14">
     <div class="secbody">
         <div class="split">
             <div>
@@ -550,7 +592,7 @@ img.zoomable{cursor:zoom-in;}
 
 <!-- ===== 13 · CIERRE (invitación + tarjetas + Grupo Nexo) ===== -->
 <section class="slide white portfolio finalv">
-    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">¿Empezamos?</span><span>13 / 13</span></div>
+    <div class="meta reveal d1"><span class="lbl"><img class="mk" src="assets/nexolibre-mark.svg" alt="">¿Empezamos?</span><span>14 / 14</span></div>
     <div class="wm">13</div>
     <div class="pwrap">
         <div class="finaltop reveal d2">
@@ -600,6 +642,10 @@ const SECTIONS=[
     {n:'05',label:'Mejora de Imagen',grp:'sw'},
 ];
 const CAROUSELS={
+    cryo:[
+        ['assets/ebox-cryo-valores.png','Estado actual','Valores criogénicos en vivo'],
+        ['assets/ebox-cryo-graficos.png','Histórico','Tendencia de cada parámetro'],
+    ],
     labs:[
         ['assets/labs/lab-arg-1.jpg','Argentina','Laboratorio · reparación de bobinas'],
         ['assets/labs/lab-usa-1.jpg','USA','Laboratorio de electrónica y RF'],
