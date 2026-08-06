@@ -17,3 +17,6 @@ Copia de *
 # Resultados del agente de oportunidades (no publicar)
 tools/market_agent/out/
 _shots/
+
+# Grafo de conocimiento graphify (análisis local, no es parte del sitio)
+graphify-out/
