@@ -543,3 +543,75 @@
 .ps-card h4 .arrow{color:var(--accent)}
 .ps-card p{font-size:14.5px;line-height:1.55}
 @media(max-width:860px){.ps-grid{grid-template-columns:1fr}}
+
+/* ================= Monitoreo: laboratorio interactivo del resonador ================= */
+.reso-lab{display:grid;grid-template-columns:1.18fr .82fr;gap:24px;margin-top:30px;align-items:stretch}
+.reso-stage{position:relative;background:radial-gradient(120% 120% at 28% 0%,rgba(255,178,62,.10),transparent 55%),var(--surface);border:1px solid var(--border-2);border-radius:20px;padding:20px 20px 16px;box-shadow:var(--shadow);overflow:hidden}
+.seg-toggle{display:inline-flex;background:var(--bg-2);border:1px solid var(--border-2);border-radius:30px;padding:4px;gap:4px}
+.seg-toggle button{border:0;background:transparent;color:var(--muted);font-family:'Exo',sans-serif;font-weight:800;font-size:13px;letter-spacing:.02em;padding:9px 18px;border-radius:24px;cursor:pointer;transition:.25s var(--ease);display:inline-flex;align-items:center;gap:7px}
+.seg-toggle button:focus-visible{outline:2px solid var(--accent-bright);outline-offset:2px}
+.seg-toggle button .sg-dot{width:8px;height:8px;border-radius:50%;background:currentColor;opacity:.55}
+.seg-toggle button[data-mode="sin"].active{background:#ff8a5c;color:#2a1710}
+.seg-toggle button[data-mode="con"].active{background:var(--accent);color:#231a10}
+.seg-toggle button.active .sg-dot{opacity:1}
+.reso-hint{margin:6px 0 4px;font-size:12px;color:var(--muted-2);font-weight:600}
+/* escenario SVG */
+.reso-frame{position:relative;margin-top:8px;border-radius:14px;overflow:hidden;background:radial-gradient(90% 130% at 50% 0%,#4f4842,#413b35)}
+.reso-svg{width:100%;height:auto;display:block}
+.reso-bore{fill:none;stroke-width:16;transition:stroke .4s var(--ease)}
+.mode-sin .reso-bore{stroke:#7a4a3a}
+.mode-con .reso-bore{stroke:#f19000}
+.reso-table{fill:#5c554d;stroke:var(--border-2);stroke-width:1.5}
+.reso-body{fill:#6c655c}
+.reso-grid-line{stroke:rgba(244,239,230,.10);stroke-width:1}
+/* barrido al pasar el cursor / modo con */
+.scan-sweep{opacity:0}
+@media(prefers-reduced-motion:no-preference){
+  .reso-frame:hover .scan-sweep,.mode-con .scan-sweep{opacity:1;animation:sweep 2.6s var(--ease) infinite}
+  @keyframes sweep{0%{transform:translateX(-40%)}100%{transform:translateX(140%)}}
+  .mode-con .hs-dot{animation:hspulse 2s ease-in-out infinite}
+  .mode-sin [data-crit="1"] .hs-dot{animation:hsalert 1.1s steps(1) infinite}
+  @keyframes hspulse{0%,100%{box-shadow:0 0 0 0 rgba(255,178,62,.5)}50%{box-shadow:0 0 0 9px rgba(255,178,62,0)}}
+  @keyframes hsalert{0%,100%{box-shadow:0 0 0 0 rgba(255,138,92,.6)}50%{box-shadow:0 0 0 8px rgba(255,138,92,0)}}
+}
+/* hotspots */
+.hotspot{position:absolute;transform:translate(-50%,-50%);border:0;background:transparent;padding:0;cursor:pointer;z-index:2}
+.hotspot:focus-visible{outline:none}
+.hs-dot{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;border:2px solid #fff;transition:.25s var(--ease)}
+.mode-sin .hs-dot{background:#ff8a5c}
+.mode-con .hs-dot{background:var(--accent)}
+.hs-dot::after{content:"";width:6px;height:6px;border-radius:50%;background:#fff}
+.hotspot:hover .hs-dot,.hotspot:focus-visible .hs-dot{transform:scale(1.25)}
+/* tooltip */
+.hs-tip{position:absolute;left:50%;bottom:calc(100% + 12px);transform:translateX(-50%) translateY(6px);width:250px;max-width:74vw;background:#3f3a34;border:1px solid var(--border-2);border-radius:14px;padding:14px 15px;box-shadow:0 24px 50px -22px rgba(0,0,0,.7);opacity:0;visibility:hidden;transition:.22s var(--ease);z-index:5;text-align:left}
+.hotspot:hover .hs-tip,.hotspot:focus-visible .hs-tip,.hotspot.open .hs-tip{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0)}
+.hs-tip::after{content:"";position:absolute;top:100%;left:50%;transform:translateX(-50%);border:7px solid transparent;border-top-color:#3f3a34}
+.hs-tip .hs-k{display:inline-flex;align-items:center;gap:7px;font-family:'Exo',sans-serif;font-weight:800;font-size:13px;letter-spacing:.01em;margin-bottom:6px}
+.hs-tip .hs-k svg{width:15px;height:15px;flex:0 0 auto}
+.mode-sin .hs-tip .hs-k{color:#ff8a5c}
+.mode-con .hs-tip .hs-k{color:var(--accent-bright)}
+.hs-tip p{font-size:13px;line-height:1.5;color:var(--text);margin:0}
+.hs-tip .t-con{display:none}
+.mode-con .hs-tip .t-sin{display:none}
+.mode-con .hs-tip .t-con{display:block}
+.mode-con .hs-tip .t-con .hs-k{color:var(--accent-bright)}
+/* invertir tooltips de la fila inferior para que no se corten */
+.hotspot.down .hs-tip{bottom:auto;top:calc(100% + 12px)}
+.hotspot.down .hs-tip::after{top:auto;bottom:100%;border-top-color:transparent;border-bottom-color:#3f3a34}
+/* panel KPI */
+.kpi-panel{display:flex;flex-direction:column;gap:12px}
+.kpi-head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.kpi-head .kpi-state{font-size:11px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;padding:5px 12px;border-radius:20px}
+.mode-sin .kpi-head .kpi-state{background:rgba(255,138,92,.16);color:#ff8a5c;border:1px solid rgba(255,138,92,.4)}
+.mode-con .kpi-head .kpi-state{background:rgba(255,178,62,.16);color:var(--accent-bright);border:1px solid rgba(255,178,62,.45)}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:15px 17px;display:flex;align-items:center;gap:14px;transition:.3s var(--ease)}
+.kpi .kpi-ic{width:38px;height:38px;flex:0 0 auto;border-radius:11px;display:grid;place-items:center;transition:.3s var(--ease)}
+.mode-sin .kpi .kpi-ic{background:rgba(255,138,92,.14);color:#ff8a5c}
+.mode-con .kpi .kpi-ic{background:rgba(255,178,62,.16);color:var(--accent-bright)}
+.kpi-txt{display:flex;flex-direction:column;line-height:1.15}
+.kpi-val{font-family:'Exo',sans-serif;font-weight:900;font-size:26px;letter-spacing:-.02em;transition:color .3s var(--ease)}
+.mode-sin .kpi-val{color:#ff8a5c}
+.mode-con .kpi-val{color:var(--accent-bright)}
+.kpi-lbl{font-size:12px;color:var(--muted);font-weight:600;margin-top:2px}
+.kpi-note{font-size:11px;color:var(--muted-2);text-align:center;margin-top:2px}
+@media(max-width:900px){.reso-lab{grid-template-columns:1fr}.hs-tip{width:210px}}
