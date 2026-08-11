@@ -100,33 +100,12 @@
         <p class="reso-hint" data-en="Tip: hover or tap the orange points" data-es="Tip: pasá el cursor o tocá los puntos naranjas" data-pt="Dica: passe o cursor ou toque nos pontos laranjas">Tip: pasá el cursor o tocá los puntos naranjas</p>
 
         <div class="reso-frame">
-          <svg class="reso-svg" viewBox="0 0 640 380" role="img" aria-label="Esquema de un resonador magnético (MRI)">
-            <defs>
-              <linearGradient id="sweepG" x1="0" y1="0" x2="1" y2="0">
-                <stop offset="0" stop-color="#ffa62e" stop-opacity="0"/><stop offset=".5" stop-color="#ffa62e" stop-opacity=".55"/><stop offset="1" stop-color="#ffa62e" stop-opacity="0"/>
-              </linearGradient>
-            </defs>
-            <!-- piso -->
-            <line class="reso-grid-line" x1="40" y1="330" x2="600" y2="330"/>
-            <line class="reso-grid-line" x1="120" y1="355" x2="520" y2="355"/>
-            <!-- cuerpo del gantry -->
-            <rect class="reso-body" x="150" y="70" width="340" height="240" rx="26"/>
-            <!-- bore (túnel) -->
-            <circle class="reso-bore" cx="320" cy="190" r="92"/>
-            <circle cx="320" cy="190" r="66" fill="#3a352f"/>
-            <circle cx="320" cy="190" r="40" fill="#2f2b26"/>
-            <!-- barrido -->
-            <rect class="scan-sweep" x="228" y="98" width="60" height="184" fill="url(#sweepG)" rx="8"/>
-            <!-- camilla -->
-            <rect class="reso-table" x="300" y="196" width="250" height="26" rx="8"/>
-            <rect class="reso-table" x="470" y="222" width="14" height="66" rx="4"/>
-            <!-- paciente (silueta simple) -->
-            <circle cx="345" cy="209" r="8" fill="#8c857b"/>
-            <rect x="356" y="203" width="120" height="12" rx="6" fill="#8c857b"/>
-          </svg>
+          <img class="reso-photo" src="/assets/monitoreo/resonador.jpg" alt="Resonador magnético (MRI) en sala clínica" width="1600" height="900" />
+          <div class="reso-tint" aria-hidden="true"></div>
+          <div class="scan-sweep" aria-hidden="true"></div>
 
           <!-- HOTSPOTS -->
-          <button type="button" class="hotspot" data-crit="1" style="left:50%;top:24%" aria-label="Nivel de helio y cold head">
+          <button type="button" class="hotspot down" data-crit="1" style="left:62%;top:13%" aria-label="Nivel de helio y cold head">
             <span class="hs-dot"></span>
             <span class="hs-tip">
               <span class="t-sin"><span class="hs-k"><svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><span data-en="Helium &amp; cold head" data-es="Helio y cold head" data-pt="Hélio e cold head">Helio y cold head</span></span><p data-en="You don't know the helium level or cold head wear until it's too late. A silent boil-off can end in a quench." data-es="No sabés el nivel de helio ni el desgaste del cold head hasta que es tarde. Un boil-off silencioso puede terminar en quench." data-pt="Você não sabe o nível de hélio nem o desgaste do cold head até ser tarde. Um boil-off silencioso pode terminar em quench.">No sabés el nivel de helio ni el desgaste del cold head hasta que es tarde. Un boil-off silencioso puede terminar en quench.</p></span>
@@ -134,7 +113,7 @@
             </span>
           </button>
 
-          <button type="button" class="hotspot" data-crit="1" style="left:32%;top:50%" aria-label="Presión del magneto">
+          <button type="button" class="hotspot" data-crit="1" style="left:84%;top:42%" aria-label="Presión del magneto">
             <span class="hs-dot"></span>
             <span class="hs-tip">
               <span class="t-sin"><span class="hs-k"><svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><span data-en="Magnet &amp; cryocompressor" data-es="Magneto y criocompresor" data-pt="Magneto e criocompressor">Magneto y criocompresor</span></span><p data-en="No telemetry on magnet pressure or the cryocompressor. Degradation goes unnoticed until the scanner is already down." data-es="Sin telemetría de la presión del magneto ni del criocompresor. La degradación pasa desapercibida hasta que el equipo ya cayó." data-pt="Sem telemetria da pressão do magneto nem do criocompressor. A degradação passa despercebida até o equipamento cair.">Sin telemetría de la presión del magneto ni del criocompresor. La degradación pasa desapercibida hasta que el equipo ya cayó.</p></span>
@@ -142,7 +121,7 @@
             </span>
           </button>
 
-          <button type="button" class="hotspot" style="left:68%;top:50%" aria-label="Gradientes y RF">
+          <button type="button" class="hotspot" style="left:57%;top:72%" aria-label="Gradientes y RF">
             <span class="hs-dot"></span>
             <span class="hs-tip">
               <span class="t-sin"><span class="hs-k"><svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><span data-en="Gradients &amp; RF" data-es="Gradientes y RF" data-pt="Gradientes e RF">Gradientes y RF</span></span><p data-en="Gradient and RF faults surface only when the equipment is already stopped — with patients scheduled and no plan B." data-es="Las fallas de gradientes y RF se detectan recién con el equipo detenido — con pacientes agendados y sin plan B." data-pt="As falhas de gradientes e RF aparecem só com o equipamento parado — com pacientes agendados e sem plano B.">Las fallas de gradientes y RF se detectan recién con el equipo detenido — con pacientes agendados y sin plan B.</p></span>
@@ -150,7 +129,7 @@
             </span>
           </button>
 
-          <button type="button" class="hotspot down" style="left:45%;top:74%" aria-label="Producción y turnos">
+          <button type="button" class="hotspot" style="left:30%;top:58%" aria-label="Producción y turnos">
             <span class="hs-dot"></span>
             <span class="hs-tip">
               <span class="t-sin"><span class="hs-k"><svg fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M12 9v4M12 17h.01M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg><span data-en="Production &amp; shifts" data-es="Producción y turnos" data-pt="Produção e turnos">Producción y turnos</span></span><p data-en="You run the real production and cost per shift blind — decisions made on intuition, not data." data-es="Manejás la producción y el costo real por turno a ciegas — decisiones por intuición, no por dato." data-pt="Você gerencia a produção e o custo real por turno às cegas — decisões por intuição, não por dado.">Manejás la producción y el costo real por turno a ciegas — decisiones por intuición, no por dato.</p></span>
