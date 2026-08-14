@@ -56,8 +56,8 @@ img,svg{max-width:100%;max-height:100%;}
 .ruler{position:absolute;left:120px;right:120px;bottom:64px;height:1px;background:var(--line);z-index:2;}
 .ruler::before,.ruler::after{content:"";position:absolute;top:-5px;width:1px;height:11px;background:inherit;}
 .ruler::before{left:0}.ruler::after{right:0}
-.kick{font-family:var(--body);font-weight:700;font-size:21px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange-br);}
-h1,h2,h3{font-family:var(--display);font-weight:900;line-height:.99;letter-spacing:-.02em;color:var(--text);}
+.kick{font-family:var(--body);font-weight:700;font-size:21px;letter-spacing:.2em;text-transform:uppercase;color:var(--orange-br);display:block;margin-bottom:24px;}
+h1,h2,h3{font-family:var(--display);font-weight:900;line-height:1.12;letter-spacing:-.02em;color:var(--text);}
 .hl{color:var(--orange-br);} em{font-style:italic;}
 .stage-pad{position:absolute;inset:0;padding:120px;display:flex;flex-direction:column;justify-content:flex-end;}
 
@@ -124,7 +124,7 @@ img.zoomable{cursor:zoom-in;}
 /* audience grid */
 .audgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;margin-top:54px;}
 .aud{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--orange);border-radius:16px;padding:34px 28px;}
-.aud .ico{font-size:34px;} .aud h3{font-size:25px;margin:16px 0 12px;line-height:1.05;}
+.aud h3{font-size:25px;margin:16px 0 12px;line-height:1.05;}
 .aud .role{font-family:var(--body);font-weight:700;font-size:14px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange-br);}
 .aud p{font-size:18.5px;color:var(--soft);line-height:1.42;}
 
@@ -258,10 +258,10 @@ img.zoomable{cursor:zoom-in;}
         <div class="kick reveal d2">Una plataforma, cuatro miradas</div>
         <h2 class="reveal d3" style="font-size:66px;">Cada perfil, <span class="hl">su dato de valor.</span></h2>
         <div class="audgrid">
-            <div class="aud reveal d3"><div class="ico">🛠️</div><div class="role">Ingeniería · Biomédica</div><h3>Salud técnica del equipo</h3><p>Helio, cold head, presión, riesgo de quench y mantenimiento predictivo.</p></div>
-            <div class="aud reveal d4"><div class="ico">🩻</div><div class="role">Radiología</div><h3>Producción y flujo</h3><p>Volumen, tiempos de giro, turnos, worklist y calidad de protocolo.</p></div>
-            <div class="aud reveal d5"><div class="ico">📊</div><div class="role">Finanzas · Dirección</div><h3>Ingresos y eficiencia</h3><p>Utilización, downtime evitado, previsión de producción y comparación entre&nbsp;sedes.</p></div>
-            <div class="aud reveal d6"><div class="ico">🧠</div><div class="role">Toda el área</div><h3>Alertas automáticas</h3><p>El sistema prioriza qué mirar primero — sin pedir reportes manuales.</p></div>
+            <div class="aud reveal d3"><div class="role">Ingeniería · Biomédica</div><h3>Salud técnica del equipo</h3><p>Helio, cold head, presión, riesgo de quench y mantenimiento predictivo.</p></div>
+            <div class="aud reveal d4"><div class="role">Radiología</div><h3>Producción y flujo</h3><p>Volumen, tiempos de giro, turnos, worklist y calidad de protocolo.</p></div>
+            <div class="aud reveal d5"><div class="role">Finanzas · Dirección</div><h3>Ingresos y eficiencia</h3><p>Utilización, downtime evitado, previsión de producción y comparación entre&nbsp;sedes.</p></div>
+            <div class="aud reveal d6"><div class="role">Toda el área</div><h3>Alertas automáticas</h3><p>El sistema prioriza qué mirar primero — sin pedir reportes manuales.</p></div>
         </div>
     </div>
 </section>
@@ -303,8 +303,8 @@ img.zoomable{cursor:zoom-in;}
             <div class="reveal d3">
                 <div class="instrument" style="position:relative;">
                     <div class="top"><i></i> TURNOS · PRODUCTIVIDAD Y MAPA DE CALOR</div>
-                    <span class="zhint live"><i></i>en vivo</span>
-                    <video autoplay loop muted playsinline src="assets/turnos.mp4"></video>
+                    <span class="zhint">⤢ ampliar</span>
+                    <img class="zoomable" src="assets/turnos.png" alt="Turnos y mapa de calor">
                 </div>
             </div>
             <div class="copy">
