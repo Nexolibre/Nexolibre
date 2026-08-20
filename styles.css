@@ -539,7 +539,7 @@
 .ps-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:26px 28px;box-shadow:var(--shadow);transition:.22s var(--ease)}
 .ps-card:hover{transform:translateY(-3px);border-color:rgba(241,144,0,.45)}
 .ps-fact{display:inline-flex;align-items:center;gap:8px;font-size:12.5px;font-weight:600;color:var(--muted);background:var(--bg-2);border:1px solid var(--border);border-radius:30px;padding:5px 13px;line-height:1.3}
-.ps-card h4{font-family:'Exo',sans-serif;font-size:21px;font-weight:800;margin:14px 0 8px;color:#645d56;letter-spacing:-.01em}
+.ps-card h4{font-family:'Exo',sans-serif;font-size:21px;font-weight:800;margin:14px 0 8px;color:var(--text);letter-spacing:-.01em}
 .ps-card h4 .arrow{color:var(--accent)}
 .ps-card p{font-size:14.5px;line-height:1.55}
 @media(max-width:860px){.ps-grid{grid-template-columns:1fr}}
