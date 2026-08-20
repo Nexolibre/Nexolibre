@@ -11,46 +11,6 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://nexolibre.com/empresa/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/empresa/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/empresa/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/empresa/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/empresa/"/>
-    <lastmod>2026-08-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.7</priority>
-  </url>
-  <url>
-    <loc>https://nexolibre.com/servicios/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/servicios/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/servicios/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/servicios/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/servicios/"/>
-    <lastmod>2026-08-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://nexolibre.com/productos/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/productos/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/productos/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/productos/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/productos/"/>
-    <lastmod>2026-08-20</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
-  </url>
-  <url>
-    <loc>https://nexolibre.com/software/</loc>
-    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/software/"/>
-    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/software/"/>
-    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/software/"/>
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/software/"/>
-    <lastmod>2026-08-20</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
     <loc>https://nexolibre.com/catalogo/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/catalogo/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/catalogo/"/>
@@ -71,11 +31,111 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://nexolibre.com/empresa/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/empresa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/empresa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/empresa/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/empresa/"/>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
     <loc>https://nexolibre.com/monitoreo/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/monitoreo/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/monitoreo/"/>
     <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/monitoreo/"/>
     <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/monitoreo/"/>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://nexolibre.com/productos/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/productos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/productos/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/productos/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/productos/"/>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nexolibre.com/repuestos/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/repuestos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/repuestos/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/repuestos/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/repuestos/"/>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nexolibre.com/repuestos/bobinas/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/repuestos/bobinas/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/repuestos/bobinas/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/repuestos/bobinas/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/repuestos/bobinas/"/>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nexolibre.com/repuestos/ge/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/repuestos/ge/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/repuestos/ge/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/repuestos/ge/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/repuestos/ge/"/>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nexolibre.com/repuestos/philips/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/repuestos/philips/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/repuestos/philips/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/repuestos/philips/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/repuestos/philips/"/>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nexolibre.com/repuestos/picker/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/repuestos/picker/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/repuestos/picker/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/repuestos/picker/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/repuestos/picker/"/>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nexolibre.com/repuestos/siemens/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/repuestos/siemens/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/repuestos/siemens/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/repuestos/siemens/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/repuestos/siemens/"/>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nexolibre.com/servicios/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/servicios/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/servicios/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/servicios/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/servicios/"/>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://nexolibre.com/software/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/software/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/software/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/software/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/software/"/>
     <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>

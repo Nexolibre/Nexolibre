@@ -26,9 +26,20 @@ BASE = "https://nexolibre.com"
 LANGS = ["es", "en", "pt"]
 OGLOC = {"es": "es_AR", "en": "en_US", "pt": "pt_BR"}
 
+import glob as _glob
+_EXCL = ("en/", "pt/", "presentacion/", "graphify-out/", "node_modules/")
+def discover():
+    """Descubre las páginas ES fuente: index.html en raíz, subcarpetas y repuestos/*."""
+    found = set()
+    for pat in ["index.html", "*/index.html", "repuestos/*/index.html"]:
+        for f in _glob.glob(os.path.join(ROOT, pat)):
+            rel = os.path.relpath(f, ROOT).replace(os.sep, "/")
+            if any(rel.startswith(x) for x in _EXCL):
+                continue
+            found.add(rel[:-len("index.html")])   # "" o "empresa/" o "repuestos/ge/"
+    return sorted(found)
 # rutas relativas de cada página ES (P termina en / o es "")
-PAGES = ["", "empresa/", "servicios/", "productos/", "software/", "catalogo/",
-         "contacto/", "monitoreo/"]
+PAGES = discover()
 
 # prefijos de href que NO se localizan (assets, archivos, externos)
 SKIP = ("/assets", "/styles.css", "/parts.json", "/sitemap", "/robots",
@@ -59,9 +70,12 @@ def bake(raw, lang, P):
         val = el.get(f"data-{lang}")
         if val is None:
             continue
-        el.clear()
-        for node in list(BeautifulSoup(val, "html.parser").children):
-            el.append(node)
+        if el.name == "meta":                 # <meta ... data-en> -> content
+            el["content"] = val
+        else:                                  # texto (incluye <title>)
+            el.clear()
+            for node in list(BeautifulSoup(val, "html.parser").children):
+                el.append(node)
     for el in soup.select(f"[data-{lang}-ph]"):
         el["placeholder"] = el.get(f"data-{lang}-ph")
 
@@ -106,6 +120,17 @@ def bake(raw, lang, P):
             h = a["href"]
             if h.startswith("/") and not h.startswith(SKIP):
                 a["href"] = f"/{lang}{h}"
+
+    # 6) og/twitter reflejan el title + description ya traducidos
+    tt = soup.find("title").get_text() if soup.find("title") else ""
+    de = soup.find("meta", attrs={"name": "description"})
+    dd = de.get("content", "") if de else ""
+    for prop, val in [("og:title", tt), ("og:description", dd)]:
+        m = soup.find("meta", attrs={"property": prop})
+        if m: m["content"] = val
+    for nm, val in [("twitter:title", tt), ("twitter:description", dd)]:
+        m = soup.find("meta", attrs={"name": nm})
+        if m: m["content"] = val
 
     return str(soup)
 

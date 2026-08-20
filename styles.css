@@ -617,3 +617,22 @@
 .kpi-lbl{font-size:12px;color:var(--muted);font-weight:600;margin-top:2px}
 .kpi-note{font-size:11px;color:var(--muted-2);text-align:center;margin-top:2px}
 @media(max-width:900px){.reso-lab{grid-template-columns:1fr}.hs-tip{width:210px}}
+
+/* ---------- páginas programáticas (repuestos por marca/categoría) ---------- */
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:20px}
+.pcard{border:1px solid var(--border);border-radius:16px;background:var(--surface);overflow:hidden;box-shadow:var(--shadow);display:flex;flex-direction:column}
+.pcard-img{aspect-ratio:4/3;background:var(--surface-2);overflow:hidden}
+.pcard-img img{width:100%;height:100%;object-fit:cover}
+.pcard-ph{width:100%;height:100%;background:repeating-linear-gradient(135deg,var(--surface-2),var(--surface-2) 12px,var(--bg-2) 12px,var(--bg-2) 24px)}
+.pcard-b{padding:16px 16px 18px;display:flex;flex-direction:column;gap:9px;flex:1}
+.pcard-b h3{font-size:17px;color:#645d56}
+.pcard-m{font-size:13px;color:var(--muted);line-height:1.55;flex:1}
+.pcard-m span{font-weight:700;color:var(--text)}
+.pcard-b .btn{align-self:flex-start;margin-top:4px}
+.pseo-sec{padding:34px 0}
+.pseo-sec h2{font-size:clamp(22px,3vw,30px);margin-bottom:18px}
+.pchips{display:flex;flex-wrap:wrap;gap:10px}
+.pchip{display:inline-block;font-size:14px;font-weight:600;color:var(--muted);background:var(--surface-2);border:1px solid var(--border);border-radius:30px;padding:8px 15px}
+.pchip-link{color:var(--accent-bright);border-color:rgba(241,144,0,.3);transition:.2s}
+.pchip-link:hover{background:rgba(241,144,0,.1);border-color:var(--accent)}
+.theme-dark .pcard-b h3{color:#f4f1ec}
