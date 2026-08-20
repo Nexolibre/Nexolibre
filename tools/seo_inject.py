@@ -11,7 +11,7 @@ Uso:  python3 tools/seo_inject.py
 import re, json, os
 
 BASE = "https://nexolibre.com"
-OG_IMG = f"{BASE}/assets/og-image.png"
+OG_IMG = f"{BASE}/assets/og-image.jpg"
 ORG_ID = f"{BASE}/#organization"
 WEB_ID = f"{BASE}/#website"
 MARK_A = "<!-- SEO/GEO inicio -->"
