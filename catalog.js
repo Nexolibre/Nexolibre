@@ -1,6 +1,7 @@
 (function(){
   const grid=document.getElementById('catGrid');
   if(!grid) return;
+  const LP=(location.pathname.match(/^\/(?:en|pt)\//)||['/'])[0];  // prefijo de idioma
   const q=document.getElementById('catSearch');
   const fCat=document.getElementById('fCat'), fMod=document.getElementById('fMod'), fMarca=document.getElementById('fMarca'), fLoc=document.getElementById('fLoc');
   const count=document.getElementById('catCount');
@@ -61,7 +62,7 @@
       +'<div class="meta">'+meta+'</div>'
       +(p.descripcion?'<p class="meta">'+esc(p.descripcion)+'</p>':'')
       +'<div class="part-foot">'+badge(p.disponibilidad)
-      +'<a class="btn btn-primary" style="padding:9px 16px;font-size:14px" href="/contacto/?parte='+encodeURIComponent(p.ref||p.nombre||'')+'">'+tt.consultar+'</a>'
+      +'<a class="btn btn-primary" style="padding:9px 16px;font-size:14px" href="'+LP+'contacto/?parte='+encodeURIComponent(p.ref||p.nombre||'')+'">'+tt.consultar+'</a>'
       +'</div>'+(ext?'<div style="padding-top:4px">'+ext+'</div>':'')
       +'</div></article>';
   }

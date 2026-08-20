@@ -1,6 +1,6 @@
 (function(){
-  /* ---------- i18n ---------- */
-  const STORAGE='nexo_lang';
+  /* ---------- i18n (idioma por URL: /  /en/  /pt/) ---------- */
+  const pageLang=document.documentElement.getAttribute('data-i18n')||document.documentElement.lang||'es';
   function setLang(lang){
     document.documentElement.lang=lang;
     document.querySelectorAll('[data-'+lang+']').forEach(el=>{
@@ -11,12 +11,15 @@
       el.setAttribute('placeholder',el.getAttribute('data-'+lang+'-ph'));
     });
     document.querySelectorAll('#lang button').forEach(b=>b.classList.toggle('active',b.dataset.lang===lang));
-    try{localStorage.setItem(STORAGE,lang);}catch(e){}
   }
-  document.querySelectorAll('#lang button').forEach(b=>b.addEventListener('click',()=>setLang(b.dataset.lang)));
-  let saved='es';
-  try{saved=localStorage.getItem(STORAGE)||'es';}catch(e){}
-  setLang(saved);
+  function localeUrl(lang){
+    let p=location.pathname.replace(/^\/(en|pt)(?=\/|$)/,'');
+    if(!p.startsWith('/')) p='/'+p;
+    if(lang!=='es') p='/'+lang+p;
+    return p+location.search+location.hash;
+  }
+  document.querySelectorAll('#lang button').forEach(b=>b.addEventListener('click',()=>{location.href=localeUrl(b.dataset.lang);}));
+  setLang(pageLang);
 
   /* ---------- header scroll ---------- */
   const header=document.getElementById('header');

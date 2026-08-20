@@ -1,51 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://nexolibre.com/</loc>
-    <lastmod>2026-07-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/"/>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://nexolibre.com/empresa/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/empresa/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/empresa/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/empresa/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/empresa/"/>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://nexolibre.com/servicios/</loc>
-    <lastmod>2026-07-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/servicios/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/servicios/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/servicios/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/servicios/"/>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://nexolibre.com/productos/</loc>
-    <lastmod>2026-07-04</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/productos/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/productos/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/productos/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/productos/"/>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://nexolibre.com/software/</loc>
-    <lastmod>2026-07-04</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://nexolibre.com/monitoreo/</loc>
-    <lastmod>2026-08-06</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/software/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/software/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/software/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/software/"/>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://nexolibre.com/catalogo/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/catalogo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/catalogo/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/catalogo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/catalogo/"/>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
     <loc>https://nexolibre.com/contacto/</loc>
-    <lastmod>2026-06-29</lastmod>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/contacto/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/contacto/"/>
+    <lastmod>2026-08-20</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nexolibre.com/monitoreo/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/monitoreo/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/monitoreo/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/monitoreo/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/monitoreo/"/>
+    <lastmod>2026-08-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
 </urlset>
