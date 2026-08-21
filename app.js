@@ -1,4 +1,22 @@
 (function(){
+  /* ---------- analytics (GA4) — poné tu Measurement ID abajo ---------- */
+  const GA_ID='';   // ← reemplazar por 'G-XXXXXXXXXX' para activar
+  if(GA_ID){
+    const s=document.createElement('script');s.async=true;
+    s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;document.head.appendChild(s);
+    window.dataLayer=window.dataLayer||[];
+    window.gtag=function(){dataLayer.push(arguments);};
+    gtag('js',new Date());gtag('config',GA_ID,{anonymize_ip:true});
+    document.addEventListener('click',function(e){
+      const a=e.target.closest('a'); if(!a)return;
+      const h=a.getAttribute('href')||'';
+      if(h.indexOf('wa.me')>-1) gtag('event','whatsapp_click',{page:location.pathname});
+      else if(h.indexOf('parte=')>-1) gtag('event','consultar_click',{pieza:(h.match(/parte=([^&]+)/)||[])[1]||'',page:location.pathname});
+      else if(/^mailto:/.test(h)) gtag('event','email_click');
+      else if(h.indexOf('#lang')<0 && /\/(en|pt)?\/?$/.test(h)===false && h.indexOf('http')===0) gtag('event','outbound_click',{url:h});
+    });
+  }
+
   /* ---------- i18n (idioma por URL: /  /en/  /pt/) ---------- */
   const pageLang=document.documentElement.getAttribute('data-i18n')||document.documentElement.lang||'es';
   function setLang(lang){
@@ -112,7 +130,7 @@
         method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)
       });
       const json=await res.json();
-      if(json.success){ if(ok)ok.classList.add('show'); form.reset(); }
+      if(json.success){ if(ok)ok.classList.add('show'); if(window.gtag)gtag('event','generate_lead',{form:'contacto'}); form.reset(); }
       else { if(formErr)formErr.classList.add('show'); }
     }catch(e){ if(formErr)formErr.classList.add('show'); }
     finally{ if(btn){btn.disabled=false;btn.innerHTML=orig;} }
