@@ -636,3 +636,11 @@
 .pchip-link{color:var(--accent-bright);border-color:rgba(241,144,0,.3);transition:.2s}
 .pchip-link:hover{background:rgba(241,144,0,.1);border-color:var(--accent)}
 .theme-dark .pcard-b h3{color:#f4f1ec}
+
+/* ---------- accesibilidad: respetar reduced-motion ---------- */
+@media (prefers-reduced-motion: reduce){
+  *{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .reveal{opacity:1!important;transform:none!important}
+  .logos-track{animation:none!important}
+  .topmedia-vid,.statshero-vid{display:none!important}
+}

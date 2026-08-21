@@ -94,18 +94,18 @@
 <input aria-hidden="true" autocomplete="off" name="botcheck" style="display:none !important" tabindex="-1" type="checkbox"/>
 <div class="frow">
 <div class="field">
-<label data-en="Full name" data-es="Nombre y apellido" data-pt="Nome e sobrenome">Nome e sobrenome</label>
-<input data-en-ph="Your name" data-es-ph="Tu nombre" data-pt-ph="Seu nome" name="nombre" placeholder="Seu nome" required="" type="text"/>
+<label data-en="Full name" data-es="Nombre y apellido" data-pt="Nome e sobrenome" for="f-nombre">Nome e sobrenome</label>
+<input autocomplete="name" data-en-ph="Your name" data-es-ph="Tu nombre" data-pt-ph="Seu nome" id="f-nombre" name="nombre" placeholder="Seu nome" required="" type="text"/>
 </div>
 <div class="field">
-<label data-en="Institution" data-es="Institución" data-pt="Instituição">Instituição</label>
-<input data-en-ph="Center / clinic / hospital" data-es-ph="Centro / clínica / hospital" data-pt-ph="Centro / clínica / hospital" name="institucion" placeholder="Centro / clínica / hospital" required="" type="text"/>
+<label data-en="Institution" data-es="Institución" data-pt="Instituição" for="f-institucion">Instituição</label>
+<input autocomplete="organization" data-en-ph="Center / clinic / hospital" data-es-ph="Centro / clínica / hospital" data-pt-ph="Centro / clínica / hospital" id="f-institucion" name="institucion" placeholder="Centro / clínica / hospital" required="" type="text"/>
 </div>
 </div>
 <div class="frow">
 <div class="field">
-<label data-en="Role" data-es="Rol" data-pt="Cargo">Cargo</label>
-<select name="rol" required="">
+<label data-en="Role" data-es="Rol" data-pt="Cargo" for="f-rol">Cargo</label>
+<select id="f-rol" name="rol" required="">
 <option data-en="Select…" data-es="Seleccioná…" data-pt="Selecione…" value="">Selecione…</option>
 <option data-en="Clinic / hospital director" data-es="Director de clínica / hospital" data-pt="Diretor de clínica / hospital">Diretor de clínica / hospital</option>
 <option data-en="Diagnostic center owner" data-es="Dueño de centro de diagnóstico" data-pt="Dono de centro de diagnóstico">Dono de centro de diagnóstico</option>
@@ -115,8 +115,8 @@
 </select>
 </div>
 <div class="field">
-<label data-en="Country" data-es="País" data-pt="País">País</label>
-<select name="pais">
+<label data-en="Country" data-es="País" data-pt="País" for="f-pais">País</label>
+<select autocomplete="country-name" id="f-pais" name="pais">
 <option data-en="Select…" data-es="Seleccioná…" data-pt="Selecione…" value="">Selecione…</option>
 <option>Argentina</option>
 <option>Chile</option>
@@ -127,8 +127,8 @@
 </div>
 <div class="frow">
 <div class="field">
-<label data-en="I'm interested in" data-es="Me interesa" data-pt="Tenho interesse em">Tenho interesse em</label>
-<select name="producto">
+<label data-en="I'm interested in" data-es="Me interesa" data-pt="Tenho interesse em" for="f-producto">Tenho interesse em</label>
+<select id="f-producto" name="producto">
 <option data-en="Not sure yet" data-es="Aún no sé" data-pt="Ainda não sei" value="">Ainda não sei</option>
 <option data-en="Technical support" data-es="Soporte técnico" data-pt="Suporte técnico">Suporte técnico</option>
 <option data-en="Lab / parts repair" data-es="Laboratorio / Reparación de piezas" data-pt="Laboratório / Reparo de peças">Laboratório / Reparo de peças</option>
@@ -138,17 +138,17 @@
 </select>
 </div>
 <div class="field">
-<label data-en="Work email" data-es="Email de trabajo" data-pt="E-mail de trabalho">E-mail de trabalho</label>
-<input name="email" placeholder="nombre@institucion.com" required="" type="email"/>
+<label data-en="Work email" data-es="Email de trabajo" data-pt="E-mail de trabalho" for="f-email">E-mail de trabalho</label>
+<input autocomplete="email" id="f-email" name="email" placeholder="nombre@institucion.com" required="" spellcheck="false" type="email"/>
 </div>
 </div>
 <div class="field">
-<label data-en="Phone / WhatsApp" data-es="Teléfono / WhatsApp" data-pt="Telefone / WhatsApp">Telefone / WhatsApp</label>
-<input name="telefono" placeholder="+54 9 ..." type="tel"/>
+<label data-en="Phone / WhatsApp" data-es="Teléfono / WhatsApp" data-pt="Telefone / WhatsApp" for="f-telefono">Telefone / WhatsApp</label>
+<input autocomplete="tel" id="f-telefono" name="telefono" placeholder="+54 9…" type="tel"/>
 </div>
 <div class="field">
-<label data-en="Message" data-es="Mensaje" data-pt="Mensagem">Mensagem</label>
-<textarea data-en-ph="Tell us about your need (equipment, model, part…)" data-es-ph="Contanos tu necesidad (equipo, modelo, pieza…)" data-pt-ph="Conte a sua necessidade (equipamento, modelo, peça…)" name="mensaje" placeholder="Conte a sua necessidade (equipamento, modelo, peça…)"></textarea>
+<label data-en="Message" data-es="Mensaje" data-pt="Mensagem" for="f-mensaje">Mensagem</label>
+<textarea data-en-ph="Tell us about your need (equipment, model, part…)" data-es-ph="Contanos tu necesidad (equipo, modelo, pieza…)" data-pt-ph="Conte a sua necessidade (equipamento, modelo, peça…)" id="f-mensaje" name="mensaje" placeholder="Conte a sua necessidade (equipamento, modelo, peça…)"></textarea>
 </div>
 <button class="btn btn-primary" data-en="Send inquiry" data-es="Enviar consulta" data-pt="Enviar consulta" style="width:100%;padding:15px" type="submit">Enviar consulta</button>
 <p class="form-note" data-en="By submitting you agree to be contacted by the Nexolibre team. We never share your data." data-es="Al enviar aceptás ser contactado por el equipo de Nexolibre. Nunca compartimos tus datos." data-pt="Ao enviar, você aceita ser contatado pela equipe da Nexolibre. Nunca compartilhamos os seus dados.">Ao enviar, você aceita ser contatado pela equipe da Nexolibre. Nunca compartilhamos os seus dados.</p>
