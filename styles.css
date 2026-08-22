@@ -649,3 +649,20 @@
 .wa-float{position:fixed;right:20px;bottom:calc(20px + env(safe-area-inset-bottom));z-index:200;width:56px;height:56px;border-radius:50%;background:#25d366;color:#fff;display:grid;place-items:center;box-shadow:0 8px 24px -6px rgba(37,211,102,.6);transition:transform .2s var(--ease),box-shadow .2s}
 .wa-float:hover{transform:translateY(-3px) scale(1.05);box-shadow:0 14px 30px -8px rgba(37,211,102,.75)}
 @media(max-width:560px){.wa-float{width:52px;height:52px;right:16px;bottom:calc(16px + env(safe-area-inset-bottom))}}
+
+/* ---------- lead magnet (catálogo PDF) ---------- */
+.lm-card{display:grid;grid-template-columns:1.1fr 1fr;gap:32px;align-items:center;background:var(--panel,#585149);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:34px 38px}
+.lm-copy h3{font-size:clamp(22px,2.6vw,30px);margin:8px 0 10px;max-width:20ch}
+.lm-copy p{margin:0;max-width:44ch;opacity:.9}
+.lm-form{display:flex;flex-direction:column;gap:8px}
+.lm-lbl{font-size:13px;font-weight:600;opacity:.85}
+.lm-row{display:flex;gap:10px;flex-wrap:wrap}
+.lm-row input[type=email]{flex:1;min-width:180px;padding:12px 14px;border-radius:12px;border:1px solid rgba(255,255,255,.18);background:rgba(0,0,0,.15);color:inherit;font:inherit}
+.lm-row input[type=email]:focus{outline:2px solid var(--brand,#ffa62e);outline-offset:1px}
+.lm-row .btn{white-space:nowrap}
+.lm-hp{position:absolute;left:-9999px;opacity:0}
+.lm-msg{display:none;font-size:14px;margin:2px 0 0}
+.lm-msg.show{display:block}
+.lm-ok{color:#7ee0a0}
+.lm-err{color:#ffb4a2}
+@media(max-width:760px){.lm-card{grid-template-columns:1fr;padding:26px 22px;gap:20px}}

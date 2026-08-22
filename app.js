@@ -145,6 +145,29 @@
     finally{ if(btn){btn.disabled=false;btn.innerHTML=orig;} }
   });
 
+  /* ---------- lead magnet: catálogo PDF por email ---------- */
+  const pdfForm=document.getElementById('pdfForm');
+  if(pdfForm) pdfForm.addEventListener('submit',async (ev)=>{
+    ev.preventDefault();
+    if(!pdfForm.checkValidity()){pdfForm.reportValidity();return;}
+    const lang=document.documentElement.lang, sending={es:'Enviando…',en:'Sending…',pt:'Enviando…'}[lang]||'Enviando…';
+    const btn=pdfForm.querySelector('button[type=submit]'), orig=btn?btn.innerHTML:'';
+    const ok=document.getElementById('pdfOk'), er=document.getElementById('pdfErr');
+    if(ok)ok.classList.remove('show'); if(er)er.classList.remove('show');
+    if(btn){btn.disabled=true;btn.textContent=sending;}
+    const pdf='/assets/catalogo-nexolibre-'+(['es','en','pt'].includes(lang)?lang:'es')+'.pdf';
+    try{
+      const res=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Accept':'application/json'},body:new FormData(pdfForm)});
+      const json=await res.json();
+      if(json.success){
+        if(window.gtag)gtag('event','generate_lead',{form:'lead_magnet'});
+        const a=document.createElement('a');a.href=pdf;a.download='';document.body.appendChild(a);a.click();a.remove();
+        if(ok)ok.classList.add('show'); pdfForm.reset();
+      } else { if(er)er.classList.add('show'); }
+    }catch(e){ if(er)er.classList.add('show'); }
+    finally{ if(btn){btn.disabled=false;btn.innerHTML=orig;} }
+  });
+
   /* ---------- prefill from catalog (?parte=) ---------- */
   if(form){
     const pp=new URLSearchParams(location.search).get('parte');

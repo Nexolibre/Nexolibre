@@ -1,0 +1,1623 @@
+<!doctype html>
+<html lang="pt-BR"><head><meta charset="utf-8">
+<title>Nexolibre — Catálogo de peças</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Exo:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+@page { size: A4; margin: 14mm 12mm 16mm 12mm; }
+* { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+:root{
+  --bg:#f7f5f1; --card:#ffffff; --ink:#211c16; --title:#645d56;
+  --ink2:#625d57; --ink3:#8c867d; --orange:#ef8f03; --orange-dk:#d97e00;
+  --border:rgba(20,16,10,.12); --border-soft:rgba(20,16,10,.08);
+}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);
+  font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;font-size:10.5px;line-height:1.45;}
+h1,h2,h3{font-family:'Exo','Helvetica Neue',sans-serif;letter-spacing:-.02em;
+  color:var(--title);margin:0;font-weight:800;line-height:1.02;}
+.o{color:var(--orange);}
+.kicker{font-weight:700;text-transform:uppercase;letter-spacing:.16em;color:var(--orange);
+  font-size:9px;display:flex;align-items:center;gap:7px;}
+.kicker::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--orange);display:inline-block;}
+
+/* ---- Portada ---- */
+.cover{position:relative;height:265mm;display:flex;flex-direction:column;justify-content:center;
+  padding:0 6mm;overflow:hidden;page-break-after:always;
+  background:
+    radial-gradient(120mm 120mm at 88% 8%, rgba(239,143,3,.16), transparent 60%),
+    radial-gradient(rgba(20,16,10,.05) 1px, transparent 1px);
+  background-size:auto, 22px 22px;}
+.cover .wm{position:absolute;top:-30mm;right:-6mm;font-family:'Exo';font-weight:900;
+  font-size:170mm;color:rgba(100,93,86,.06);line-height:1;z-index:0;}
+.cover .inner{position:relative;z-index:1;}
+.cover .logo{height:15mm;margin-bottom:16mm;}
+.cover h1{font-size:58px;font-weight:900;margin:6mm 0 4mm;}
+.cover .sub{font-size:14px;color:var(--ink2);max-width:150mm;}
+.cover .meta{margin-top:20mm;font-size:11px;color:var(--ink3);}
+
+/* ---- Secciones ---- */
+.section{page-break-before:always;padding-top:2mm;}
+.section-head{display:flex;align-items:baseline;justify-content:space-between;
+  border-bottom:2px solid var(--orange);padding-bottom:3mm;margin-bottom:5mm;}
+.section-head h2{font-size:26px;font-weight:900;}
+.section-head .n{font-size:11px;color:var(--ink3);}
+
+/* ---- Grilla de fichas ---- */
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:5mm;}
+.part{border:1px solid var(--border);border-radius:16px;background:var(--card);overflow:hidden;
+  page-break-inside:avoid;box-shadow:0 1px 3px rgba(20,16,10,.05),0 10px 24px -18px rgba(20,16,10,.22);}
+.instr{border-bottom:1px solid var(--border-soft);background:#fbfaf7;}
+.instr .bar{display:flex;align-items:center;gap:6px;padding:4px 9px;border-bottom:1px solid var(--border-soft);}
+.instr .bar .dot{width:7px;height:7px;border-radius:50%;background:var(--orange);}
+.instr .bar .lbl{font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--ink3);}
+.instr .ph{height:44mm;display:flex;align-items:center;justify-content:center;background:#f4f1ec;}
+.instr .ph img{max-width:100%;max-height:44mm;object-fit:contain;}
+.instr .ph.empty{color:var(--ink3);font-size:9px;letter-spacing:.06em;}
+.body{padding:7px 10px 10px;}
+.body h3{font-size:12.5px;font-weight:800;color:var(--ink);line-height:1.15;margin-bottom:4px;}
+.chips{display:flex;flex-wrap:wrap;gap:4px;margin:4px 0 6px;}
+.chip{font-size:8px;border:1px solid var(--border);border-radius:30px;padding:2px 8px 2px 6px;
+  color:var(--ink2);display:flex;align-items:center;gap:4px;}
+.chip::before{content:"";width:5px;height:5px;border-radius:50%;background:var(--orange);}
+.chip.ref{border-color:var(--orange);color:var(--orange-dk);font-weight:700;}
+dl{display:grid;grid-template-columns:auto 1fr;gap:1px 8px;margin:0;font-size:9px;}
+dt{color:var(--ink3);}
+dd{margin:0;color:var(--ink);}
+.desc{margin-top:6px;font-size:9px;color:var(--ink2);border-top:1px solid var(--border-soft);padding-top:5px;}
+
+/* ---- Cierre ---- */
+.closing{page-break-before:always;padding-top:30mm;text-align:center;}
+.closing h2{font-size:30px;font-weight:900;margin-bottom:5mm;}
+.closing .cta{display:inline-block;background:var(--orange);color:#fff;font-weight:700;
+  padding:9px 22px;border-radius:12px;font-size:12px;margin:6mm 0;}
+.closing p{color:var(--ink2);max-width:130mm;margin:0 auto;font-size:11px;}
+.footer{margin-top:26mm;padding-top:6mm;border-top:1px solid var(--border);color:var(--ink3);font-size:9px;}
+.footer .member{font-weight:700;color:var(--ink2);}
+</style></head>
+<body><div class="cover">
+  <div class="wm">NX</div>
+  <div class="inner">
+    <img class="logo" src="../../../assets/nexolibre-logo.png" alt="Nexolibre">
+    <div class="kicker">Engenharia médica multimarca · MRI / CT</div>
+    <h1>Catálogo de <span class="o">peças</span></h1>
+    <div class="sub">Bobinas, amplificadores, eletrônica e peças críticas para diagnóstico por imagem.</div>
+    <div class="meta">Edição 2026 · 138 peças disponíveis</div>
+  </div>
+</div><div class="section">
+  <div class="section-head">
+    <h2>MRI</h2><span class="n">62 peças disponíveis</span>
+  </div>
+  <div class="grid"><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-001</span></div>
+    <div class="ph"><img src="../../../assets/parts/NX-AR-001-1.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE Shoulder Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-001</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>GE</dd><dt>Modelo compatível</dt><dd>GE Profile 0.2T</dd><dt>Nº da peça</dt><dd>2217680</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.2T · Serie 36528 · Cód. Nexo 521</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-002</span></div>
+    <div class="ph"><img src="../../../assets/parts/NX-AR-002-1.jpeg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE GP Neck/Shoulder Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-002</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Marca</dt><dd>GE</dd><dt>Modelo compatível</dt><dd>GE Profile 0.2T</dd><dt>Nº da peça</dt><dd>2145547 - 2</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.2T · Serie 390364YM8 · Cód. Nexo 594</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-003</span></div>
+    <div class="ph"><img src="../../../assets/parts/NX-AR-003-1.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE GP Shoulder 6&quot; Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-003</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>GE</dd><dt>Modelo compatível</dt><dd>GE Profile 0.2T</dd><dt>Nº da peça</dt><dd>5114431</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.2T · Serie 197265HM2 · Cód. Nexo 525</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-004</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>GE Torso Array 8Ch Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-004</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>GE</dd><dt>Modelo compatível</dt><dd>GE 1.5T</dd><dt>Nº da peça</dt><dd>2415410</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 1.5T · Serie 1046 · Cód. Nexo 261</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-005</span></div>
+    <div class="ph"><img src="../../../assets/parts/NX-AR-001-1.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE Shoulder Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-005</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>GE</dd><dt>Modelo compatível</dt><dd>GE Profile 0.2T</dd><dt>Nº da peça</dt><dd>2217680</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.2T · Serie 36528 · Cód. Nexo 521</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-006</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>GE Head Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-006</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>GE</dd><dt>Modelo compatível</dt><dd>GE Signa HDxt 3T</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 3T</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-007</span></div>
+    <div class="ph"><img src="../../../assets/parts/NX-AR-007-1.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE Head Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-007</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>GE</dd><dt>Modelo compatível</dt><dd>GE Profile 0.2T</dd><dt>Nº da peça</dt><dd>2377857</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.2T · Serie 202193HM9 · Cód. Nexo 758</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-008</span></div>
+    <div class="ph"><img src="../../../assets/parts/NX-AR-008-1" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE Body Flex II XL Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-008</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>GE</dd><dt>Modelo compatível</dt><dd>GE Profile 0.2T</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.2T · Cód. Nexo 738</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-009</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>GE Anterior Array Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-009</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>GE</dd><dt>Modelo compatível</dt><dd>GE Brivo 355 1.5T</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 1.5T · Sin cable</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-010</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>GE Workstation</h3>
+    <div class="chips"><span class="chip ref">NX-AR-010</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Marca</dt><dd>GE</dd><dt>Modelo compatível</dt><dd>GE Brivo 355 1.5T</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 1.5T · R 25.3</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-011</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>HP Workstation Z400</h3>
+    <div class="chips"><span class="chip ref">NX-AR-011</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Marca</dt><dd>HP</dd><dt>Modelo compatível</dt><dd>Philips 1.5T</dd><dt>Nº da peça</dt><dd>5370415-15</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 1.5T · Cód. Nexo 696</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-012</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>HP Workstation xw9400</h3>
+    <div class="chips"><span class="chip ref">NX-AR-012</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Marca</dt><dd>HP</dd><dt>Modelo compatível</dt><dd>GE 0.2T</dd><dt>Nº da peça</dt><dd>5143798-15</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.2T · Cód. Nexo 524</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-013</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Philips C3 Surface Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-013</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Achieva 1.5T</dd><dt>Nº da peça</dt><dd>9896-030-05011</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 1.5T · Serie 3124 · Cód. Nexo 528</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-014</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Philips Neck Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-014</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Panorama 0.23T</dd><dt>Nº da peça</dt><dd>4522-150-26851</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.23T · Serie 525 · Cód. Nexo 550</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-015</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Philips Quad Head Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-015</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philip Achieva 1.5T</dd><dt>Nº da peça</dt><dd>4522-131-3900</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 1.5T · Serie 509846 · Cód. Nexo 440</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-016</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Philips Quad Knee/Foot Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-016</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Achieva 1.5T</dd><dt>Nº da peça</dt><dd>4522-132-14022</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 1.5T · Serie 47416 · Cód. Nexo 581</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-017</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Philips Quad Knee/Foot Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-017</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Achieva 1.5T</dd><dt>Nº da peça</dt><dd>4522-132-14022</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 1.5T · Serie 3176137 · Cód. Nexo 602</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-018</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Philips Extremity Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-018</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Panorama 0.23T</dd><dt>Nº da peça</dt><dd>4522-150-26781</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.23T · Serie 469 · Cód. Nexo 364</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-019</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Philips Shoulder Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-019</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Panorama 0.23T</dd><dt>Nº da peça</dt><dd>4522-150-26861</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.23T · Serie 415 · Cód. Nexo 365</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-020</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Philips Wrist Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-020</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Panorama 0.23T</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.23T · Cód. Nexo 366</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-021</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Philips Multi purpose Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-021</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Achieva 1.5T</dd><dt>Nº da peça</dt><dd>4522-132-3117</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 1.5T · Serie CRR103929 · Cód. Nexo 526</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-022</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Philips Trap Cable</h3>
+    <div class="chips"><span class="chip ref">NX-AR-022</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Achieva 1.5T</dd><dt>Nº da peça</dt><dd>4522-131-15907</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 1.5T · Serie 45 · Cód. Nexo 343</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-023</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Philips Multi purpose Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-023</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Achieva 1.5T</dd><dt>Nº da peça</dt><dd>9896-030-05011</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 1.5T · Serie 3124 · Cód. Nexo 528</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-024</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Philips Syn Spine Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-024</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Achieva 1.5T</dd><dt>Nº da peça</dt><dd>4522-132-19874</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 1.5T · Serie 300181289 · Cód. Nexo 533</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-025</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Philips MSK S 8Ch Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-025</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Multiva 1.5T</dd><dt>Nº da peça</dt><dd>4535-302-99361</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 1.5T · Serie 272 · Cód. Nexo 695</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-026</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Philips Sense XL Torso Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-026</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Achieva 1.5T</dd><dt>Nº da peça</dt><dd>4535-675-02284</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 1.5T · Serie 0574R3 · Cód. Nexo 760</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-027</span></div>
+    <div class="ph"><img src="../../../assets/parts/NX-AR-027-1.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Philips Body and Spine XL Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-027</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Panorama 0.23T</dd><dt>Nº da peça</dt><dd>958029-E</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sem estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.23T · Serie 265 · A probar · Cód. Nexo 745</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-028</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Philips Spine L Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-028</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Panorama 0.23T</dd><dt>Nº da peça</dt><dd>100121-A</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sem estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.23T · Serie 235 · A probar · Cód. Nexo 744</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-029</span></div>
+    <div class="ph"><img src="../../../assets/parts/NX-AR-029-1.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Philips Body and Spine XL Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-029</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Panorama 0.23T</dd><dt>Nº da peça</dt><dd>953540-B</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sem estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.23T · Serie 3 · A probar · Cód. Nexo 743</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-030</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Philips Shoulder Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-030</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Panorama 0.23T</dd><dt>Nº da peça</dt><dd>4522-150-26861</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sem estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.23T · Serie 547 · A probar · Cód. Nexo 742</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-031</span></div>
+    <div class="ph"><img src="../../../assets/parts/NX-AR-031-1.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Philips Head Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-031</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Philips</dd><dt>Modelo compatível</dt><dd>Philips Panorama 0.23T</dd><dt>Nº da peça</dt><dd>959332-B</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sem estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.23T · Serie 6 · Sin cable · Cód. Nexo 741</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-032</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Picker Multi purpose Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-032</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Picker</dd><dt>Modelo compatível</dt><dd>Philips Panorama 0.23T</dd><dt>Nº da peça</dt><dd>953544-B</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.23T · Serie 101 · Cód. Nexo 551</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-033</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Picker Extremity Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-033</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Picker</dd><dt>Modelo compatível</dt><dd>Philips Panorama 0.23T</dd><dt>Nº da peça</dt><dd>953535-B</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.23T · Serie 111 · Cód. Nexo 549</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-034</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Picker Head Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-034</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Picker</dd><dt>Modelo compatível</dt><dd>Philips Panorama 0.23T</dd><dt>Nº da peça</dt><dd>338710</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.23T · Serie 172 · Cód. Nexo 162</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-035</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Siemens Multi purpose Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-035</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Siemens</dd><dt>Modelo compatível</dt><dd>Siemens Open Viva 0.2T</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.2T · Cód. Nexo 604</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-036</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Siemens Head Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-036</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Siemens</dd><dt>Modelo compatível</dt><dd>Siemens Open Viva 0.2T</dd><dt>Nº da peça</dt><dd>3139743</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.2T · Serie 01404S01 · Cód. Nexo 595</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-037</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Siemens Head Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-037</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Siemens</dd><dt>Modelo compatível</dt><dd>Siemens Open Viva 0.2T</dd><dt>Nº da peça</dt><dd>3139743</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.2T · Serie 1201 · Cód. Nexo 596</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-038</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Siemens Multi purpose Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-038</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Siemens</dd><dt>Modelo compatível</dt><dd>Siemens Open Viva 0.2T</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.2T · Cód. Nexo 438</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-039</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>Siemens Multi purpose Coil</h3>
+    <div class="chips"><span class="chip ref">NX-AR-039</span><span class="chip">MRI</span><span class="chip">Bobina</span></div>
+    <dl><dt>Marca</dt><dd>Siemens</dd><dt>Modelo compatível</dt><dd>Siemens Open Viva 0.2T</dd><dt>Nº da peça</dt><dd>2651621</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Em estoque</dd><dt>Localização</dt><dd>Argentina</dd><dt>Garantia</dt><dd>90 dias</dd></dl>
+    <div class="desc">Campo 0.2T · Serie S01761 · Cód. Nexo 604</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-AR-040</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/rWkAAOSwNUJoXFWv/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>10185453 TXRX 15 CH KNEE COIL  MRI SIEMENS SYMPHONY A-TIM1.5T</h3>
+    <div class="chips"><span class="chip ref">NX-AR-040</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Marca</dt><dd>Siemens</dd><dt>Modelo compatível</dt><dd>SYMPHONY 1.5T</dd><dt>Nº da peça</dt><dd>10185453</dd><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">10185453 TXRX 15 CH KNEE COIL  MRI SIEMENS SYMPHONY A-TIM1.5T</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-041</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/gQYAAeSwsvFp2Zw0/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE HEALTHCARE 3.0T 16CH HEAD NECK SPINE HNS ARRAY 5341333 MRI COIL</h3>
+    <div class="chips"><span class="chip ref">NX-XX-041</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GE HEALTHCARE 3.0T 16CH HEAD NECK SPINE HNS ARRAY 5341333 MRI COIL</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-042</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/6OcAAeSwPSxpwyTL/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Siemens 3T 32-Channel Head Coil 10185400</h3>
+    <div class="chips"><span class="chip ref">NX-XX-042</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Siemens 3T 32-Channel Head Coil 10185400</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-043</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/rHsAAeSwYi9p2TRE/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE DISCOVERY 3.0T 32CH BODY ARRAY MRI COIL ANTERIOR 5391468 2020 REV 9 </h3>
+    <div class="chips"><span class="chip ref">NX-XX-043</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Para peças</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GE DISCOVERY 3.0T 32CH BODY ARRAY MRI COIL ANTERIOR 5391468 2020 REV 9 </div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-044</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/hacAAeSwzchpm-6E/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Siemens 07579555 Body Matrix A Tim MRI Coil TESTED</h3>
+    <div class="chips"><span class="chip ref">NX-XX-044</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Siemens 07579555 Body Matrix A Tim MRI Coil TESTED</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-045</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/wX0AAOSwb7Zmvg4Z/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>07579340 SPINE MATRIX COIL SYMPHONY A-TIM 1.5T MRI SIEMENS</h3>
+    <div class="chips"><span class="chip ref">NX-XX-045</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">07579340 SPINE MATRIX COIL SYMPHONY A-TIM 1.5T MRI SIEMENS</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-046</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/ACoAAOSwdrtoSbAQ/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>MRI Coil Philips Syn Flex Small MRI Coil with Warranty!</h3>
+    <div class="chips"><span class="chip ref">NX-XX-046</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">MRI Coil Philips Syn Flex Small MRI Coil with Warranty!</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-047</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/bTQAAOSwqqVm-vqS/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Torso Array 1.5T Coil for MRI</h3>
+    <div class="chips"><span class="chip ref">NX-XX-047</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Torso Array 1.5T Coil for MRI</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-048</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/6zIAAeSwm0hqIMKq/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Philips Knee Coil 1.5T Intera 9816 711 10002</h3>
+    <div class="chips"><span class="chip ref">NX-XX-048</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Philips Knee Coil 1.5T Intera 9816 711 10002</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-049</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/aIMAAeSw4u1p9hsO/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE MRI - HD 8CCh Foot/Ankle Coil PN: 5273235-2 Rev 5</h3>
+    <div class="chips"><span class="chip ref">NX-XX-049</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GE MRI - HD 8CCh Foot/Ankle Coil PN: 5273235-2 Rev 5</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-050</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/rRMAAOSw9Y1kcLpp/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Siemens Symphony 1.5T MRI CP SPINE ARRAY</h3>
+    <div class="chips"><span class="chip ref">NX-XX-050</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Siemens Symphony 1.5T MRI CP SPINE ARRAY</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-051</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/5kEAAeSwyXBp8VWW/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Siemens QED 10496483 TxRx CP Head Coil for 3T MRI</h3>
+    <div class="chips"><span class="chip ref">NX-XX-051</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Siemens QED 10496483 TxRx CP Head Coil for 3T MRI</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-052</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/UjkAAOSwBmFkLdBB/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>CTL Spine Array Coil 1.5 T 4 Channels PN: MJAS-127A/S1 for Toshiba MRI</h3>
+    <div class="chips"><span class="chip ref">NX-XX-052</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">CTL Spine Array Coil 1.5 T 4 Channels PN: MJAS-127A/S1 for Toshiba MRI</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-053</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/aXAAAeSwl5xqBk3z/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE SIGNA MRI 8 Channel High Res Brain Array Coil 2317112-2 (4329)</h3>
+    <div class="chips"><span class="chip ref">NX-XX-053</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GE SIGNA MRI 8 Channel High Res Brain Array Coil 2317112-2 (4329)</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-054</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/LfwAAeSwANVpg2CB/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Philips MRI dS Wrist 8ch 1.5T Coil. 453530252282</h3>
+    <div class="chips"><span class="chip ref">NX-XX-054</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Philips MRI dS Wrist 8ch 1.5T Coil. 453530252282</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-055</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/cigAAeSwYAVpg26q/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Philips MRI dS Small Extremity 8ch 1.5T Coil. 453530283165</h3>
+    <div class="chips"><span class="chip ref">NX-XX-055</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Philips MRI dS Small Extremity 8ch 1.5T Coil. 453530283165</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-056</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/bj8AAOSwbBNkLcED/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>QD Head Coil 4 Channels PN: MJQH-127A/S1 SN: A2552210 for Toshiba MRI</h3>
+    <div class="chips"><span class="chip ref">NX-XX-056</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">QD Head Coil 4 Channels PN: MJQH-127A/S1 SN: A2552210 for Toshiba MRI</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-057</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/qPoAAOSwDPJmokuV/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>383757 BODY COIL MRI PHILIPS INFINION 1.5T</h3>
+    <div class="chips"><span class="chip ref">NX-XX-057</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">383757 BODY COIL MRI PHILIPS INFINION 1.5T</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-058</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/g1cAAOSwr7Vm0K4r/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Philips 953540 MRI BODY AND SPINE COIL XL P/N: 453566095113</h3>
+    <div class="chips"><span class="chip ref">NX-XX-058</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Philips 953540 MRI BODY AND SPINE COIL XL P/N: 453566095113</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-059</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/gbcAAOSwSOdiyNIe/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>SIEMENS IMPACT KNEE COIL 1.0T MRI 1597231</h3>
+    <div class="chips"><span class="chip ref">NX-XX-059</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">SIEMENS IMPACT KNEE COIL 1.0T MRI 1597231</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-060</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/nacAAOSwlQJkLcKV/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Shoulder Coil 1.5T 4 Channels PN: 21100BZY00364000 for Toshiba MRI</h3>
+    <div class="chips"><span class="chip ref">NX-XX-060</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Shoulder Coil 1.5T 4 Channels PN: 21100BZY00364000 for Toshiba MRI</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-061</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/StwAAeSwgV5pz98b/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Matrix head coil for Siemens Mri</h3>
+    <div class="chips"><span class="chip ref">NX-XX-061</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Matrix head coil for Siemens Mri</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-062</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/rWkAAOSwNUJoXFWv/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>10185453 TXRX 15 CH KNEE COIL  MRI SIEMENS SYMPHONY A-TIM1.5T</h3>
+    <div class="chips"><span class="chip ref">NX-XX-062</span><span class="chip">MRI</span><span class="chip">Outro</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">10185453 TXRX 15 CH KNEE COIL  MRI SIEMENS SYMPHONY A-TIM1.5T</div>
+  </div>
+</div></div>
+</div><div class="section">
+  <div class="section-head">
+    <h2>Outros</h2><span class="n">76 peças disponíveis</span>
+  </div>
+  <div class="grid"><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-SG-138</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/ACoAAOSwdrtoSbAQ/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>MRI Coil Philips Syn Flex Small MRI Coil with Warranty!</h3>
+    <div class="chips"><span class="chip ref">NX-SG-138</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-063</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/hacAAeSwzchpm-6E/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Siemens 07579555 Body Matrix A Tim MRI Coil TESTED</h3>
+    <div class="chips"><span class="chip ref">NX-XX-063</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Siemens 07579555 Body Matrix A Tim MRI Coil TESTED</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-064</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/pAcAAOSwbPlm36Mk/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Signa Ovation MRI GE 0.35T KNEE COIL SYSTEM TESTED 2282855 100214😍</h3>
+    <div class="chips"><span class="chip ref">NX-XX-064</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Signa Ovation MRI GE 0.35T KNEE COIL SYSTEM TESTED 2282855 100214😍</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-065</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/wX0AAOSwb7Zmvg4Z/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>07579340 SPINE MATRIX COIL SYMPHONY A-TIM 1.5T MRI SIEMENS</h3>
+    <div class="chips"><span class="chip ref">NX-XX-065</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">07579340 SPINE MATRIX COIL SYMPHONY A-TIM 1.5T MRI SIEMENS</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-066</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/1~kAAOSwsxJf-zJs/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>QBC T5A body coil 25KW Hybride Philips Achieva intera 1.5T MRI 452211795758</h3>
+    <div class="chips"><span class="chip ref">NX-XX-066</span></div>
+    <dl><dt>Condição</dt><dd>Novo</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">QBC T5A body coil 25KW Hybride Philips Achieva intera 1.5T MRI 452211795758</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-067</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/ob4AAOSwrIpmDcad/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>QD HEAD/NV SPEEDER COIL 1.5</h3>
+    <div class="chips"><span class="chip ref">NX-XX-067</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">QD HEAD/NV SPEEDER COIL 1.5</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-068</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/rWkAAOSwNUJoXFWv/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>10185453 TXRX 15 CH KNEE COIL  MRI SIEMENS SYMPHONY A-TIM1.5T</h3>
+    <div class="chips"><span class="chip ref">NX-XX-068</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">10185453 TXRX 15 CH KNEE COIL  MRI SIEMENS SYMPHONY A-TIM1.5T</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-069</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/jSUAAeSwxGNpjmrj/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Siemens Magnetom Symphony 1.5T SHIM Assembly 10096707 MRI Spare Part Tested Work</h3>
+    <div class="chips"><span class="chip ref">NX-XX-069</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Siemens Magnetom Symphony 1.5T SHIM Assembly 10096707 MRI Spare Part Tested Work</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-070</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/EaUAAOSwm2dlHu1~/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Philips Synergy Spine Coil 1.5T - 5 Channel </h3>
+    <div class="chips"><span class="chip ref">NX-XX-070</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Philips Synergy Spine Coil 1.5T - 5 Channel </div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-071</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/yPIAAeSwQrNp2Zwu/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE 1.5T 6 CHANNEL PHASED ARRAY FLEX COIL MRI 5363383 2016 REV 10 5229623 REV 4 2</h3>
+    <div class="chips"><span class="chip ref">NX-XX-071</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GE 1.5T 6 CHANNEL PHASED ARRAY FLEX COIL MRI 5363383 2016 REV 10 5229623 REV 4 2</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-072</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/x7IAAOSwMmlm4GQH/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Siemens Spine Matrix A Tim Coil Model No. 07579340</h3>
+    <div class="chips"><span class="chip ref">NX-XX-072</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Siemens Spine Matrix A Tim Coil Model No. 07579340</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-073</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/6zIAAeSwm0hqIMKq/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Philips Knee Coil 1.5T Intera 9816 711 10002</h3>
+    <div class="chips"><span class="chip ref">NX-XX-073</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Philips Knee Coil 1.5T Intera 9816 711 10002</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-074</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/rRMAAOSw9Y1kcLpp/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Siemens Symphony 1.5T MRI CP SPINE ARRAY</h3>
+    <div class="chips"><span class="chip ref">NX-XX-074</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Siemens Symphony 1.5T MRI CP SPINE ARRAY</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-075</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/aIMAAeSw4u1p9hsO/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE MRI - HD 8CCh Foot/Ankle Coil PN: 5273235-2 Rev 5</h3>
+    <div class="chips"><span class="chip ref">NX-XX-075</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GE MRI - HD 8CCh Foot/Ankle Coil PN: 5273235-2 Rev 5</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-076</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/UjkAAOSwBmFkLdBB/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>CTL Spine Array Coil 1.5 T 4 Channels PN: MJAS-127A/S1 for Toshiba MRI</h3>
+    <div class="chips"><span class="chip ref">NX-XX-076</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">CTL Spine Array Coil 1.5 T 4 Channels PN: MJAS-127A/S1 for Toshiba MRI</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-077</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/Uf0AAOSwjddjokdM/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>MRI Surface coil cable PICU 15CH SPINE Achieva ingenia Philips 1.5T 452215039422</h3>
+    <div class="chips"><span class="chip ref">NX-XX-077</span></div>
+    <dl><dt>Condição</dt><dd>Novo</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">MRI Surface coil cable PICU 15CH SPINE Achieva ingenia Philips 1.5T 452215039422</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-078</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/nNAAAeSwHpNp~NdV/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE MRI Quad Head Coil 46-282118G2 For SIGNA 4X (4447)</h3>
+    <div class="chips"><span class="chip ref">NX-XX-078</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GE MRI Quad Head Coil 46-282118G2 For SIGNA 4X (4447)</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-079</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/5kEAAeSwyXBp8VWW/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Siemens QED 10496483 TxRx CP Head Coil for 3T MRI</h3>
+    <div class="chips"><span class="chip ref">NX-XX-079</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Siemens QED 10496483 TxRx CP Head Coil for 3T MRI</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-080</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/gbcAAOSwSOdiyNIe/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>SIEMENS IMPACT KNEE COIL 1.0T MRI 1597231</h3>
+    <div class="chips"><span class="chip ref">NX-XX-080</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">SIEMENS IMPACT KNEE COIL 1.0T MRI 1597231</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-081</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/LfwAAeSwANVpg2CB/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Philips MRI dS Wrist 8ch 1.5T Coil. 453530252282</h3>
+    <div class="chips"><span class="chip ref">NX-XX-081</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Philips MRI dS Wrist 8ch 1.5T Coil. 453530252282</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-082</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/qPoAAOSwDPJmokuV/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>383757 BODY COIL MRI PHILIPS INFINION 1.5T</h3>
+    <div class="chips"><span class="chip ref">NX-XX-082</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">383757 BODY COIL MRI PHILIPS INFINION 1.5T</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-083</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/StwAAeSwgV5pz98b/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Matrix head coil for Siemens Mri</h3>
+    <div class="chips"><span class="chip ref">NX-XX-083</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Matrix head coil for Siemens Mri</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-084</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/tFQAAOSwawpXv91G/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>A Set of GE 1.5T MRI Torso Array Coil Model: 2215261 Manufactured: 2008</h3>
+    <div class="chips"><span class="chip ref">NX-XX-084</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">A Set of GE 1.5T MRI Torso Array Coil Model: 2215261 Manufactured: 2008</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-085</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/bj8AAOSwbBNkLcED/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>QD Head Coil 4 Channels PN: MJQH-127A/S1 SN: A2552210 for Toshiba MRI</h3>
+    <div class="chips"><span class="chip ref">NX-XX-085</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">QD Head Coil 4 Channels PN: MJQH-127A/S1 SN: A2552210 for Toshiba MRI</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-086</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/EeIAAeSwmgZqSt6Q/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Siemens 05512053 CP CP Flex Large MRI Coil</h3>
+    <div class="chips"><span class="chip ref">NX-XX-086</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Siemens 05512053 CP CP Flex Large MRI Coil</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-087</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/eMEAAOSw8zdaptWR/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>HITACHI Altaire 0.7T  Neck Coil                           P/N MR-JCL-A13</h3>
+    <div class="chips"><span class="chip ref">NX-XX-087</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">HITACHI Altaire 0.7T  Neck Coil                           P/N MR-JCL-A13</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-088</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/EJAAAOSwFL1oSZwh/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>MRI Coil Philips Knee MRI Coil with Warranty!</h3>
+    <div class="chips"><span class="chip ref">NX-XX-088</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">MRI Coil Philips Knee MRI Coil with Warranty!</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-089</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/nbkAAeSwmPJoctxI/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE 8 Channel Cardiac Array MRI Cable Coil</h3>
+    <div class="chips"><span class="chip ref">NX-XX-089</span></div>
+    <dl><dt>Condição</dt><dd>Para peças</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GE 8 Channel Cardiac Array MRI Cable Coil</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-090</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/gHQAAOSwS1xinqAR/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3> MJLC-057A Flex Coil for Toshiba Closed MRI</h3>
+    <div class="chips"><span class="chip ref">NX-XX-090</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc"> MJLC-057A Flex Coil for Toshiba Closed MRI</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-091</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/cigAAeSwYAVpg26q/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Philips MRI dS Small Extremity 8ch 1.5T Coil. 453530283165</h3>
+    <div class="chips"><span class="chip ref">NX-XX-091</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Philips MRI dS Small Extremity 8ch 1.5T Coil. 453530283165</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-092</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/MlIAAeSw9LJqJ2Cd/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>07579555 Body Matrix Coil  A TIM 1.5T MRI SIEMENS</h3>
+    <div class="chips"><span class="chip ref">NX-XX-092</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">07579555 Body Matrix Coil  A TIM 1.5T MRI SIEMENS</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-093</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/-DcAAeSw2Rlo8lwQ/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>ESAOTE 9101645000 Coil No. 5 Foot/Ankle For MRI Machines</h3>
+    <div class="chips"><span class="chip ref">NX-XX-093</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">ESAOTE 9101645000 Coil No. 5 Foot/Ankle For MRI Machines</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-094</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/rHsAAeSwYi9p2TRE/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE DISCOVERY 3.0T 32CH BODY ARRAY MRI COIL ANTERIOR 5391468 2020 REV 9 </h3>
+    <div class="chips"><span class="chip ref">NX-XX-094</span></div>
+    <dl><dt>Condição</dt><dd>Para peças</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GE DISCOVERY 3.0T 32CH BODY ARRAY MRI COIL ANTERIOR 5391468 2020 REV 9 </div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-095</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/4xwAAOSw9WNnLQu-/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE 1.5T Split Head Coil Assembly MRI Coil with Warranty!</h3>
+    <div class="chips"><span class="chip ref">NX-XX-095</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GE 1.5T Split Head Coil Assembly MRI Coil with Warranty!</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-096</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/nacAAOSwlQJkLcKV/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Shoulder Coil 1.5T 4 Channels PN: 21100BZY00364000 for Toshiba MRI</h3>
+    <div class="chips"><span class="chip ref">NX-XX-096</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Shoulder Coil 1.5T 4 Channels PN: 21100BZY00364000 for Toshiba MRI</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-097</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/g1cAAOSwr7Vm0K4r/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Philips 953540 MRI BODY AND SPINE COIL XL P/N: 453566095113</h3>
+    <div class="chips"><span class="chip ref">NX-XX-097</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Philips 953540 MRI BODY AND SPINE COIL XL P/N: 453566095113</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-098</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/-iQAAOSwsBRoSZo6/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Philips Quadrature Knee / Foot MRI Coil with Warranty!</h3>
+    <div class="chips"><span class="chip ref">NX-XX-098</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Philips Quadrature Knee / Foot MRI Coil with Warranty!</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-099</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/aXAAAeSwl5xqBk3z/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE SIGNA MRI 8 Channel High Res Brain Array Coil 2317112-2 (4329)</h3>
+    <div class="chips"><span class="chip ref">NX-XX-099</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GE SIGNA MRI 8 Channel High Res Brain Array Coil 2317112-2 (4329)</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-100</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/kJkAAOSwYcln9sQK/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Knee Coil for Hitachi Airis Elite</h3>
+    <div class="chips"><span class="chip ref">NX-XX-100</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Knee Coil for Hitachi Airis Elite</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-101</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/u2kAAOSwA-Bjtuj5/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>PFEI MRX3 PCB board CDAS achieva intera Philips MRI 452213700381 MMB MME MR</h3>
+    <div class="chips"><span class="chip ref">NX-XX-101</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">PFEI MRX3 PCB board CDAS achieva intera Philips MRI 452213700381 MMB MME MR</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-102</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/lioAAeSw~DZqHNDP/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Esaote Opera E Scan MRI Knee N. 2 Coil 910 1824 000 / 5754549 </h3>
+    <div class="chips"><span class="chip ref">NX-XX-102</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Esaote Opera E Scan MRI Knee N. 2 Coil 910 1824 000 / 5754549 </div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-103</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/~nkAAOSwTixjtu4c/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GRADM PCB board CDAS achieva intera Philips MRI 452211795337 or 452211794104</h3>
+    <div class="chips"><span class="chip ref">NX-XX-103</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GRADM PCB board CDAS achieva intera Philips MRI 452211795337 or 452211794104</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-104</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/ljYAAOSwBzFkIxjl/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>ESAOTE 5754564 Foot/Ankle Coil for Extremity MRI Coil</h3>
+    <div class="chips"><span class="chip ref">NX-XX-104</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">ESAOTE 5754564 Foot/Ankle Coil for Extremity MRI Coil</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-105</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/t7AAAeSwPtlqHMsY/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Esaote Opera E Scan MRI Foot/Ankle N. 4 Coil 910 1913 000 / 5754564 FREQ 7510</h3>
+    <div class="chips"><span class="chip ref">NX-XX-105</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Esaote Opera E Scan MRI Foot/Ankle N. 4 Coil 910 1913 000 / 5754564 FREQ 7510</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-106</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/OI0AAOSwRbdnKToa/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>110377 Wrist Coil Phantom Symphony A Tim 1.5T MRI SIEMENS</h3>
+    <div class="chips"><span class="chip ref">NX-XX-106</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">110377 Wrist Coil Phantom Symphony A Tim 1.5T MRI SIEMENS</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-107</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/TK0AAOSwhsxnv16a/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Siemens 03784498 / 3784498 1.5T CP Spine Array MRI Coil</h3>
+    <div class="chips"><span class="chip ref">NX-XX-107</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Siemens 03784498 / 3784498 1.5T CP Spine Array MRI Coil</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-108</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/oSYAAOSwhG5m6Z7V/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Esaote E-Scan Knee Coil - P/N: 910-1824-000</h3>
+    <div class="chips"><span class="chip ref">NX-XX-108</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Esaote E-Scan Knee Coil - P/N: 910-1824-000</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-109</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/TQsAAOSwaXVe59nq/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>HITACHI Spine MRI Coil Model: 112133A S/N.016356</h3>
+    <div class="chips"><span class="chip ref">NX-XX-109</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">HITACHI Spine MRI Coil Model: 112133A S/N.016356</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-110</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/mPYAAeSwhLRp~Jou/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>CDAS TXR PHILIPS PN 452211794723</h3>
+    <div class="chips"><span class="chip ref">NX-XX-110</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">CDAS TXR PHILIPS PN 452211794723</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-111</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/gQYAAeSwsvFp2Zw0/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE HEALTHCARE 3.0T 16CH HEAD NECK SPINE HNS ARRAY 5341333 MRI COIL</h3>
+    <div class="chips"><span class="chip ref">NX-XX-111</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GE HEALTHCARE 3.0T 16CH HEAD NECK SPINE HNS ARRAY 5341333 MRI COIL</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-112</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/0WAAAeSwhj5oh57j/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Philips Flex XS MRI Coil, Model 962620 P/N: 4535 670 11351</h3>
+    <div class="chips"><span class="chip ref">NX-XX-112</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Philips Flex XS MRI Coil, Model 962620 P/N: 4535 670 11351</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-113</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/WUkAAOSwz3Fe599C/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3> HITACHI MRP-7000 Large Extremity Shoulder Coil MRI Coil</h3>
+    <div class="chips"><span class="chip ref">NX-XX-113</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc"> HITACHI MRP-7000 Large Extremity Shoulder Coil MRI Coil</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-114</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/wRcAAeSw2yFo8ls-/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>ESAOTE 9101643000 Coil No. 6 Hand/Wrist For MRI Machine</h3>
+    <div class="chips"><span class="chip ref">NX-XX-114</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">ESAOTE 9101643000 Coil No. 6 Hand/Wrist For MRI Machine</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-115</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/E2QAAOSwsOJmqmw0/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Esaote Opera E Scan Shoulder Coil -  P/N: 910-1819-000</h3>
+    <div class="chips"><span class="chip ref">NX-XX-115</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Esaote Opera E Scan Shoulder Coil -  P/N: 910-1819-000</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-116</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/UpYAAeSwTUFqHL4R/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>PFEI MRX4 PCB board CDAS achieva intera Philips MRI 452213204912 MMB MME</h3>
+    <div class="chips"><span class="chip ref">NX-XX-116</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">PFEI MRX4 PCB board CDAS achieva intera Philips MRI 452213204912 MMB MME</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-117</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/wiYAAOSwQa9lElnp/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>MRI COIL, Hitachi MRP7000, Small Flex Coil, MRI COIL, SMALL.</h3>
+    <div class="chips"><span class="chip ref">NX-XX-117</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">MRI COIL, Hitachi MRP7000, Small Flex Coil, MRI COIL, SMALL.</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-118</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/2esAAeSwm5Bp2ZwZ/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE 1.5T HD SHOULDER ARRAY 5344905 MRI COIL 2016</h3>
+    <div class="chips"><span class="chip ref">NX-XX-118</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GE 1.5T HD SHOULDER ARRAY 5344905 MRI COIL 2016</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-119</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/~NwAAOSwVBNinp3E/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Toshiba MRI Shoulder Coil Array 1.5T</h3>
+    <div class="chips"><span class="chip ref">NX-XX-119</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Toshiba MRI Shoulder Coil Array 1.5T</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-120</span></div>
+    <div class="ph empty">Foto sob consulta</div>
+  </div>
+  <div class="body">
+    <h3>383789 Integrated Spine Array Coil, L11969, L11970 MRI PHILIPS INFINION 1.5T</h3>
+    <div class="chips"><span class="chip ref">NX-XX-120</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">383789 Integrated Spine Array Coil, L11969, L11970 MRI PHILIPS INFINION 1.5T</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-121</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/-lEAAOSwtgFbfg8c/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Hitachi Altaire 0.7T RAPID Body coil. MR-RBC-A14</h3>
+    <div class="chips"><span class="chip ref">NX-XX-121</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Hitachi Altaire 0.7T RAPID Body coil. MR-RBC-A14</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-122</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/bX0AAOSwQphkIzsD/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3> ESAOTE Shoulder Coil N.5 9102206001 Coil MRI Coil</h3>
+    <div class="chips"><span class="chip ref">NX-XX-122</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc"> ESAOTE Shoulder Coil N.5 9102206001 Coil MRI Coil</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-123</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/AWQAAOSwpxJkIz-J/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>ESAOTE Opera E-Scan Multipurpose Flexible Coil, N6, 9102313000 MRI Coil</h3>
+    <div class="chips"><span class="chip ref">NX-XX-123</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">ESAOTE Opera E-Scan Multipurpose Flexible Coil, N6, 9102313000 MRI Coil</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-124</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/O4MAAOSwcZ9gZKJV/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Siemens/USA Instruments Inc. TxRx 1.5T Split Head Coil Assembly</h3>
+    <div class="chips"><span class="chip ref">NX-XX-124</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Siemens/USA Instruments Inc. TxRx 1.5T Split Head Coil Assembly</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-125</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/bTQAAOSwqqVm-vqS/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Torso Array 1.5T Coil for MRI</h3>
+    <div class="chips"><span class="chip ref">NX-XX-125</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Torso Array 1.5T Coil for MRI</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-126</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/SgUAAOSwLwZapeqX/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Hitachi Altaire 0.7T  Wrist coil.                         P/N MR-QWC-A11-1</h3>
+    <div class="chips"><span class="chip ref">NX-XX-126</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Hitachi Altaire 0.7T  Wrist coil.                         P/N MR-QWC-A11-1</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-127</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/vN0AAeSw4BZqPCxC/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Esaote Opera E Scan MRI Knee N. 2 Coil 910 1824 000 / 5754549</h3>
+    <div class="chips"><span class="chip ref">NX-XX-127</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Esaote Opera E Scan MRI Knee N. 2 Coil 910 1824 000 / 5754549</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-128</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/YbMAAeSwL-BqIew9/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE 2401500 Liberty 9000 1.5T HD 8-Channel Bilateral Breast Array MRI Coil &amp; Pads</h3>
+    <div class="chips"><span class="chip ref">NX-XX-128</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GE 2401500 Liberty 9000 1.5T HD 8-Channel Bilateral Breast Array MRI Coil &amp; Pads</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-129</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/wQAAAeSwqExqHMpT/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Esaote Opera E Scan MRI Shoulder Coil 910-1819-001 (91018190001) / 5754531 </h3>
+    <div class="chips"><span class="chip ref">NX-XX-129</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Esaote Opera E Scan MRI Shoulder Coil 910-1819-001 (91018190001) / 5754531 </div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-130</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/eO8AAOSwqIll7pC5/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE Healthcare Invivo Quad Knee 2383613-2 14661 Signa 1.5T Extremity Coil</h3>
+    <div class="chips"><span class="chip ref">NX-XX-130</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GE Healthcare Invivo Quad Knee 2383613-2 14661 Signa 1.5T Extremity Coil</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-131</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/U6AAAeSwwilp~M03/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Siemens CP Peripheral Angio Array MRI Coil P/N 5514752 (4800)</h3>
+    <div class="chips"><span class="chip ref">NX-XX-131</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Siemens CP Peripheral Angio Array MRI Coil P/N 5514752 (4800)</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-132</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/8FwAAeSwyk1p~MnH/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Siemens MRI 3146979 Breast Array Coil CPL.047 For MAGNETOM (4432)</h3>
+    <div class="chips"><span class="chip ref">NX-XX-132</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Siemens MRI 3146979 Breast Array Coil CPL.047 For MAGNETOM (4432)</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-133</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/E3kAAeSwGDhox1PY/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Siemens 8622644 3T Head Matrix MRI TIM Coil</h3>
+    <div class="chips"><span class="chip ref">NX-XX-133</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Siemens 8622644 3T Head Matrix MRI TIM Coil</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-134</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/qCcAAOSwfIBkIypM/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>ESAOTE Hand and Wrist Coil 9101912001 MRI Coil</h3>
+    <div class="chips"><span class="chip ref">NX-XX-134</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">ESAOTE Hand and Wrist Coil 9101912001 MRI Coil</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-135</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/0UsAAeSwvGZqHNn5/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>Esaote Opera E Scan MRI Shoulder N. 5 Coil 910 2206 000 / 7106334 FREQ 7510</h3>
+    <div class="chips"><span class="chip ref">NX-XX-135</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">Esaote Opera E Scan MRI Shoulder N. 5 Coil 910 2206 000 / 7106334 FREQ 7510</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-136</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/EnwAAeSww81qQbXr/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>GE MRI 1.5T Breast Array Coil P/N 2246360 (5976) JT</h3>
+    <div class="chips"><span class="chip ref">NX-XX-136</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">GE MRI 1.5T Breast Array Coil P/N 2246360 (5976) JT</div>
+  </div>
+</div><div class="part">
+  <div class="instr">
+    <div class="bar"><span class="dot"></span><span class="lbl">NX-XX-137</span></div>
+    <div class="ph"><img src="https://i.ebayimg.com/images/g/ACoAAOSwdrtoSbAQ/s-l225.jpg" alt=""></div>
+  </div>
+  <div class="body">
+    <h3>MRI Coil Philips Syn Flex Small MRI Coil with Warranty!</h3>
+    <div class="chips"><span class="chip ref">NX-XX-137</span></div>
+    <dl><dt>Condição</dt><dd>Usado</dd><dt>Disponibilidade</dt><dd>Sob encomenda</dd><dt>Localização</dt><dd>Argentina</dd></dl>
+    <div class="desc">MRI Coil Philips Syn Flex Small MRI Coil with Warranty!</div>
+  </div>
+</div></div>
+</div><div class="closing">
+  <div class="kicker" style="justify-content:center">Engenharia médica multimarca · MRI / CT</div>
+  <h2>Consulte disponibilidade e preço</h2>
+  <div class="cta">nexolibre.com</div>
+  <p>Fale conosco para cotar ou reservar qualquer item deste catálogo.</p>
+  <div class="footer">
+    <div class="member">Nexolibre é membro do Grupo Nexo</div>
+    <div>© 2026 Nexolibre · MRI / CT · Argentina · Chile · Colombia · USA</div>
+  </div>
+</div></body></html>
