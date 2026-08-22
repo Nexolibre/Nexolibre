@@ -11,9 +11,9 @@
 
   const lang=()=>document.documentElement.lang||'es';
   const T={
-    es:{consultar:'Consultar',ver:'Ver publicación',marca:'Marca',modelo:'Compatible',parte:'N° parte',garantia:'Garantía',ubic:'Ubicación',none:'No encontramos piezas con esos filtros.',err:'No se pudo cargar el catálogo.',all:['Todas las categorías','Todas las modalidades','Todas las marcas','Todas las ubicaciones'],res:r=>r+(r===1?' pieza':' piezas')},
-    en:{consultar:'Ask',ver:'View listing',marca:'Brand',modelo:'Fits',parte:'Part No.',garantia:'Warranty',ubic:'Location',none:'No parts match these filters.',err:'Could not load the catalog.',all:['All categories','All modalities','All brands','All locations'],res:r=>r+(r===1?' part':' parts')},
-    pt:{consultar:'Consultar',ver:'Ver anúncio',marca:'Marca',modelo:'Compatível',parte:'Nº peça',garantia:'Garantia',ubic:'Localização',none:'Não encontramos peças com esses filtros.',err:'Não foi possível carregar o catálogo.',all:['Todas as categorias','Todas as modalidades','Todas as marcas','Todas as localizações'],res:r=>r+(r===1?' peça':' peças')}
+    es:{wamsg:'Hola Nexolibre, consulto por la pieza ',consultar:'Consultar',ver:'Ver publicación',marca:'Marca',modelo:'Compatible',parte:'N° parte',garantia:'Garantía',ubic:'Ubicación',none:'No encontramos piezas con esos filtros.',err:'No se pudo cargar el catálogo.',all:['Todas las categorías','Todas las modalidades','Todas las marcas','Todas las ubicaciones'],res:r=>r+(r===1?' pieza':' piezas')},
+    en:{wamsg:'Hi Nexolibre, asking about part ',consultar:'Ask',ver:'View listing',marca:'Brand',modelo:'Fits',parte:'Part No.',garantia:'Warranty',ubic:'Location',none:'No parts match these filters.',err:'Could not load the catalog.',all:['All categories','All modalities','All brands','All locations'],res:r=>r+(r===1?' part':' parts')},
+    pt:{wamsg:'Olá Nexolibre, consulto pela peça ',consultar:'Consultar',ver:'Ver anúncio',marca:'Marca',modelo:'Compatível',parte:'Nº peça',garantia:'Garantia',ubic:'Localização',none:'Não encontramos peças com esses filtros.',err:'Não foi possível carregar o catálogo.',all:['Todas as categorias','Todas as modalidades','Todas as marcas','Todas as localizações'],res:r=>r+(r===1?' peça':' peças')}
   };
   const t=()=>T[lang()]||T.es;
   const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
@@ -63,6 +63,7 @@
       +(p.descripcion?'<p class="meta">'+esc(p.descripcion)+'</p>':'')
       +'<div class="part-foot">'+badge(p.disponibilidad)
       +'<a class="btn btn-primary" style="padding:9px 16px;font-size:14px" href="'+LP+'contacto/?parte='+encodeURIComponent(p.ref||p.nombre||'')+'">'+tt.consultar+'</a>'
+      +'<a class="btn btn-ghost cat-wa" style="padding:9px 14px;font-size:14px" target="_blank" rel="noopener" aria-label="WhatsApp" href="https://wa.me/5491167410993?text='+encodeURIComponent(tt.wamsg+(p.ref||p.nombre||''))+'"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.2-1.3c1.4.8 3 1.2 4.7 1.2h.1c5.5 0 10-4.5 10-10S17.5 2 12 2zm5.5 12.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.6.2-.2.3-.7 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.3s1 2.7 1.1 2.9c.2.2 2 3.1 5 4.3 2.4 1 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/></svg> WhatsApp</a>'
       +'</div>'+(ext?'<div style="padding-top:4px">'+ext+'</div>':'')
       +'</div></article>';
   }
