@@ -666,3 +666,6 @@
 .lm-ok{color:#7ee0a0}
 .lm-err{color:#ffb4a2}
 @media(max-width:760px){.lm-card{grid-template-columns:1fr;padding:26px 22px;gap:20px}}
+.lm-sub{margin:14px 0 0;font-size:14px;color:#f4efe6;opacity:.82}
+.lm-sub a{color:#ffa62e;font-weight:600;text-decoration:none}
+.lm-sub a:hover{text-decoration:underline}
