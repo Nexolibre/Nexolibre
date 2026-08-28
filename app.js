@@ -1,21 +1,22 @@
 (function(){
-  /* ---------- analytics: Google Tag Manager ---------- */
-  const GTM_ID='GTM-KZSD452B';   // contenedor GTM; la config GA4 se hace dentro de GTM
-  if(GTM_ID){
+  /* ---------- analytics: Google Analytics 4 (todas las páginas) ---------- */
+  const GA_ID='G-GG7ENWP7F3';
+  if(GA_ID){
     window.dataLayer=window.dataLayer||[];
-    dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    window.gtag=function(){dataLayer.push(arguments);};
     const s=document.createElement('script');s.async=true;
-    s.src='https://www.googletagmanager.com/gtm.js?id='+GTM_ID;document.head.appendChild(s);
-    // eventos de venta -> dataLayer (mapeables a GA4 desde GTM)
+    s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;document.head.appendChild(s);
+    gtag('js',new Date());gtag('config',GA_ID,{anonymize_ip:true});
+    // eventos de venta
     document.addEventListener('click',function(e){
       const a=e.target.closest('a'); if(!a)return;
       const h=a.getAttribute('href')||'';
-      if(h.indexOf('wa.me')>-1) dataLayer.push({event:'whatsapp_click',page:location.pathname});
-      else if(h.indexOf('parte=')>-1) dataLayer.push({event:'consultar_click',pieza:(h.match(/parte=([^&]+)/)||[])[1]||'',page:location.pathname});
-      else if(/^mailto:/.test(h)) dataLayer.push({event:'email_click'});
+      if(h.indexOf('wa.me')>-1) gtag('event','whatsapp_click',{page:location.pathname});
+      else if(h.indexOf('parte=')>-1) gtag('event','consultar_click',{pieza:(h.match(/parte=([^&]+)/)||[])[1]||'',page:location.pathname});
+      else if(/^mailto:/.test(h)) gtag('event','email_click');
     });
   }
-  function track(ev,data){ if(window.dataLayer) dataLayer.push(Object.assign({event:ev},data||{})); }
+  function track(ev,data){ if(window.gtag) gtag('event',ev,data||{}); }
 
   /* ---------- WhatsApp flotante (todas las páginas) ---------- */
   if(!document.querySelector('.wa-float')){
