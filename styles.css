@@ -669,3 +669,11 @@
 .lm-sub{margin:14px 0 0;font-size:14px;color:#f4efe6;opacity:.82}
 .lm-sub a{color:#ffa62e;font-weight:600;text-decoration:none}
 .lm-sub a:hover{text-decoration:underline}
+
+/* ---------- caso real ---------- */
+.case-card{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:20px;padding:34px 38px;box-shadow:var(--shadow)}
+.case-card h3{margin:8px 0 12px;color:#645d56;max-width:26ch}
+.case-card p{color:var(--muted);max-width:70ch;margin:0}
+.case-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.case-chips span{font-size:12.5px;font-weight:700;color:var(--accent-bright);background:rgba(241,144,0,.10);border:1px solid rgba(241,144,0,.22);border-radius:999px;padding:5px 12px;letter-spacing:.01em}
+@media(max-width:560px){.case-card{padding:26px 22px}}
