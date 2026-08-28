@@ -1,21 +1,21 @@
 (function(){
-  /* ---------- analytics (GA4) — poné tu Measurement ID abajo ---------- */
-  const GA_ID='';   // ← reemplazar por 'G-XXXXXXXXXX' para activar
-  if(GA_ID){
-    const s=document.createElement('script');s.async=true;
-    s.src='https://www.googletagmanager.com/gtag/js?id='+GA_ID;document.head.appendChild(s);
+  /* ---------- analytics: Google Tag Manager ---------- */
+  const GTM_ID='GTM-KZSD452B';   // contenedor GTM; la config GA4 se hace dentro de GTM
+  if(GTM_ID){
     window.dataLayer=window.dataLayer||[];
-    window.gtag=function(){dataLayer.push(arguments);};
-    gtag('js',new Date());gtag('config',GA_ID,{anonymize_ip:true});
+    dataLayer.push({'gtm.start':new Date().getTime(),event:'gtm.js'});
+    const s=document.createElement('script');s.async=true;
+    s.src='https://www.googletagmanager.com/gtm.js?id='+GTM_ID;document.head.appendChild(s);
+    // eventos de venta -> dataLayer (mapeables a GA4 desde GTM)
     document.addEventListener('click',function(e){
       const a=e.target.closest('a'); if(!a)return;
       const h=a.getAttribute('href')||'';
-      if(h.indexOf('wa.me')>-1) gtag('event','whatsapp_click',{page:location.pathname});
-      else if(h.indexOf('parte=')>-1) gtag('event','consultar_click',{pieza:(h.match(/parte=([^&]+)/)||[])[1]||'',page:location.pathname});
-      else if(/^mailto:/.test(h)) gtag('event','email_click');
-      else if(h.indexOf('#lang')<0 && /\/(en|pt)?\/?$/.test(h)===false && h.indexOf('http')===0) gtag('event','outbound_click',{url:h});
+      if(h.indexOf('wa.me')>-1) dataLayer.push({event:'whatsapp_click',page:location.pathname});
+      else if(h.indexOf('parte=')>-1) dataLayer.push({event:'consultar_click',pieza:(h.match(/parte=([^&]+)/)||[])[1]||'',page:location.pathname});
+      else if(/^mailto:/.test(h)) dataLayer.push({event:'email_click'});
     });
   }
+  function track(ev,data){ if(window.dataLayer) dataLayer.push(Object.assign({event:ev},data||{})); }
 
   /* ---------- WhatsApp flotante (todas las páginas) ---------- */
   if(!document.querySelector('.wa-float')){
@@ -139,7 +139,7 @@
         method:'POST',headers:{'Accept':'application/json'},body:new FormData(form)
       });
       const json=await res.json();
-      if(json.success){ if(ok)ok.classList.add('show'); if(window.gtag)gtag('event','generate_lead',{form:'contacto'}); form.reset(); }
+      if(json.success){ if(ok)ok.classList.add('show'); track('generate_lead',{form:'contacto'}); form.reset(); }
       else { if(formErr)formErr.classList.add('show'); }
     }catch(e){ if(formErr)formErr.classList.add('show'); }
     finally{ if(btn){btn.disabled=false;btn.innerHTML=orig;} }
@@ -160,7 +160,7 @@
       const res=await fetch('https://api.web3forms.com/submit',{method:'POST',headers:{'Accept':'application/json'},body:new FormData(pdfForm)});
       const json=await res.json();
       if(json.success){
-        if(window.gtag)gtag('event','generate_lead',{form:'lead_magnet'});
+        track('generate_lead',{form:'lead_magnet'});
         const a=document.createElement('a');a.href=pdf;a.download='';document.body.appendChild(a);a.click();a.remove();
         if(ok)ok.classList.add('show'); pdfForm.reset();
       } else { if(er)er.classList.add('show'); }
