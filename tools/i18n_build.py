@@ -43,7 +43,7 @@ _EXCL = ("en/", "pt/", "presentacion/", "graphify-out/", "node_modules/")
 def discover():
     """Descubre las páginas ES fuente: index.html en raíz, subcarpetas y repuestos/*."""
     found = set()
-    for pat in ["index.html", "*/index.html", "repuestos/*/index.html"]:
+    for pat in ["index.html", "*/index.html", "repuestos/*/index.html", "reparacion/*/index.html"]:
         for f in _glob.glob(os.path.join(ROOT, pat)):
             rel = os.path.relpath(f, ROOT).replace(os.sep, "/")
             if any(rel.startswith(x) for x in _EXCL):

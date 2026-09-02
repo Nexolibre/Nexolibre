@@ -61,6 +61,56 @@
     <priority>0.9</priority>
   </url>
   <url>
+    <loc>https://nexolibre.com/reparacion/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/reparacion/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/reparacion/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/reparacion/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/reparacion/"/>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nexolibre.com/reparacion/bobinas-mri/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/reparacion/bobinas-mri/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/reparacion/bobinas-mri/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/reparacion/bobinas-mri/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/reparacion/bobinas-mri/"/>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nexolibre.com/reparacion/fuentes-inyectores/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/reparacion/fuentes-inyectores/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/reparacion/fuentes-inyectores/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/reparacion/fuentes-inyectores/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/reparacion/fuentes-inyectores/"/>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nexolibre.com/reparacion/gradientes/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/reparacion/gradientes/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/reparacion/gradientes/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/reparacion/gradientes/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/reparacion/gradientes/"/>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://nexolibre.com/reparacion/rf/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/reparacion/rf/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/reparacion/rf/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/reparacion/rf/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/reparacion/rf/"/>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://nexolibre.com/repuestos/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/repuestos/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/repuestos/"/>
