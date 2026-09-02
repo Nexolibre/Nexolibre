@@ -715,3 +715,12 @@
 /* ---------- skip link (accesibilidad) ---------- */
 .skip-link{position:absolute;left:-9999px;top:0;z-index:1000;background:var(--accent);color:#fff;padding:10px 16px;border-radius:0 0 10px 0;font-weight:700;font-size:14px}
 .skip-link:focus{left:0}
+
+/* ---------- glosario ---------- */
+.glossary{max-width:840px;margin:0 auto}
+.glossary dt{font-family:'Exo',sans-serif;font-weight:800;font-size:18px;color:#3a352f;margin-top:22px}
+.glossary dt:first-child{margin-top:0}
+.glossary dd{margin:6px 0 0;color:var(--muted);line-height:1.6;padding-bottom:16px;border-bottom:1px solid var(--border)}
+.src-list{max-width:840px;margin:12px auto 0;padding-left:18px;color:var(--muted);line-height:1.9}
+.src-list a{color:var(--accent-bright);font-weight:600}
+.src-list a:hover{text-decoration:underline}

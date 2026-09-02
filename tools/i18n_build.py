@@ -157,6 +157,10 @@ def bake(raw, lang, P):
     # 8) WebPage schema con dateModified (señal de frescura para SEO/GEO)
     head = soup.head
     if head:
+        # sacar cualquier WebPage previo para no duplicar en rebuilds
+        for sc0 in soup.find_all("script", attrs={"type": "application/ld+json"}):
+            if sc0.string and '"@type":"WebPage"' in sc0.string.replace(" ", ""):
+                sc0.decompose()
         wp = {"@context": "https://schema.org", "@type": "WebPage",
               "@id": url_for(lang, P) + "#webpage", "url": url_for(lang, P),
               "inLanguage": lang, "isPartOf": {"@id": f"{BASE}/#website"},

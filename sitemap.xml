@@ -41,6 +41,16 @@
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://nexolibre.com/glosario/</loc>
+    <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/glosario/"/>
+    <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/glosario/"/>
+    <xhtml:link rel="alternate" hreflang="pt" href="https://nexolibre.com/pt/glosario/"/>
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://nexolibre.com/glosario/"/>
+    <lastmod>2026-09-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://nexolibre.com/monitoreo/</loc>
     <xhtml:link rel="alternate" hreflang="es" href="https://nexolibre.com/monitoreo/"/>
     <xhtml:link rel="alternate" hreflang="en" href="https://nexolibre.com/en/monitoreo/"/>
