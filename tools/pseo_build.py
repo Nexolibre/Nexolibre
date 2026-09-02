@@ -88,6 +88,37 @@ TAIL = f'''</main>
 </body>
 </html>'''
 
+def recovered_and_faq():
+    """Bloque de contenido (por qué piezas recuperadas) + FAQ con schema.
+    Suma texto sustantivo para que las páginas de listado no sean 'thin'."""
+    li = "".join(
+        f'<li><svg fill="none" height="18" stroke="currentColor" stroke-width="2.4" viewbox="0 0 24 24" width="18"><path d="M20 6L9 17l-5-5"></path></svg><span {L(es,en,pt)}>{esc(es)}</span></li>'
+        for es, en, pt in [
+            ("Testeadas y con control de calidad antes de la entrega", "Bench-tested and QA'd before delivery", "Testadas e com controle de qualidade antes da entrega"),
+            ("90 días de garantía en todas las reparaciones", "90-day warranty on every repair", "90 dias de garantia em todos os reparos"),
+            ("Multimarca, sin atarte al OEM", "Multivendor, no OEM lock-in", "Multimarca, sem prender você ao OEM"),
+            ("Sourcing internacional + recuperación a pedido", "International sourcing + recovery on demand", "Sourcing internacional + recuperação sob demanda"),
+        ])
+    faqs = [
+        (("¿Las piezas recuperadas tienen garantía?", "Do recovered parts have a warranty?", "As peças recuperadas têm garantia?"),
+         ("Sí. Todas nuestras reparaciones y piezas recuperadas incluyen 90 días de garantía, y cada pieza se testea y documenta antes de la entrega.", "Yes. All our repairs and recovered parts include a 90-day warranty, and every part is tested and documented before delivery.", "Sim. Todos os nossos reparos e peças recuperadas incluem 90 dias de garantia, e cada peça é testada e documentada antes da entrega.")),
+        (("¿Qué pasa si no está la pieza que busco?", "What if the part I need isn't listed?", "E se a peça que procuro não estiver na lista?"),
+         ("La conseguimos por sourcing internacional o la recuperamos a pedido en nuestros laboratorios de Argentina, Chile y Estados Unidos. Escribinos con la marca, el modelo y el número de parte.", "We source it internationally or recover it on demand in our labs in Argentina, Chile and the United States. Send us the brand, model and part number.", "Conseguimos por sourcing internacional ou recuperamos sob demanda em nossos laboratórios na Argentina, Chile e Estados Unidos. Envie a marca, o modelo e o número da peça.")),
+    ]
+    det = "".join(f'<details><summary {L(*q)}>{esc(q[0])}</summary><p {L(*a)}>{esc(a[0])}</p></details>' for q, a in faqs)
+    ld = {"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "es",
+          "mainEntity": [{"@type": "Question", "name": q[0], "acceptedAnswer": {"@type": "Answer", "text": a[0]}} for q, a in faqs]}
+    return f'''
+<section class="split" style="padding-top:8px"><div class="wrap">
+  <div class="sec-head reveal"><div class="eyebrow" {L("Piezas recuperadas","Recovered parts","Peças recuperadas")}>Piezas recuperadas</div>
+  <h2 {L("Por qué elegir piezas recuperadas y testeadas","Why choose recovered, tested parts","Por que escolher peças recuperadas e testadas")}>Por qué elegir piezas recuperadas y testeadas</h2></div>
+  <p class="lead" style="max-width:72ch" {L("Recuperar una pieza en lugar de comprarla nueva evita el downtime del equipo y reduce fuertemente el costo. En nuestros laboratorios propios de Argentina, Chile y Estados Unidos reparamos y testeamos cada pieza antes de entregarla, con control de calidad documentado y 90 días de garantía. Trabajamos de forma multimarca —GE, Siemens, Philips, Canon, Hitachi, Toshiba— sin atar al cliente al OEM.","Recovering a part instead of buying it new avoids equipment downtime and sharply reduces cost. In our own labs in Argentina, Chile and the United States we repair and test every part before delivery, with documented quality control and a 90-day warranty. We work multivendor —GE, Siemens, Philips, Canon, Hitachi, Toshiba— with no OEM lock-in.","Recuperar uma peça em vez de comprá-la nova evita o downtime do equipamento e reduz fortemente o custo. Em nossos laboratórios próprios na Argentina, Chile e Estados Unidos reparamos e testamos cada peça antes da entrega, com controle de qualidade documentado e 90 dias de garantia. Trabalhamos de forma multimarca —GE, Siemens, Philips, Canon, Hitachi, Toshiba— sem prender o cliente ao OEM.")}>Recuperar una pieza en lugar de comprarla nueva evita el downtime del equipo y reduce fuertemente el costo. En nuestros laboratorios propios de Argentina, Chile y Estados Unidos reparamos y testeamos cada pieza antes de entregarla, con control de calidad documentado y 90 días de garantía. Trabajamos de forma multimarca —GE, Siemens, Philips, Canon, Hitachi, Toshiba— sin atar al cliente al OEM.</p>
+  <ul class="feat" style="max-width:760px;margin-top:12px">{li}</ul>
+  <div class="faq reveal" style="margin-top:26px">{det}</div>
+  <script type="application/ld+json">{json.dumps(ld, ensure_ascii=False, separators=(",",":"))}</script>
+</div></section>'''
+
+
 def page(path, t_es,t_en,t_pt, d_es,d_en,d_pt, eyebrow, h1_es,h1_en,h1_pt,
          intro_es,intro_en,intro_pt, items, models, related, jsonld):
     grid = "".join(card(p) for p in items)
@@ -114,6 +145,7 @@ def page(path, t_es,t_en,t_pt, d_es,d_en,d_pt, eyebrow, h1_es,h1_en,h1_pt,
   <div class="pgrid">{grid}</div>
 </div></section>
 {mod}
+{recovered_and_faq()}
 {rel}
 <section class="split"><div class="wrap"><div class="ctaband reveal" style="text-align:center">
   <h2 style="max-width:22ch;margin:0 auto 12px" {L("¿No ves la pieza que buscás?","Can’t find the part you need?","Não encontra a peça que procura?")}>¿No ves la pieza que buscás?</h2>
@@ -210,7 +242,8 @@ def main():
   </div></section>
 <section class="products"><div class="wrap"><div class="grid-3">{hub_cards}</div>
   <div style="text-align:center;margin-top:32px"><a href="/catalogo/" class="btn btn-primary" {L("Ver catálogo completo","Browse full catalog","Ver catálogo completo")}>Ver catálogo completo</a></div>
-</div></section>'''
+</div></section>
+{recovered_and_faq()}'''
     hub_ld={"@context":"https://schema.org","@type":"CollectionPage","name":"Repuestos MRI/CT por marca","url":BASE+"/repuestos/"}
     os.makedirs(os.path.join(ROOT,"repuestos"),exist_ok=True)
     open(os.path.join(ROOT,"repuestos","index.html"),"w",encoding="utf-8").write(
