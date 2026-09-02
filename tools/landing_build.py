@@ -356,6 +356,14 @@ def render_hub():
     d = ("Laboratorios propios que reparan y recuperan piezas críticas de resonancia (MRI) y tomografía (CT): bobinas, gradientes, RF, fuentes e inyectores. Multimarca, con 90 días de garantía. Argentina, Chile y USA.",
          "In-house labs that repair and recover critical MRI and CT parts: coils, gradients, RF, power supplies and injectors. Multivendor, with a 90-day warranty. Argentina, Chile and the USA.",
          "Laboratórios próprios que reparam e recuperam peças críticas de MRI e CT: bobinas, gradientes, RF, fontes e injetores. Multimarca, com 90 dias de garantia. Argentina, Chile e EUA.")
+    hub_faqs = [
+        (("¿Qué piezas de MRI/CT reparan?", "Which MRI/CT parts do you repair?", "Quais peças de MRI/CT vocês reparam?"),
+         ("Reparamos y recuperamos bobinas de resonancia (MRI coils), módulos y amplificadores de gradiente, módulos y amplificadores de RF, fuentes de poder e inyectores de contraste, en resonancia magnética y tomografía.", "We repair and recover MRI coils, gradient modules and amplifiers, RF modules and amplifiers, power supplies and contrast injectors, for MRI and CT.", "Reparamos e recuperamos bobinas de MRI, módulos e amplificadores de gradiente, módulos e amplificadores de RF, fontes e injetores de contraste, em MRI e CT.")),
+        (("¿Reparan piezas dadas por perdidas?", "Do you repair parts given up for lost?", "Vocês reparam peças dadas como perdidas?"),
+         ("Sí. Nuestra especialidad es recuperar piezas críticas que el circuito tradicional descarta, con reparación electrónica y cosmética y control de calidad documentado antes de la entrega.", "Yes. Our specialty is recovering critical parts that the traditional channel discards, with electronic and cosmetic repair and documented quality control before delivery.", "Sim. Nossa especialidade é recuperar peças críticas que o circuito tradicional descarta, com reparo eletrônico e cosmético e controle de qualidade documentado antes da entrega.")),
+        (("¿Qué garantía tienen y en qué países operan?", "What warranty do they have and where do you operate?", "Qual a garantia e em quais países vocês atuam?"),
+         ("Todas las reparaciones incluyen 90 días de garantía. Trabajamos de forma multimarca (GE, Siemens, Philips, Canon, Hitachi, Toshiba) con laboratorios propios en Argentina, Chile y Estados Unidos.", "All repairs include a 90-day warranty. We work multivendor (GE, Siemens, Philips, Canon, Hitachi, Toshiba) with in-house labs in Argentina, Chile and the United States.", "Todos os reparos incluem 90 dias de garantia. Trabalhamos de forma multimarca (GE, Siemens, Philips, Canon, Hitachi, Toshiba) com laboratórios próprios na Argentina, Chile e Estados Unidos.")),
+    ]
     body = (hero(("Reparación y recuperación", "Repair & recovery", "Reparo e recuperação"),
                  ("Reparación y recuperación de piezas de MRI/CT",
                   "MRI/CT parts repair and recovery",
@@ -366,10 +374,12 @@ def render_hub():
             + f'<section class="products"><div class="wrap"><div class="grid-3">{cards}</div></div></section>'
             + proceso_section()
             + brands_section()
+            + faq_section(hub_faqs)
             + cta_section())
     jsonld = [{"@context": "https://schema.org", "@type": "CollectionPage",
                "name": t[0], "url": BASE + "/reparacion/"},
-              breadcrumb_ld("reparacion/", "Reparación")]
+              breadcrumb_ld("reparacion/", "Reparación"),
+              faq_ld("reparacion/", hub_faqs)]
     # el breadcrumb del hub sólo hasta nivel 2
     jsonld[1]["itemListElement"] = jsonld[1]["itemListElement"][:2]
     write("reparacion", head("reparacion/", t, d, jsonld) + body + TAIL)
