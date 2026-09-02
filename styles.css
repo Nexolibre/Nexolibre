@@ -700,3 +700,12 @@
 .why-guarantee .g-text p{margin:0;color:var(--muted);font-size:15px}
 @media(max-width:900px){.why-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:560px){.why-grid{grid-template-columns:1fr}.why-guarantee{flex-direction:column;text-align:center;padding:26px 22px}}
+
+/* ---------- sedes (dónde estamos) ---------- */
+.loc-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:26px 24px;box-shadow:var(--shadow);transition:transform .25s var(--ease),box-shadow .25s var(--ease)}
+.loc-card:hover{transform:translateY(-4px);box-shadow:0 20px 42px -20px rgba(20,16,10,.38)}
+.loc-card h4{font-family:'Exo',sans-serif;font-weight:800;font-size:19px;color:#645d56;margin-bottom:10px}
+.loc-card .loc-sub{font-weight:600;font-size:14px;color:var(--muted-2)}
+.loc-addr{color:var(--muted);font-size:14.5px;line-height:1.6;margin:0 0 16px}
+.loc-map{display:inline-flex;align-items:center;gap:7px;color:var(--accent-bright);font-weight:700;font-size:14px}
+.loc-map:hover{text-decoration:underline}
