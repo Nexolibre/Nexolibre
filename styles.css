@@ -221,7 +221,9 @@
 
   /* ---------- footer ---------- */
   footer{border-top:1px solid var(--border);padding:64px 0 36px;background:var(--bg-2)}
-  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:36px;margin-bottom:48px}
+  .foot-grid{display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr 1.2fr;gap:36px;margin-bottom:48px}
+  .foot-addr{line-height:1.45;margin-bottom:14px}
+  .foot-addr b{display:block;color:#7a736a;font-weight:700;font-size:13.5px;margin-bottom:2px}
   .foot-brand p{color:var(--muted);font-size:14px;max-width:34ch;margin-top:16px}
   .foot-logo{width:172px;height:auto;display:block}
   .foot-col h5{font-family:'Exo',sans-serif;font-size:13px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:#645d56;margin-bottom:18px}
