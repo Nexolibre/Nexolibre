@@ -82,7 +82,7 @@
   const slides=[...document.querySelectorAll('.tslide')], tnav=document.getElementById('tnav');
   if(tnav && slides.length){
     let idx=0;
-    slides.forEach((s,i)=>{const b=document.createElement('button'); if(i===0)b.classList.add('active'); b.addEventListener('click',()=>go(i)); tnav.appendChild(b);});
+    slides.forEach((s,i)=>{const b=document.createElement('button'); if(i===0)b.classList.add('active'); b.setAttribute('aria-label','Testimonio '+(i+1)); b.addEventListener('click',()=>go(i)); tnav.appendChild(b);});
     const dots=[...tnav.children];
     function go(i){slides[idx].classList.remove('active');dots[idx].classList.remove('active');idx=i;slides[idx].classList.add('active');dots[idx].classList.add('active');}
     if(slides.length>1) setInterval(()=>go((idx+1)%slides.length),6000);
@@ -93,7 +93,8 @@
     const vids=[...document.querySelectorAll('.statshero-vid, .topmedia-vid')];
     if(!vids.length) return;
     function play(){vids.forEach(v=>{try{v.muted=true;v.setAttribute('muted','');const p=v.play();if(p&&p.catch)p.catch(()=>{});}catch(e){}});}
-    play();
+    // diferir el arranque para no competir con el LCP en mobile
+    if('requestIdleCallback' in window) requestIdleCallback(play,{timeout:2500}); else setTimeout(play,1200);
     // reintenta apenas haya interacción o cuando la pestaña vuelve a estar visible
     ['click','touchstart','scroll','keydown'].forEach(ev=>window.addEventListener(ev,play,{once:true,passive:true}));
     document.addEventListener('visibilitychange',()=>{if(!document.hidden)play();});
