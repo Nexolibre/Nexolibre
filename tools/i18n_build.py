@@ -17,11 +17,23 @@ navegan a la URL del otro idioma.
 Uso:  python3 tools/i18n_build.py
 Editá siempre las páginas ES (la raíz) y volvé a correr esto.
 """
-import os, re, datetime
+import os, re, datetime, hashlib
 from bs4 import BeautifulSoup
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.abspath(os.path.join(HERE, ".."))
+
+# cache-busting: hash de contenido de nuestros assets propios.
+# Cada cambio de estos archivos genera una URL nueva (?v=hash) y evita
+# que Cloudflare/GitHub Pages sirvan versiones viejas cacheadas.
+def _asset_ver(path):
+    p = os.path.join(ROOT, path.lstrip("/"))
+    try:
+        return hashlib.sha1(open(p, "rb").read()).hexdigest()[:8]
+    except OSError:
+        return None
+ASSETS = {a: v for a in ("/styles.css", "/app.js", "/catalog.js")
+          if (v := _asset_ver(a))}
 BASE = "https://nexolibre.com"
 LANGS = ["es", "en", "pt"]
 OGLOC = {"es": "es_AR", "en": "en_US", "pt": "pt_BR"}
@@ -131,6 +143,16 @@ def bake(raw, lang, P):
     for nm, val in [("twitter:title", tt), ("twitter:description", dd)]:
         m = soup.find("meta", attrs={"name": nm})
         if m: m["content"] = val
+
+    # 7) cache-busting de assets propios (styles.css / app.js / catalog.js)
+    for tag, attr in (("link", "href"), ("script", "src")):
+        for el in soup.find_all(tag):
+            u = el.get(attr)
+            if not u:
+                continue
+            base = u.split("?")[0]
+            if base in ASSETS:
+                el[attr] = f"{base}?v={ASSETS[base]}"
 
     return str(soup)
 
