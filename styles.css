@@ -671,9 +671,14 @@
 .lm-sub a:hover{text-decoration:underline}
 
 /* ---------- caso real ---------- */
-.case-card{background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:20px;padding:34px 38px;box-shadow:var(--shadow)}
+.case-card{display:grid;grid-template-columns:1.15fr .85fr;gap:36px;align-items:center;background:var(--surface);border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:20px;padding:34px 38px;box-shadow:var(--shadow)}
 .case-card h3{margin:8px 0 12px;color:#645d56;max-width:26ch}
-.case-card p{color:var(--muted);max-width:70ch;margin:0}
+.case-text>p{color:var(--muted);max-width:64ch;margin:0}
+.case-quote{margin:18px 0 0;padding:14px 18px;background:var(--surface-2);border-left:3px solid var(--accent);border-radius:0 12px 12px 0}
+.case-quote p{margin:0;color:var(--text);font-size:15.5px;font-style:italic;max-width:60ch}
+.case-quote cite{display:block;margin-top:8px;font-style:normal;font-weight:700;font-size:13px;color:var(--muted)}
 .case-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
 .case-chips span{font-size:12.5px;font-weight:700;color:var(--accent-bright);background:rgba(241,144,0,.10);border:1px solid rgba(241,144,0,.22);border-radius:999px;padding:5px 12px;letter-spacing:.01em}
+.case-media img{width:100%;height:auto;border-radius:14px;filter:drop-shadow(0 18px 30px rgba(20,16,10,.16))}
+@media(max-width:820px){.case-card{grid-template-columns:1fr;gap:24px}.case-media{order:-1}}
 @media(max-width:560px){.case-card{padding:26px 22px}}
