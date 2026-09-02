@@ -684,10 +684,19 @@
 @media(max-width:560px){.case-card{padding:26px 22px}}
 
 /* ---------- por qué nexolibre ---------- */
-.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.why-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:26px 24px;box-shadow:var(--shadow)}
-.why-card .ti{width:42px;height:42px;border-radius:12px;display:grid;place-items:center;background:rgba(241,144,0,.12);color:var(--accent-bright);margin-bottom:14px}
-.why-card h4{font-family:'Exo',sans-serif;font-weight:800;font-size:17px;letter-spacing:-.01em;color:#645d56;margin-bottom:8px}
-.why-card p{color:var(--muted);font-size:14.5px;margin:0}
+.why-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.why-card{position:relative;overflow:hidden;background:var(--surface-2);border:1px solid var(--border);border-radius:20px;padding:30px 28px;transition:transform .28s var(--ease),box-shadow .28s var(--ease),border-color .28s var(--ease)}
+.why-card::before{content:"";position:absolute;inset:0 0 auto 0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent-2));opacity:0;transition:opacity .28s var(--ease)}
+.why-card:hover{transform:translateY(-5px);box-shadow:0 22px 46px -20px rgba(20,16,10,.4);border-color:var(--border-2)}
+.why-card:hover::before{opacity:1}
+.why-idx{position:absolute;top:22px;right:24px;font-family:'Exo',sans-serif;font-weight:900;font-size:30px;line-height:1;color:rgba(241,144,0,.16)}
+.why-card .ti{width:52px;height:52px;border-radius:15px;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 10px 22px -8px rgba(241,144,0,.6);margin-bottom:18px}
+.why-card h4{font-family:'Exo',sans-serif;font-weight:800;font-size:18px;letter-spacing:-.01em;color:#3a352f;margin-bottom:9px;max-width:22ch}
+.why-card p{color:var(--muted);font-size:14.5px;line-height:1.55;margin:0}
+.why-guarantee{display:flex;align-items:center;gap:22px;margin-top:20px;background:linear-gradient(120deg,rgba(241,144,0,.14),rgba(255,178,62,.05)),var(--surface);border:1px solid rgba(241,144,0,.32);border-radius:20px;padding:26px 32px}
+.why-guarantee .g-badge{flex:0 0 auto;width:66px;height:66px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--accent),var(--accent-2));color:#fff;box-shadow:0 12px 26px -10px rgba(241,144,0,.7)}
+.why-guarantee .g-text h3{margin:0 0 5px;color:#3a352f;font-size:clamp(20px,2.2vw,25px)}
+.why-guarantee .g-num{color:var(--accent-bright)}
+.why-guarantee .g-text p{margin:0;color:var(--muted);font-size:15px}
 @media(max-width:900px){.why-grid{grid-template-columns:1fr 1fr}}
-@media(max-width:560px){.why-grid{grid-template-columns:1fr}}
+@media(max-width:560px){.why-grid{grid-template-columns:1fr}.why-guarantee{flex-direction:column;text-align:center;padding:26px 22px}}
