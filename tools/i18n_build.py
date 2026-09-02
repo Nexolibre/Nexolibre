@@ -154,6 +154,29 @@ def bake(raw, lang, P):
             if base in ASSETS:
                 el[attr] = f"{base}?v={ASSETS[base]}"
 
+    # 8) WebPage schema con dateModified (señal de frescura para SEO/GEO)
+    head = soup.head
+    if head:
+        wp = {"@context": "https://schema.org", "@type": "WebPage",
+              "@id": url_for(lang, P) + "#webpage", "url": url_for(lang, P),
+              "inLanguage": lang, "isPartOf": {"@id": f"{BASE}/#website"},
+              "datePublished": "2026-06-01", "dateModified": datetime.date.today().isoformat()}
+        tt2 = soup.find("title")
+        if tt2:
+            wp["name"] = tt2.get_text()
+        sc = soup.new_tag("script", type="application/ld+json")
+        sc.string = __import__("json").dumps(wp, ensure_ascii=False, separators=(",", ":"))
+        head.append(sc)
+
+    # 9) skip-to-content link (accesibilidad, WCAG 2.4.1) como primer foco
+    body = soup.body
+    if body and not body.find("a", class_="skip-link"):
+        txt = {"es": "Saltar al contenido", "en": "Skip to content", "pt": "Pular para o conteúdo"}[lang]
+        sk = soup.new_tag("a", href="#top")
+        sk["class"] = "skip-link"
+        sk.string = txt
+        body.insert(0, sk)
+
     return str(soup)
 
 

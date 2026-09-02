@@ -711,3 +711,7 @@
 .loc-addr{color:var(--muted);font-size:14.5px;line-height:1.6;margin:0 0 16px}
 .loc-map{display:inline-flex;align-items:center;gap:7px;color:var(--accent-bright);font-weight:700;font-size:14px}
 .loc-map:hover{text-decoration:underline}
+
+/* ---------- skip link (accesibilidad) ---------- */
+.skip-link{position:absolute;left:-9999px;top:0;z-index:1000;background:var(--accent);color:#fff;padding:10px 16px;border-radius:0 0 10px 0;font-weight:700;font-size:14px}
+.skip-link:focus{left:0}
