@@ -724,3 +724,40 @@
 .src-list{max-width:840px;margin:12px auto 0;padding-left:18px;color:var(--muted);line-height:1.9}
 .src-list a{color:var(--accent-bright);font-weight:600}
 .src-list a:hover{text-decoration:underline}
+
+/* ---------- equipos MRI en venta (productos) ---------- */
+.equip-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:28px}
+.equip-card{display:flex;flex-direction:column;border:1px solid var(--border);background:var(--surface);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);transition:.22s var(--ease)}
+.equip-card:hover{transform:translateY(-3px);border-color:rgba(241,144,0,.45)}
+.equip-img{position:relative;aspect-ratio:4/3;overflow:hidden;background:var(--surface-2);border-bottom:1px solid var(--border)}
+.equip-img img{width:100%;height:100%;object-fit:cover;display:block}
+.equip-badge{position:absolute;top:12px;left:12px;font-size:11px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;background:rgba(31,168,85,.16);color:#1c7a40;border:1px solid rgba(31,168,85,.4);border-radius:30px;padding:4px 11px}
+.equip-body{display:flex;flex-direction:column;gap:12px;padding:18px 18px 20px;flex:1}
+.equip-body h3{font-size:19px;line-height:1.18}
+.equip-loc{font-size:12.5px;color:var(--muted);font-weight:600;display:flex;align-items:center;gap:6px}
+.equip-loc svg{width:14px;height:14px;color:var(--accent-bright)}
+.equip-specs{display:flex;flex-wrap:wrap;gap:7px}
+.equip-wa{margin-top:auto}
+.equip-wa .btn{width:100%;gap:8px}
+@media(max-width:860px){.equip-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.equip-grid{grid-template-columns:1fr}}
+
+/* ---------- card destacada de equipo (ficha + bobinas) ---------- */
+.equip-card.feature{display:grid;grid-template-columns:1.05fr 1fr;align-items:stretch}
+.equip-card.feature .equip-img{aspect-ratio:auto;border-bottom:0;border-right:1px solid var(--border);min-height:340px}
+.equip-card.feature .equip-body{padding:30px 32px;gap:14px}
+.equip-lead{color:var(--muted);font-size:15px;line-height:1.5;margin:0}
+.equip-det{border-top:1px solid var(--border);margin-top:2px;padding-top:14px}
+.equip-det summary{cursor:pointer;list-style:none;font-family:'Exo',sans-serif;font-weight:800;font-size:14px;color:var(--text);display:flex;justify-content:space-between;align-items:center;gap:10px}
+.equip-det summary::-webkit-details-marker{display:none}
+.equip-det summary::after{content:'+';color:var(--accent);font-size:22px;line-height:1;flex:0 0 auto}
+.equip-det[open] summary::after{content:'\2013'}
+.equip-det .det-body{margin-top:14px;display:flex;flex-direction:column;gap:14px}
+.equip-config{font-size:12.5px;color:var(--muted);line-height:1.55}
+.equip-config b{color:#423d36;font-weight:700}
+.coil-label{font-size:11px;font-weight:800;color:var(--muted-2);text-transform:uppercase;letter-spacing:.05em;margin-bottom:7px;display:block}
+.coil-chips{display:flex;flex-wrap:wrap;gap:6px}
+.coil-chips .chip{font-size:11.5px;padding:4px 10px}
+.equip-credit{position:absolute;bottom:8px;right:9px;font-size:10px;color:#fff;background:rgba(20,16,10,.55);padding:2px 8px;border-radius:20px;backdrop-filter:blur(2px)}
+.equip-credit a{color:#fff;text-decoration:underline}
+@media(max-width:780px){.equip-card.feature{grid-template-columns:1fr}.equip-card.feature .equip-img{border-right:0;border-bottom:1px solid var(--border);min-height:240px}}
