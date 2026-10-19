@@ -121,7 +121,9 @@ def build():
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title data-es="{esc(t[0])}" data-en="{esc(t[1])}" data-pt="{esc(t[2])}">{esc(t[0])}</title>
 <meta name="description" content="{esc(d[0])}" data-es="{esc(d[0])}" data-en="{esc(d[1])}" data-pt="{esc(d[2])}" />
+<link rel="icon" href="/favicon.ico" sizes="48x48" />
 <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Exo:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
