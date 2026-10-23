@@ -1,19 +1,20 @@
 # Nexolibre
 
-> Ingeniería médica multimarca para diagnóstico por imágenes. Nexolibre brinda soporte técnico y reparación de equipos de resonancia magnética (MRI) y tomografía computada (CT), opera laboratorios propios que recuperan piezas críticas, vende equipos y repuestos, y representa software con inteligencia artificial para radiología. Forma parte de Grupo Nexo.
+> Ingeniería médica multimarca para diagnóstico por imágenes. Nexolibre brinda soporte técnico y reparación de equipos de resonancia magnética (MRI) y tomografía computada (CT), opera laboratorios propios que recuperan piezas críticas, vende equipos y repuestos, y representa software con inteligencia artificial para radiología. Brinda servicio en toda Latinoamérica (cubierto desde sus bases en Argentina y Chile), con software con IA disponible en todo el mundo. Forma parte de Grupo Nexo.
 
 ## Qué hace Nexolibre
 
 - **Soporte técnico MRI/CT multimarca**: mantenimiento, diagnóstico y reparación de equipos de resonancia magnética y tomografía de cualquier marca.
 - **Laboratorios propios de reparación**: recuperación y testeo de piezas críticas — bobinas MRI, módulos de RF y gradientes, fuentes de poder e inyectores — que se dan por perdidas en el circuito tradicional.
-- **Venta de equipos y repuestos**: equipos MRI/CT, proyectos llave en mano y stock de piezas recuperadas y testeadas.
+- **Venta de equipos y repuestos**: equipos MRI/CT, proyectos llave en mano y stock de piezas recuperadas y testeadas, con logística y puesta en marcha en toda Latinoamérica.
 - **Software con IA para diagnóstico por imágenes**: monitoreo y gestión del área, dictado de informes con IA, y mejora de imagen con IA para MRI, CT y PET-CT.
 - **Informes radiológicos 24/7**: estructura de médicos radiólogos informantes con guardia activa las 24 horas, los 7 días de la semana, en Argentina, Chile y USA. Cubre MRI, CT, RX, mamografía y ecografía; informes firmados por radiólogos matriculados, con SLA por tipo de estudio e integración DICOM a PACS/RIS.
 
 ## Dónde opera
 
-- **Argentina, Chile y Estados Unidos**: soporte, laboratorios y comercialización.
-- **Colombia**: software con IA.
+- **Alcance**: servicio e ingeniería en toda Latinoamérica; software con IA disponible en todo el mundo.
+- **Laboratorios y bases propias**: Argentina, Chile y Estados Unidos (soporte, reparación y comercialización).
+- **Representación de software**: Argentina, Chile, Colombia, USA y expansión regional.
 
 ## Las herramientas de software con IA (en detalle)
 
@@ -36,7 +37,10 @@ Recuperar una bobina o una pieza crítica en lugar de comprarla nueva evita down
 
 - [Inicio](https://nexolibre.com/): visión general de servicios, productos y software.
 - [Empresa](https://nexolibre.com/empresa/): quiénes son, equipo y laboratorios.
-- [Servicios por país](https://nexolibre.com/servicios/): soporte e ingeniería en Argentina, Chile y USA.
+- [Servicios](https://nexolibre.com/servicios/): soporte e ingeniería MRI/CT en toda Latinoamérica, con laboratorios en Argentina, Chile y USA.
+- [Monitoreo de criogenia y producción](https://nexolibre.com/monitoreo/): sistema de monitoreo 24/7 de helio, cold head y quench, representado en Argentina y Chile.
+- [Reparación de piezas MRI/CT](https://nexolibre.com/reparacion/): bobinas, gradientes, RF, fuentes e inyectores.
+- [Glosario MRI/CT](https://nexolibre.com/glosario/): términos del dominio para desambiguación.
 - [Productos y stock](https://nexolibre.com/productos/): equipos MRI/CT y piezas críticas recuperadas.
 - [Catálogo de partes](https://nexolibre.com/catalogo/): repuestos MRI/CT con búsqueda por marca, modelo o número de parte.
 - [Software con IA](https://nexolibre.com/software/): monitoreo de equipos, informes con IA y mejora de imagen.

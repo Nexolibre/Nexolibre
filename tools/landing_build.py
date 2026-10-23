@@ -180,7 +180,7 @@ def service_ld(path, name, desc):
     return {"@context": "https://schema.org", "@type": "Service", "serviceType": name,
             "name": name, "description": desc, "url": f"{BASE}/{path}",
             "provider": {"@id": BASE + "/#organization"},
-            "areaServed": [{"@type": "Country", "name": c} for c in ("Argentina", "Chile", "Estados Unidos")]}
+            "areaServed": ([{"@type": "Place", "name": "América Latina"}] + [{"@type": "Country", "name": c} for c in ("Argentina", "Chile", "Uruguay", "Perú", "Paraguay", "Bolivia", "Ecuador", "Colombia", "México", "Brasil", "Estados Unidos")])}
 
 
 def faq_ld(path, faqs):
