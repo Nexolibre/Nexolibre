@@ -285,7 +285,7 @@ def cta_buttons(center=True):
 def hero(eye, h1, intro, ctas=True):
     trust = [("Multimarca", "Multivendor", "Multimarca"), ("Todas las modalidades", "Every modality", "Todas as modalidades"),
              ("Sin límite de equipos ni sedes", "No limit on units or sites", "Sem limite de equipamentos ou unidades"),
-             ("Implementación y soporte local", "Local implementation and support", "Implantação e suporte local")]
+             ("Funcionando en el día", "Up and running the same day", "Funcionando no mesmo dia")]
     badges = "".join(f'<span><span class="dot"></span><span {L(*b)}>{esc(b[0])}</span></span>' for b in trust)
     return (f'<section class="subhero" style="padding-bottom:8px">'
             f'<div class="glow" style="width:520px;height:520px;background:rgba(241,144,0,.16);top:-180px;left:50%;transform:translateX(-50%)"></div>'
@@ -322,6 +322,7 @@ def lead_form(source):
     pts = [("Te mostramos el panel con datos reales en una videollamada", "We show you the panel with real data on a video call", "Mostramos o painel com dados reais em uma videochamada"),
            ("Revisamos tu PACS y cuántos equipos y sedes querés conectar", "We review your PACS and how many units and sites you want to connect", "Revisamos seu PACS e quantos equipamentos e unidades você quer conectar"),
            ("Te enviamos la cotización para tu caso", "We send you a quote for your case", "Enviamos o orçamento para o seu caso"),
+           ("El panel de gestión queda funcionando en el día", "The management panel is up and running the same day", "O painel de gestão fica funcionando no mesmo dia"),
            ("Sin compromiso", "No commitment", "Sem compromisso")]
     lis = "".join(f'<li><svg fill="none" height="20" stroke="currentColor" stroke-width="2.4" viewbox="0 0 24 24" width="20"><path d="M20 6L9 17l-5-5"></path></svg><span {L(*p)}>{esc(p[0])}</span></li>' for p in pts)
     return f'''<section class="demo" id="demo" style="padding-top:40px"><div class="wrap"><div class="demo-grid reveal">
@@ -1009,6 +1010,10 @@ def render_hub():
          ("El monitoreo de criogenia vigila la parte técnica del resonador (helio, cold head, presión, compresor). El panel de control suma la producción de todos los equipos de imágenes. Se usan juntos: en el mismo sistema ves la criogenia de tus resonadores y la producción de todo tu parque.",
           "Cryogenics monitoring watches the MRI's technical side (helium, cold head, pressure, compressor). The control panel adds the output of every imaging unit. They work together: in the same system you see your MRIs' cryogenics and your entire fleet's output.",
           "O monitoramento de criogenia vigia a parte técnica do ressonador (hélio, cold head, pressão, compressor). O painel de controle soma a produção de todos os equipamentos de imagem. São usados juntos: no mesmo sistema você vê a criogenia dos ressonadores e a produção de todo o parque.")),
+        (("¿Cuánto tarda la implementación?", "How long does implementation take?", "Quanto tempo leva a implantação?"),
+         ("El panel de gestión y producción se implementa en el día: no requiere hardware, solo la conexión con tu PACS. El monitoreo de criogenia de los resonadores se coordina aparte, porque lleva la instalación de un equipo en cada resonador.",
+          "The management and production panel is implemented the same day: no hardware needed, only the connection to your PACS. MRI cryogenics monitoring is scheduled separately, because it requires installing a device on each scanner.",
+          "O painel de gestão e produção é implantado no mesmo dia: não exige hardware, só a conexão com o seu PACS. O monitoramento de criogenia dos ressonadores é coordenado à parte, porque exige a instalação de um equipamento em cada ressonador.")),
         (("¿Hay que instalar algo en las computadoras?", "Do we need to install anything on computers?", "É preciso instalar algo nos computadores?"),
          ("No. El panel es web: se entra con usuario y contraseña desde el navegador. La conexión con el PACS se define en la implementación con tu equipo de sistemas.",
           "No. The panel is web-based: you log in with a username and password from the browser. The PACS connection is defined during implementation with your IT team.",
