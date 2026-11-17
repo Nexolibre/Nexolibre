@@ -43,7 +43,8 @@ _EXCL = ("en/", "pt/", "presentacion/", "graphify-out/", "node_modules/")
 def discover():
     """Descubre las páginas ES fuente: index.html en raíz, subcarpetas y repuestos/*."""
     found = set()
-    for pat in ["index.html", "*/index.html", "repuestos/*/index.html", "reparacion/*/index.html"]:
+    for pat in ["index.html", "*/index.html", "repuestos/*/index.html", "reparacion/*/index.html",
+                "control-equipamiento-medico/*/index.html"]:
         for f in _glob.glob(os.path.join(ROOT, pat)):
             rel = os.path.relpath(f, ROOT).replace(os.sep, "/")
             if any(rel.startswith(x) for x in _EXCL):
@@ -90,6 +91,8 @@ def bake(raw, lang, P):
                 el.append(node)
     for el in soup.select(f"[data-{lang}-ph]"):
         el["placeholder"] = el.get(f"data-{lang}-ph")
+    for el in soup.select(f"[data-{lang}-alt]"):
+        el["alt"] = el.get(f"data-{lang}-alt")
 
     # 2) <html lang> + marca de idioma para app.js
     if soup.html:
@@ -173,13 +176,17 @@ def bake(raw, lang, P):
         head.append(sc)
 
     # 9) skip-to-content link (accesibilidad, WCAG 2.4.1) como primer foco
+    # Las páginas ES se regeneran in place y ya traen el link en español; antes
+    # solo se agregaba si faltaba, así que /en/ y /pt/ decían "Saltar al contenido".
     body = soup.body
-    if body and not body.find("a", class_="skip-link"):
-        txt = {"es": "Saltar al contenido", "en": "Skip to content", "pt": "Pular para o conteúdo"}[lang]
-        sk = soup.new_tag("a", href="#top")
-        sk["class"] = "skip-link"
+    txt = {"es": "Saltar al contenido", "en": "Skip to content", "pt": "Pular para o conteúdo"}[lang]
+    if body:
+        sk = body.find("a", class_="skip-link")
+        if not sk:
+            sk = soup.new_tag("a", href="#top")
+            sk["class"] = "skip-link"
+            body.insert(0, sk)
         sk.string = txt
-        body.insert(0, sk)
 
     return str(soup)
 
@@ -187,7 +194,7 @@ def bake(raw, lang, P):
 def build_sitemap():
     today = datetime.date.today().isoformat()
     prio = {"": "1.0", "catalogo/": "0.9", "servicios/": "0.9", "productos/": "0.9",
-            "software/": "0.8", "monitoreo/": "0.8", "empresa/": "0.7", "contacto/": "0.6"}
+            "software/": "0.8", "monitoreo/": "0.8", "control-equipamiento-medico/": "0.9", "empresa/": "0.7", "contacto/": "0.6"}
     freq = {"": "weekly", "catalogo/": "daily", "productos/": "weekly"}
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '

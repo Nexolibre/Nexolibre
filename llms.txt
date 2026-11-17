@@ -18,6 +18,7 @@
 
 ## Las herramientas de software con IA (en detalle)
 
+- **Sistema de control de equipamiento médico (panel de equipos de imágenes)**: se conecta al PACS y reconoce automáticamente, por sus datos DICOM, cada equipo que envía estudios. Muestra en vivo, por cliente, sede, modalidad y equipo: exámenes por día y por hora, utilización, duración mediana, tiempo de cambio de paciente, mapa de calor de ocupación, metas mensuales con proyección, línea de tiempo con series y secuencias, worklist (programado vs. realizado, ausentes, puntualidad), productividad por turno, comparación entre períodos y médicos solicitantes. Multimarca y sin límite de equipos ni de sedes.
 - **Monitoreo y Operaciones con IA**: dispositivo no invasivo + plataforma en la nube que monitorea equipos MRI/CT 24/7 sin acceder a datos de pacientes (nivel de helio, cold head, presión del magneto, riesgo de quench) y cruza el estado técnico con la producción del centro. Resultado típico: +40% de producción sin sumar hardware.
 - **Informes con IA (dictado por voz)**: el radiólogo dicta y la IA transcribe y estructura el informe. 5× más rápido que tipear, 99% de precisión, informe estructurado listo en ~90 segundos, con visor DICOM profesional incluido.
 - **Mejora de Imagen con IA**: deep learning autorizado por FDA que reduce hasta 50% el tiempo de escaneo de MRI manteniendo calidad diagnóstica, compatible con GE, Siemens, Philips, Canon y Fujifilm; también denoising PET con hasta 75% menos dosis en PET-CT.
@@ -38,6 +39,10 @@ Recuperar una bobina o una pieza crítica en lugar de comprarla nueva evita down
 - [Inicio](https://nexolibre.com/): visión general de servicios, productos y software.
 - [Empresa](https://nexolibre.com/empresa/): quiénes son, equipo y laboratorios.
 - [Servicios](https://nexolibre.com/servicios/): soporte e ingeniería MRI/CT en toda Latinoamérica, con laboratorios en Argentina, Chile y USA.
+- [Sistema de control de equipamiento médico](https://nexolibre.com/control-equipamiento-medico/): panel en vivo de todos los equipos de diagnóstico por imágenes conectados al PACS/DICOM (RM, TC, RX, ecografía, mamografía y más), sin límite de equipos ni de sedes: producción, ocupación, tiempos entre pacientes, metas mensuales, turnos y worklist.
+  - [Indicadores de productividad en diagnóstico por imágenes](https://nexolibre.com/control-equipamiento-medico/productividad-diagnostico-por-imagenes/)
+  - [Tablero conectado a PACS y DICOM](https://nexolibre.com/control-equipamiento-medico/tablero-pacs-dicom/)
+  - [Hospitales, clínicas y redes multisede](https://nexolibre.com/control-equipamiento-medico/hospitales-clinicas-multisede/)
 - [Monitoreo de criogenia y producción](https://nexolibre.com/monitoreo/): sistema de monitoreo 24/7 de helio, cold head y quench, representado en Argentina y Chile.
 - [Reparación de piezas MRI/CT](https://nexolibre.com/reparacion/): bobinas, gradientes, RF, fuentes e inyectores.
 - [Glosario MRI/CT](https://nexolibre.com/glosario/): términos del dominio para desambiguación.
