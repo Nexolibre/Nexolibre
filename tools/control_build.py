@@ -38,33 +38,48 @@ WA = ("https://wa.me/5491167410993?text=" +
 # tienen nombres de clientes, médicos y pacientes, que no pueden ir a un sitio
 # público. Estilos con prefijo .cx- para no chocar con styles.css.
 CX_STYLE = """<style>
-.cx-panel{background:#16130f;border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:18px;color:#ece6dc;
-  box-shadow:0 30px 60px -30px rgba(0,0,0,.55);font-size:13px;max-width:1040px;margin:0 auto}
-.cx-top{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:14px}
-.cx-title{font-family:Exo,sans-serif;font-weight:700;font-size:15px;color:#fff}
-.cx-live{display:inline-flex;align-items:center;gap:6px;font-size:12px;color:#9be3b5}
-.cx-live i{width:8px;height:8px;border-radius:50%;background:#2fd27a;box-shadow:0 0 0 4px rgba(47,210,122,.18)}
-.cx-chips{display:flex;flex-wrap:wrap;gap:6px}
-.cx-chip{border:1px solid rgba(255,255,255,.12);border-radius:999px;padding:3px 10px;font-size:12px;color:#cfc7ba}
-.cx-chip.on{background:#ef8f03;border-color:#ef8f03;color:#1b150d;font-weight:700}
-.cx-kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:12px}
-.cx-k{background:#1f1b16;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:12px}
-.cx-k small{display:block;color:#a79f93;font-size:11px;text-transform:uppercase;letter-spacing:.04em}
-.cx-k b{display:block;font-family:Exo,sans-serif;font-size:24px;color:#fff;margin-top:4px}
-.cx-k span{font-size:11px;color:#a79f93}
-.cx-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
-.cx-eq{background:#1f1b16;border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:12px}
-.cx-eq header{all:unset;display:flex;justify-content:space-between;align-items:center;gap:6px}
-.cx-eq h5{font-size:13px;color:#fff;margin:0}
-.cx-mod{font-size:10px;font-weight:700;border-radius:6px;padding:2px 6px;background:rgba(239,143,3,.18);color:#ffb23e}
-.cx-st{font-size:11px;color:#9be3b5}.cx-st.off{color:#f0a3a3}
-.cx-row{display:flex;justify-content:space-between;margin-top:8px;color:#a79f93;font-size:12px}
-.cx-row b{color:#fff;font-weight:600}
-.cx-bar{height:6px;border-radius:6px;background:rgba(255,255,255,.08);margin-top:8px;overflow:hidden}
-.cx-bar i{display:block;height:100%;background:linear-gradient(90deg,#ef8f03,#ffb23e)}
-.cx-spark{display:flex;align-items:flex-end;gap:3px;height:34px;margin-top:8px}
-.cx-spark i{flex:1;background:rgba(239,143,3,.55);border-radius:2px 2px 0 0}
-.cx-note{margin-top:10px;font-size:11px;color:#8f877b;text-align:right}
+.cx-show{max-width:1180px;margin:0 auto}
+.cx-win{background:#0f0d0b;border:1px solid rgba(255,255,255,.10);border-radius:18px;overflow:hidden;
+  box-shadow:0 40px 80px -40px rgba(0,0,0,.7),0 0 0 1px rgba(239,143,3,.08);transform:perspective(1600px) rotateX(2deg);transition:transform .6s var(--ease)}
+.cx-show:hover .cx-win{transform:none}
+.cx-bar{display:flex;align-items:center;gap:7px;padding:10px 14px;background:#1a1612;border-bottom:1px solid rgba(255,255,255,.06)}
+.cx-bar>i{width:11px;height:11px;border-radius:50%;background:#3a332c}
+.cx-bar>i:nth-child(1){background:#ff5f57}.cx-bar>i:nth-child(2){background:#febc2e}.cx-bar>i:nth-child(3){background:#28c840}
+.cx-live{margin-left:auto;display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;color:#9be3b5;letter-spacing:.02em}
+.cx-live b{width:8px;height:8px;border-radius:50%;background:#2fd27a;animation:cxPulse 1.6s infinite}
+@keyframes cxPulse{0%{box-shadow:0 0 0 0 rgba(47,210,122,.6)}70%{box-shadow:0 0 0 9px rgba(47,210,122,0)}100%{box-shadow:0 0 0 0 rgba(47,210,122,0)}}
+.cx-body{display:grid;grid-template-columns:190px 1fr}
+.cx-tabs{display:flex;flex-direction:column;gap:2px;padding:12px 8px;background:#14110e;border-right:1px solid rgba(255,255,255,.06)}
+.cx-tab{all:unset;cursor:pointer;position:relative;overflow:hidden;padding:9px 12px;border-radius:9px;font-size:13.5px;color:#b9b0a3;transition:background .2s,color .2s}
+.cx-tab:hover{background:rgba(255,255,255,.05);color:#fff}
+.cx-tab:focus-visible{outline:2px solid #ef8f03}
+.cx-tab.on{background:rgba(239,143,3,.14);color:#ffb23e;font-weight:600}
+.cx-prog{position:absolute;left:0;bottom:0;height:2px;width:0;background:#ef8f03}
+.cx-tab.on .cx-prog{animation:cxProg 6s linear forwards}
+.cx-show.hover .cx-tab.on .cx-prog{animation-play-state:paused}
+.cx-show.paused .cx-prog{display:none}
+@keyframes cxProg{to{width:100%}}
+.cx-stage{position:relative;background:#0b0a08}
+.cx-screen{position:relative;aspect-ratio:1400/762;overflow:hidden}
+.cx-shot{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top left;opacity:0;transform:scale(1.035);
+  transition:opacity .7s ease,transform 7s ease-out}
+.cx-shot.on{opacity:1;transform:scale(1)}
+.cx-cap{display:none;margin:0;padding:12px 16px;font-size:14px;color:#e9e1d4;background:linear-gradient(90deg,rgba(239,143,3,.16),rgba(239,143,3,0));border-top:1px solid rgba(255,255,255,.06)}
+.cx-cap.on{display:block;animation:cxIn .5s ease}
+@keyframes cxIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.cx-note{margin-top:10px;font-size:12px;color:var(--muted-2);text-align:center}
+.cx-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:34px}
+.cx-stat{text-align:center;padding:18px 10px;border:1px solid var(--border);border-radius:16px;background:var(--surface)}
+.cx-stat b{display:block;font-family:Exo,sans-serif;font-size:36px;line-height:1.1;color:var(--accent)}
+.cx-stat>span{font-size:13.5px;color:var(--muted)}
+.cx-sticky{position:fixed;left:50%;bottom:18px;z-index:60;display:flex;align-items:center;gap:14px;padding:10px 10px 10px 18px;
+  background:rgba(26,22,18,.94);backdrop-filter:blur(8px);border:1px solid rgba(239,143,3,.35);border-radius:999px;color:#f4efe6;font-size:14.5px;
+  box-shadow:0 18px 40px -16px rgba(0,0,0,.6);transform:translate(-50%,140%);opacity:0;transition:transform .45s var(--ease),opacity .3s}
+.cx-sticky.on{transform:translate(-50%,0);opacity:1}
+.cx-sticky .btn{padding:10px 18px}
+.cx-feats.cx-4{grid-template-columns:repeat(4,1fr)}
+#demo .demo-contact{display:flex;flex-direction:column;gap:6px;margin-top:18px}
+@media (prefers-reduced-motion:reduce){.cx-shot,.cx-win{transition:none;transform:none}.cx-live b{animation:none}}
 .cx-feats{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
 .cx-f{border:1px solid var(--border);border-radius:16px;padding:20px;background:var(--surface)}
 .cx-f h3{font-size:17px;margin:8px 0 6px}
@@ -79,64 +94,247 @@ CX_STYLE = """<style>
 .cx-kpitable th{font-family:Exo,sans-serif;color:var(--text);width:30%}
 .cx-kpitable td{color:var(--muted)}
 .cx-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
-@media (max-width:900px){.cx-kpis{grid-template-columns:repeat(2,1fr)}.cx-grid,.cx-feats,.cx-aud,.cx-steps{grid-template-columns:1fr 1fr}}
-@media (max-width:600px){.cx-grid .cx-eq:nth-child(n+4){display:none}.cx-k span{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cx-grid,.cx-feats,.cx-aud,.cx-steps{grid-template-columns:1fr}.cx-kpitable th{width:40%}}
+@media (max-width:900px){.cx-body{grid-template-columns:1fr}.cx-tabs{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid rgba(255,255,255,.06);scrollbar-width:none}.cx-tab{white-space:nowrap;flex:none}.cx-stats,.cx-feats.cx-4{grid-template-columns:1fr 1fr}.cx-feats,.cx-aud,.cx-steps{grid-template-columns:1fr 1fr}.cx-win{transform:none}}
+@media (max-width:600px){.cx-feats,.cx-aud,.cx-steps,.cx-feats.cx-4{grid-template-columns:1fr}.cx-sticky{left:12px;right:84px;transform:translateY(140%);font-size:13px;padding:8px 8px 8px 14px;border-radius:16px}.cx-sticky.on{transform:none}.cx-sticky>span{display:none}.cx-sticky .btn{flex:1;justify-content:center}.cx-stat b{font-size:30px}.cx-kpitable th{width:40%}}
 </style>"""
 
 
-def hace(es):
-    """'hace 3 días' -> (es, '3 days ago', 'há 3 dias')."""
-    n = es.replace("hace ", "")
-    return es, n.replace("días", "days") + " ago", "há " + n.replace("días", "dias")
+# Vitrina interactiva con capturas REALES del panel (video del desarrollador,
+# nov 2026). Las capturas se recortan al área de contenido y se desenfocan:
+# nombre de cliente, sede, usuario, nombre del producto, columna de pacientes,
+# números de acceso y datos del resonador. El recorte se rehace con
+# tools/control_capturas.py; no subir capturas sin pasar por ahí.
+SCREENS = [
+    ("resumen", ("Resumen de la red", "Network overview", "Resumo da rede"),
+     ("Clientes, sedes, equipos y exámenes del período, por modalidad, en una sola pantalla.",
+      "Clients, sites, units and exams for the period, by modality, on one screen.",
+      "Clientes, unidades, equipamentos e exames do período, por modalidade, em uma tela.")),
+    ("equipos", ("Equipos", "Units", "Equipamentos"),
+     ("Cada equipo detectado desde el PACS: exámenes, tendencia, utilización y último estudio.",
+      "Every unit detected from the PACS: exams, trend, utilization and last study.",
+      "Cada equipamento detectado pelo PACS: exames, tendência, utilização e último estudo.")),
+    ("productividad", ("Productividad", "Productivity", "Produtividade"),
+     ("Exámenes por hora, duración mediana, estudios atípicos y tendencia diaria por modalidad.",
+      "Exams per hour, median duration, atypical studies and daily trend by modality.",
+      "Exames por hora, duração mediana, estudos atípicos e tendência diária por modalidade.")),
+    ("metas", ("Metas del mes", "Monthly goals", "Metas do mês"),
+     ("Si vas adelantado o atrasado y cuántos exámenes por día necesitás para llegar.",
+      "Whether you are ahead or behind and how many exams per day you need to get there.",
+      "Se você está adiantado ou atrasado e quantos exames por dia faltam para chegar.")),
+    ("ocupacion", ("Ocupación", "Occupancy", "Ocupação"),
+     ("Tasa de ocupación, horas de sala inactiva y mapa de calor semanal por hora.",
+      "Occupancy rate, idle room hours and weekly heat map by hour.",
+      "Taxa de ocupação, horas de sala parada e mapa de calor semanal por hora.")),
+    ("linea-tiempo", ("Línea de tiempo", "Timeline", "Linha do tempo"),
+     ("El día de cada equipo, estudio por estudio, con series, secuencias y eficiencia del protocolo.",
+      "Each unit's day, study by study, with series, sequences and protocol efficiency.",
+      "O dia de cada equipamento, estudo por estudo, com séries, sequências e eficiência do protocolo.")),
+    ("worklist", ("Worklist", "Worklist", "Worklist"),
+     ("Programado contra realizado: puntualidad, demoras y pacientes no presentados.",
+      "Scheduled against performed: punctuality, delays and no-shows.",
+      "Agendado contra realizado: pontualidade, atrasos e faltas.")),
+    ("turnos", ("Turnos", "Shifts", "Turnos"),
+     ("Producción de mañana, tarde y noche, con hora pico y mapa de calor hora por día.",
+      "Morning, afternoon and night output, with peak hour and hour-by-day heat map.",
+      "Produção de manhã, tarde e noite, com horário de pico e mapa de calor hora por dia.")),
+    ("analisis", ("Comparar períodos", "Compare periods", "Comparar períodos"),
+     ("Dos períodos lado a lado: volumen, tiempos y duración de cada protocolo.",
+      "Two periods side by side: volume, times and duration of each protocol.",
+      "Dois períodos lado a lado: volume, tempos e duração de cada protocolo.")),
+    ("criogenia", ("Criogenia MRI", "MRI cryogenics", "Criogenia MRI"),
+     ("Helio, temperaturas, presión y compresor de cada resonador, con historial y alertas.",
+      "Helium, temperatures, pressure and compressor of every MRI, with history and alerts.",
+      "Hélio, temperaturas, pressão e compressor de cada ressonador, com histórico e alertas.")),
+]
+
+SHOW_JS = """<script>
+(function(){
+  /* Vitrina: rota sola cada 6 s, se pausa con el mouse encima o al elegir una
+     pestaña, y no anima si el usuario pidió menos movimiento. */
+  document.querySelectorAll('.cx-show').forEach(function(root){
+    var tabs=[].slice.call(root.querySelectorAll('.cx-tab')),
+        shots=[].slice.call(root.querySelectorAll('.cx-shot')),
+        caps=[].slice.call(root.querySelectorAll('.cx-cap')),
+        i=0, t=null, paused=false, MS=6000,
+        calm=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;
+    function go(n){
+      i=(n+tabs.length)%tabs.length;
+      tabs.forEach(function(b,k){b.classList.toggle('on',k===i);b.setAttribute('aria-selected',k===i);});
+      shots.forEach(function(s,k){s.classList.toggle('on',k===i);});
+      caps.forEach(function(c,k){c.classList.toggle('on',k===i);});
+      var bar=tabs[i].querySelector('.cx-prog');
+      if(bar&&!calm&&!paused){bar.style.animation='none';void bar.offsetWidth;bar.style.animation='';}
+      if(tabs[i].scrollIntoView&&root.getBoundingClientRect().top<innerHeight&&innerWidth<760){
+        tabs[i].parentNode.scrollTo({left:tabs[i].offsetLeft-16,behavior:'smooth'});}
+    }
+    function loop(){clearInterval(t);if(!calm&&!paused)t=setInterval(function(){go(i+1);},MS);}
+    tabs.forEach(function(b,k){b.addEventListener('click',function(){paused=true;root.classList.add('paused');clearInterval(t);go(k);});});
+    root.addEventListener('mouseenter',function(){root.classList.add('hover');clearInterval(t);});
+    root.addEventListener('mouseleave',function(){root.classList.remove('hover');loop();});
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){go(i);loop();}else clearInterval(t);});},{threshold:.25}).observe(root);
+    } else loop();
+  });
+  /* Contadores que suben cuando entran en pantalla. */
+  var cs=document.querySelectorAll('[data-count]');
+  if('IntersectionObserver' in window) cs.forEach(function(el){
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(!e.isIntersecting)return;o.disconnect();
+      var to=+el.getAttribute('data-count'),t0=null;
+      (function f(ts){t0=t0||ts;var p=Math.min((ts-t0)/1200,1);el.textContent=Math.round(to*(1-Math.pow(1-p,3)));if(p<1)requestAnimationFrame(f);})(performance.now());
+    });},{threshold:.6}).observe(el);});
+  /* "Cotizá" preselecciona la cotización en el formulario. */
+  document.querySelectorAll('[data-cotizar]').forEach(function(a){a.addEventListener('click',function(){
+    var q=document.getElementById('f-quiero');if(q)q.selectedIndex=1;});});
+  /* Barra fija de demo: aparece al pasar el hero, se oculta al llegar al formulario. */
+  var bar=document.querySelector('.cx-sticky'),hero=document.querySelector('.subhero'),form=document.getElementById('demo');
+  if(bar&&hero&&'IntersectionObserver' in window){
+    var past=false,atForm=false,upd=function(){bar.classList.toggle('on',past&&!atForm);};
+    new IntersectionObserver(function(es){past=!es[0].isIntersecting;upd();}).observe(hero);
+    if(form)new IntersectionObserver(function(es){atForm=es[0].isIntersecting;upd();}).observe(form);
+  }
+})();
+</script>"""
 
 
-def mock_panel():
-    """Panel ilustrativo con datos ficticios."""
-    eqs = [  # (nombre, modalidad, sede, exámenes, utilización %, mediana, últ. examen, activo, chispa)
-        ("Resonador 1.5T", "RM", "Sede Centro", 346, 44, "14 min", "hace 12 min", True, [5, 7, 6, 8, 9, 7, 8, 10, 9, 8]),
-        ("Tomógrafo 64", "TC", "Sede Centro", 398, 38, "5 min", "hace 4 min", True, [6, 8, 7, 9, 8, 9, 10, 9, 8, 9]),
-        ("Ecógrafo 2", "US", "Sede Norte", 393, 61, "22 min", "hace 25 min", True, [4, 6, 7, 6, 8, 7, 6, 8, 7, 9]),
-        ("Mamógrafo", "MG", "Sede Norte", 116, 29, "4 min", "hace 2 h", True, [3, 4, 2, 5, 4, 3, 5, 4, 3, 4]),
-        ("Rayos X digital", "DX", "Sede Sur", 518, 52, "1 min", "hace 6 min", True, [7, 8, 9, 8, 10, 9, 8, 9, 10, 9]),
-        ("Resonador 3T", "RM", "Sede Sur", 0, 0, "—", "hace 3 días", False, [6, 5, 6, 4, 1, 0, 0, 0, 0, 0]),
-    ]
-    cards = ""
-    for n, m, s, ex, u, med, last, on, sp in eqs:
-        bars = "".join(f'<i style="height:{max(v,0.5)*10}%"></i>' for v in sp)
-        st = (f'<span class="cx-st" {L("● Activo","● Active","● Ativo")}>● Activo</span>' if on else
-              f'<span class="cx-st off" {L("● Sin estudios","● No studies","● Sem estudos")}>● Sin estudios</span>')
-        cards += (f'<div class="cx-eq"><header><h5>{esc(n)}</h5><span class="cx-mod">{m}</span></header>'
-                  f'<div class="cx-row"><span>{esc(s)}</span>{st}</div>'
-                  f'<div class="cx-spark">{bars}</div>'
-                  f'<div class="cx-row"><span {L("Exámenes (30 d)","Exams (30 d)","Exames (30 d)")}>Exámenes (30 d)</span><b>{ex}</b></div>'
-                  f'<div class="cx-row"><span {L("Utilización","Utilization","Utilização")}>Utilización</span><b>{u}%</b></div>'
-                  f'<div class="cx-bar"><i style="width:{u}%"></i></div>'
-                  f'<div class="cx-row"><span {L("Duración mediana","Median duration","Duração mediana")}>Duración mediana</span><b>{med}</b></div>'
-                  f'<div class="cx-row"><span {L("Último examen","Last exam","Último exame")}>Último examen</span><b {L(*hace(last))}>{esc(last)}</b></div>'
-                  f'</div>')
-    kpis = [
-        (("Equipos conectados", "Connected units", "Equipamentos conectados"), "58", ("en 3 sedes", "across 3 sites", "em 3 unidades")),
-        (("Exámenes del período", "Exams this period", "Exames do período"), "7.580", ("RM · TC · US · DX · MG · …", "MR · CT · US · DX · MG · …", "RM · TC · US · DX · MG · …")),
-        (("Exámenes por hora", "Exams per hour", "Exames por hora"), "6,3", ("sólo horas activas", "active hours only", "só horas ativas")),
-        (("Meta del mes", "Monthly goal", "Meta do mês"), "109%", ("adelantado", "ahead of plan", "adiantado")),
-    ]
-    k = "".join(f'<div class="cx-k"><small {L(*a)}>{esc(a[0])}</small><b>{v}</b><span {L(*c)}>{esc(c[0])}</span></div>'
-                for a, v, c in kpis)
-    chips = "".join(f'<span class="cx-chip{" on" if i == 0 else ""}" {L(*c)}>{esc(c[0])}</span>' for i, c in enumerate([
-        ("Todas las sedes", "All sites", "Todas as unidades"), ("Últimos 30 días", "Last 30 days", "Últimos 30 dias"),
-        ("Todas las modalidades", "All modalities", "Todas as modalidades")]))
-    return (f'<div class="cx-panel" role="img" aria-label="Panel de ejemplo con datos ficticios">'
-            f'<div class="cx-top"><span class="cx-title" {L("Resumen · Red de diagnóstico (ejemplo)","Overview · Imaging network (example)","Resumo · Rede de diagnóstico (exemplo)")}>Resumen · Red de diagnóstico (ejemplo)</span>'
-            f'<span class="cx-live"><i></i><span {L("Datos desde el PACS","Data from PACS","Dados do PACS")}>Datos desde el PACS</span></span></div>'
-            f'<div class="cx-chips" style="margin-bottom:12px">{chips}</div>'
-            f'<div class="cx-kpis">{k}</div><div class="cx-grid">{cards}</div>'
-            f'<div class="cx-note" {L("Panel ilustrativo con datos ficticios. Las pantallas reales se ven en la demo.","Illustrative panel with fictitious data. The real screens are shown in the demo.","Painel ilustrativo com dados fictícios. As telas reais são mostradas na demo.")}>Panel ilustrativo con datos ficticios. Las pantallas reales se ven en la demo.</div>'
+def showcase(start=0):
+    tabs = shots = caps = ""
+    for k, (slug, name, cap) in enumerate(SCREENS):
+        on = " on" if k == start else ""
+        tabs += (f'<button type="button" role="tab" class="cx-tab{on}" aria-selected="{"true" if on else "false"}">'
+                 f'<span {L(*name)}>{esc(name[0])}</span><i class="cx-prog"></i></button>')
+        load = "eager" if k == start else "lazy"
+        shots += (f'<img class="cx-shot{on}" src="/assets/control/{slug}.webp" width="1400" height="762" '
+                  f'loading="{load}" decoding="async" alt="{esc(name[0])}: {esc(cap[0])}" '
+                  f'data-es-alt="{esc(name[0])}: {esc(cap[0])}" />')
+        caps += f'<p class="cx-cap{on}" {L(*cap)}>{esc(cap[0])}</p>'
+    return (f'<div class="cx-show reveal">'
+            f'<div class="cx-win"><div class="cx-bar"><i></i><i></i><i></i>'
+            f'<span class="cx-live"><b></b><span {L("Panel en vivo","Live panel","Painel ao vivo")}>Panel en vivo</span></span></div>'
+            f'<div class="cx-body"><div class="cx-tabs" role="tablist">{tabs}</div>'
+            f'<div class="cx-stage"><div class="cx-screen">{shots}</div>{caps}</div></div></div>'
+            f'<p class="cx-note" {L("Capturas reales del panel. Ocultamos los datos de clientes y pacientes.","Real screenshots of the panel. Client and patient data are hidden.","Capturas reais do painel. Ocultamos os dados de clientes e pacientes.")}>Capturas reales del panel. Ocultamos los datos de clientes y pacientes.</p>'
             f'</div>')
 
 
-# --------------------------------------------------------------------------
-# Bloques reutilizables
-# --------------------------------------------------------------------------
+def stats():
+    items = [
+        ('<span>∞</span>', ("Equipos y sedes, sin límite", "Units and sites, no limit", "Equipamentos e unidades, sem limite")),
+        ('<span data-count="10">10</span>+', ("Modalidades: RM, TC, RX, US, MG…", "Modalities: MRI, CT, X-ray, US, MG…", "Modalidades: RM, TC, RX, US, MG…")),
+        ('<span data-count="3">3</span>', ("Idiomas: español, inglés, portugués", "Languages: Spanish, English, Portuguese", "Idiomas: espanhol, inglês, português")),
+        ('<span>24/7</span>', ("Criogenia de tus resonadores", "Cryogenics of your MRIs", "Criogenia dos seus ressonadores")),
+    ]
+    out = "".join(f'<div class="cx-stat reveal"><b>{v}</b><span {L(*t)}>{esc(t[0])}</span></div>' for v, t in items)
+    return f'<div class="cx-stats">{out}</div>'
+
+
+def section(inner, top=True):
+    pad = '' if top else ' style="padding-top:0"'
+    return f'<section class="split"{pad}><div class="wrap">{inner}</div></section>'
+
+
+CTA_DEMO = ("Pedí tu demo en vivo", "Book a live demo", "Peça sua demo ao vivo")
+CTA_COT = ("Cotizá para tus equipos", "Get a quote for your units", "Peça um orçamento")
+
+
+def cta_buttons(center=True):
+    j = "center" if center else "flex-start"
+    return (f'<div class="hero-cta" style="justify-content:{j};margin-top:22px">'
+            f'<a href="#demo" class="btn btn-primary" {L(*CTA_DEMO)}>{CTA_DEMO[0]}</a>'
+            f'<a href="#demo" class="btn btn-ghost" data-cotizar="1" {L(*CTA_COT)}>{CTA_COT[0]}</a></div>')
+
+
+def hero(eye, h1, intro, ctas=True):
+    trust = [("Multimarca", "Multivendor", "Multimarca"), ("Todas las modalidades", "Every modality", "Todas as modalidades"),
+             ("Sin límite de equipos ni sedes", "No limit on units or sites", "Sem limite de equipamentos ou unidades"),
+             ("Implementación y soporte local", "Local implementation and support", "Implantação e suporte local")]
+    badges = "".join(f'<span><span class="dot"></span><span {L(*b)}>{esc(b[0])}</span></span>' for b in trust)
+    return (f'<section class="subhero" style="padding-bottom:8px">'
+            f'<div class="glow" style="width:520px;height:520px;background:rgba(241,144,0,.16);top:-180px;left:50%;transform:translateX(-50%)"></div>'
+            f'<div class="wrap" style="position:relative;z-index:1">'
+            f'<div class="eyebrow reveal" style="justify-content:center" {L(*eye)}>{esc(eye[0])}</div>'
+            f'<h1 class="reveal" style="max-width:24ch;margin-inline:auto" {L(*h1)}>{esc(h1[0])}</h1>'
+            f'<p class="lead reveal" style="max-width:72ch;margin:12px auto 0" {L(*intro)}>{esc(intro[0])}</p>'
+            + (f'<div class="reveal">{cta_buttons()}</div>' if ctas else '')
+            + f'<div class="hero-badges reveal" style="margin-top:22px">{badges}</div>'
+            f'</div></section>')
+
+
+def cta_band(h, p):
+    """Llamado intermedio: corto, para no perder al que ya se convenció."""
+    return (f'<section class="split" style="padding-top:0"><div class="wrap"><div class="ctaband reveal" style="text-align:center">'
+            f'<h2 style="max-width:28ch;margin:0 auto 12px" {L(*h)}>{esc(h[0])}</h2>'
+            f'<p style="margin:0 auto;max-width:62ch" {L(*p)}>{esc(p[0])}</p>'
+            f'{cta_buttons()}</div></div></section>')
+
+
+def opt(es, en=None, pt=None, value=None):
+    en = en or es; pt = pt or es
+    v = f' value="{esc(value)}"' if value is not None else ''
+    return f'<option{v} {L(es,en,pt)}>{esc(es)}</option>'
+
+
+# Mismo access key de Web3Forms que /contacto/; el envío lo maneja app.js
+# (id demoForm, formOk, formErr). El asunto distingue estos leads del resto.
+WEB3_KEY = "80e2643f-75fa-4859-bd52-13c50fb44fe1"
+
+
+def lead_form(source):
+    sel = L("Seleccioná…", "Select…", "Selecione…")
+    pts = [("Te mostramos el panel con datos reales en una videollamada", "We show you the panel with real data on a video call", "Mostramos o painel com dados reais em uma videochamada"),
+           ("Revisamos tu PACS y cuántos equipos y sedes querés conectar", "We review your PACS and how many units and sites you want to connect", "Revisamos seu PACS e quantos equipamentos e unidades você quer conectar"),
+           ("Te enviamos la cotización para tu caso", "We send you a quote for your case", "Enviamos o orçamento para o seu caso"),
+           ("Sin compromiso", "No commitment", "Sem compromisso")]
+    lis = "".join(f'<li><svg fill="none" height="20" stroke="currentColor" stroke-width="2.4" viewbox="0 0 24 24" width="20"><path d="M20 6L9 17l-5-5"></path></svg><span {L(*p)}>{esc(p[0])}</span></li>' for p in pts)
+    return f'''<section class="demo" id="demo" style="padding-top:40px"><div class="wrap"><div class="demo-grid reveal">
+<div class="demo-left">
+<div class="eyebrow" {L("Demo y cotización","Demo & quote","Demo e orçamento")}>Demo y cotización</div>
+<h2 {L("Mirá tus equipos en este panel","See your units on this panel","Veja seus equipamentos neste painel")}>Mirá tus equipos en este panel</h2>
+<p class="lead" {L("Dejanos tus datos y te contactamos para coordinar la demo y preparar la cotización.","Leave your details and we will get in touch to schedule the demo and prepare a quote.","Deixe seus dados e entraremos em contato para agendar a demo e preparar o orçamento.")}>Dejanos tus datos y te contactamos para coordinar la demo y preparar la cotización.</p>
+<ul class="demo-points">{lis}</ul>
+<div class="demo-contact"><a href="mailto:contacto@nexolibre.com">contacto@nexolibre.com</a><a href="{WA}" rel="noopener" target="_blank">WhatsApp +54 9 11 6741-0993</a></div>
+</div>
+<div class="demo-right">
+<form id="demoForm" novalidate="">
+<input name="access_key" type="hidden" value="{WEB3_KEY}"/>
+<input name="subject" type="hidden" value="Demo / cotización: panel de control de equipos"/>
+<input name="from_name" type="hidden" value="Web Nexolibre"/>
+<input name="producto" type="hidden" value="Panel de control de equipos de diagnóstico por imágenes"/>
+<input name="pagina" type="hidden" value="{esc(source)}"/>
+<input aria-hidden="true" autocomplete="off" name="botcheck" style="display:none !important" tabindex="-1" type="checkbox"/>
+<div class="frow">
+<div class="field"><label for="f-nombre" {L("Nombre y apellido","Full name","Nome e sobrenome")}>Nombre y apellido</label>
+<input autocomplete="name" id="f-nombre" name="nombre" required="" type="text" placeholder="Tu nombre" data-es-ph="Tu nombre" data-en-ph="Your name" data-pt-ph="Seu nome"/></div>
+<div class="field"><label for="f-institucion" {L("Institución","Institution","Instituição")}>Institución</label>
+<input autocomplete="organization" id="f-institucion" name="institucion" required="" type="text" placeholder="Hospital / clínica / centro" data-es-ph="Hospital / clínica / centro" data-en-ph="Hospital / clinic / center" data-pt-ph="Hospital / clínica / centro"/></div>
+</div>
+<div class="frow">
+<div class="field"><label for="f-email" {L("Email de trabajo","Work email","E-mail de trabalho")}>Email de trabajo</label>
+<input autocomplete="email" id="f-email" name="email" required="" spellcheck="false" type="email" placeholder="nombre@institucion.com"/></div>
+<div class="field"><label for="f-telefono" {L("Teléfono / WhatsApp","Phone / WhatsApp","Telefone / WhatsApp")}>Teléfono / WhatsApp</label>
+<input autocomplete="tel" id="f-telefono" name="telefono" type="tel" placeholder="+54 9…"/></div>
+</div>
+<div class="frow">
+<div class="field"><label for="f-equipos" {L("Equipos de imágenes","Imaging units","Equipamentos de imagem")}>Equipos de imágenes</label>
+<select id="f-equipos" name="equipos"><option value="" {sel}>Seleccioná…</option>{opt("1 a 3","1 to 3","1 a 3")}{opt("4 a 10","4 to 10","4 a 10")}{opt("11 a 30","11 to 30","11 a 30")}{opt("Más de 30","More than 30","Mais de 30")}</select></div>
+<div class="field"><label for="f-sedes" {L("Sedes","Sites","Unidades")}>Sedes</label>
+<select id="f-sedes" name="sedes"><option value="" {sel}>Seleccioná…</option>{opt("1")}{opt("2 a 5","2 to 5","2 a 5")}{opt("Más de 5","More than 5","Mais de 5")}</select></div>
+</div>
+<div class="frow">
+<div class="field"><label for="f-quiero" {L("Quiero","I want","Quero")}>Quiero</label>
+<select id="f-quiero" name="quiero">{opt("Ver una demo","See a demo","Ver uma demo")}{opt("Recibir una cotización","Get a quote","Receber um orçamento")}{opt("Demo y cotización","Demo and quote","Demo e orçamento")}</select></div>
+<div class="field"><label for="f-pais" {L("País","Country","País")}>País</label>
+<input autocomplete="country-name" id="f-pais" name="pais" type="text" placeholder="Argentina, Chile, México…" data-es-ph="Argentina, Chile, México…" data-en-ph="United States, Mexico, Brazil…" data-pt-ph="Brasil, Argentina, Chile…"/></div>
+</div>
+<div class="field"><label for="f-mensaje" {L("Comentario (opcional)","Comment (optional)","Comentário (opcional)")}>Comentario (opcional)</label>
+<textarea id="f-mensaje" name="mensaje" rows="3" placeholder="Modalidades, marcas, PACS que usás…" data-es-ph="Modalidades, marcas, PACS que usás…" data-en-ph="Modalities, vendors, which PACS you use…" data-pt-ph="Modalidades, marcas, PACS que você usa…"></textarea></div>
+<button class="btn btn-primary" style="width:100%;padding:15px" type="submit" {L("Quiero mi demo","Get my demo","Quero minha demo")}>Quiero mi demo</button>
+<p class="form-note" {L("Al enviar aceptás ser contactado por el equipo de Nexolibre. Nunca compartimos tus datos.","By submitting you agree to be contacted by the Nexolibre team. We never share your data.","Ao enviar, você aceita ser contatado pela equipe da Nexolibre. Nunca compartilhamos seus dados.")}>Al enviar aceptás ser contactado por el equipo de Nexolibre. Nunca compartimos tus datos.</p>
+<div class="form-ok" id="formOk" {L("¡Gracias! Te contactamos a la brevedad para coordinar la demo.","Thanks! We will contact you shortly to schedule the demo.","Obrigado! Entraremos em contato em breve para agendar a demo.")}>¡Gracias! Te contactamos a la brevedad para coordinar la demo.</div>
+<div class="form-ok form-err" id="formErr" {L("No se pudo enviar. Escribinos a contacto@nexolibre.com","Could not send. Please email contacto@nexolibre.com","Não foi possível enviar. Escreva para contacto@nexolibre.com")}>No se pudo enviar. Escribinos a contacto@nexolibre.com</div>
+</form>
+</div></div></div></section>
+<div class="cx-sticky" aria-hidden="false"><span {L("¿Querés ver tus equipos en este panel?","Want to see your units on this panel?","Quer ver seus equipamentos neste painel?")}>¿Querés ver tus equipos en este panel?</span><a href="#demo" class="btn btn-primary" {L(*CTA_DEMO)}>{CTA_DEMO[0]}</a></div>'''
+
 
 def sec_head(eye, h2, lead=None, center=False):
     st = ' style="text-align:center;margin:0 auto 30px;max-width:760px"' if center else ''
@@ -146,26 +344,6 @@ def sec_head(eye, h2, lead=None, center=False):
     if lead:
         out += f'<p class="lead" style="margin-top:10px" {L(*lead)}>{esc(lead[0])}</p>'
     return out + '</div>'
-
-
-def section(inner, top=True):
-    pad = '' if top else ' style="padding-top:0"'
-    return f'<section class="split"{pad}><div class="wrap">{inner}</div></section>'
-
-
-def hero(eye, h1, intro, ctas=True):
-    btns = ""
-    if ctas:
-        btns = (f'<div class="hero-cta reveal" style="justify-content:center;margin-top:22px">'
-                f'<a href="/contacto/" class="btn btn-primary" {L("Pedí una demo","Book a demo","Peça uma demo")}>Pedí una demo</a>'
-                f'<a href="{WA}" target="_blank" rel="noopener" class="btn btn-ghost">WhatsApp</a></div>')
-    return (f'<section class="subhero" style="padding-bottom:8px">'
-            f'<div class="glow" style="width:520px;height:520px;background:rgba(241,144,0,.16);top:-180px;left:50%;transform:translateX(-50%)"></div>'
-            f'<div class="wrap" style="position:relative;z-index:1">'
-            f'<div class="eyebrow reveal" style="justify-content:center" {L(*eye)}>{esc(eye[0])}</div>'
-            f'<h1 class="reveal" style="max-width:24ch;margin-inline:auto" {L(*h1)}>{esc(h1[0])}</h1>'
-            f'<p class="lead reveal" style="max-width:72ch;margin:12px auto 0" {L(*intro)}>{esc(intro[0])}</p>'
-            f'{btns}</div></section>')
 
 
 def feature_cards(items, cls="cx-feats"):
@@ -193,19 +371,6 @@ def chips(items):
 def kpi_table(rows):
     trs = "".join(f'<tr><th {L(*a)}>{esc(a[0])}</th><td {L(*b)}>{esc(b[0])}</td></tr>' for a, b in rows)
     return f'<div class="reveal" style="overflow-x:auto"><table class="cx-kpitable">{trs}</table></div>'
-
-
-def cta(h=("¿Cuántos equipos y sedes tenés?", "How many units and sites do you run?", "Quantos equipamentos e unidades você tem?"),
-        p=("Contanos qué modalidades usás y dónde están. Te mostramos el panel funcionando y cómo se conecta a tu PACS.",
-           "Tell us which modalities you use and where they are. We show you the panel running and how it connects to your PACS.",
-           "Conte quais modalidades você usa e onde estão. Mostramos o painel funcionando e como se conecta ao seu PACS.")):
-    return (f'<section class="split"><div class="wrap"><div class="ctaband reveal" style="text-align:center">'
-            f'<h2 style="max-width:26ch;margin:0 auto 12px" {L(*h)}>{esc(h[0])}</h2>'
-            f'<p style="margin:0 auto 22px;max-width:60ch" {L(*p)}>{esc(p[0])}</p>'
-            f'<div class="hero-cta" style="justify-content:center">'
-            f'<a href="/contacto/" class="btn btn-primary" {L("Pedí una demo","Book a demo","Peça uma demo")}>Pedí una demo</a>'
-            f'<a href="{WA}" target="_blank" rel="noopener" class="btn btn-ghost">WhatsApp</a>'
-            f'</div></div></div></section>')
 
 
 def related(current):
@@ -249,9 +414,11 @@ FEATURE_LIST = [
 def software_ld(path, desc):
     return {"@context": "https://schema.org", "@type": "SoftwareApplication",
             "@id": f"{BASE}/{HUB}/#software",
-            "name": "Gauss Connect — sistema de control de equipamiento de diagnóstico por imágenes",
-            "alternateName": ["Sistema de control de equipamiento médico", "Panel de control de equipos de diagnóstico por imágenes",
-                              "Medical imaging equipment monitoring software"],
+            # Sin nombre comercial a pedido de Maxi (nov 2026): todo genérico.
+            "name": "Sistema de control de equipamiento médico para diagnóstico por imágenes",
+            "alternateName": ["Panel de control de equipos de diagnóstico por imágenes",
+                              "Medical imaging equipment monitoring software",
+                              "Sistema de controle de equipamentos médicos"],
             "applicationCategory": "HealthApplication", "applicationSubCategory": "Radiology operations analytics",
             "operatingSystem": "Web", "url": f"{BASE}/{path}", "description": desc,
             "featureList": FEATURE_LIST, "inLanguage": ["es", "en", "pt"],
@@ -290,7 +457,7 @@ def page(path, t, d, jsonld, body):
     h = head(path, t, d, jsonld).replace("</head>", CX_STYLE + "\n</head>", 1).replace("<body>", '<body class="theme-dark">', 1)
     # El header viene de index.html con "Inicio" activo; acá corresponde Software.
     h = h.replace('<a class="active" data-en="Home"', '<a data-en="Home"', 1).replace('<a class="nav-soft"', '<a class="nav-soft active"', 1)
-    write(path.rstrip("/"), h + body + TAIL)
+    write(path.rstrip("/"), h + body + SHOW_JS + TAIL)
 
 
 # --------------------------------------------------------------------------
@@ -361,6 +528,25 @@ FUNCIONES = [
      ("Acceso web con usuario propio, selector de cliente y sede, e interfaz en varios idiomas. Lo usan igual la dirección, la jefatura del servicio y la ingeniería biomédica.",
       "Web access with personal logins, client and site selector, and a multilingual interface. Management, department heads and biomedical engineering use the same panel.",
       "Acesso web com usuário próprio, seletor de cliente e unidade, e interface em vários idiomas. Direção, chefia do serviço e engenharia clínica usam o mesmo painel.")),
+]
+
+DOLORES = [
+    (("Equipos parados que nadie reporta", "Idle units nobody reports", "Equipamentos parados que ninguém relata"),
+     ("Un equipo deja de producir y te enterás días después, cuando ya se perdieron turnos.",
+      "A unit stops producing and you find out days later, after appointments are already lost.",
+      "Um equipamento para de produzir e você descobre dias depois, quando os horários já foram perdidos.")),
+    (("Huecos en la agenda", "Gaps in the schedule", "Buracos na agenda"),
+     ("Tiempos entre pacientes, ausentes y demoras se comen horas de equipo que no aparecen en ningún informe.",
+      "Changeover time, no-shows and delays eat scanner hours that show up in no report.",
+      "Tempos entre pacientes, faltas e atrasos consomem horas de equipamento que não aparecem em nenhum relatório.")),
+    (("Metas que se descubren a fin de mes", "Goals discovered at month-end", "Metas descobertas no fim do mês"),
+     ("Cuando llega el reporte, ya no hay tiempo de reforzar un turno ni de mover la agenda.",
+      "By the time the report arrives, there is no time left to add a shift or move the schedule.",
+      "Quando o relatório chega, já não há tempo de reforçar um turno nem de mexer na agenda.")),
+    (("Cada sede mide distinto", "Every site measures differently", "Cada unidade mede diferente"),
+     ("Planillas, marcas y criterios distintos: imposible comparar sedes y decidir dónde invertir.",
+      "Different spreadsheets, vendors and criteria: impossible to compare sites and decide where to invest.",
+      "Planilhas, marcas e critérios diferentes: impossível comparar unidades e decidir onde investir.")),
 ]
 
 PILLAR_CARD = ("Panel en vivo de todos tus equipos de imágenes conectados al PACS, sin importar cuántos ni en cuántas sedes.",
@@ -655,15 +841,25 @@ def sec_multisede():
 SECS = {"productividad": sec_productividad, "pacs": sec_pacs, "multisede": sec_multisede}
 
 
+SHOW_START = {"productividad": 2, "pacs": 1, "multisede": 0}
+CTA_MID = (("Cada hora de equipo sin producir es facturación que no vuelve",
+            "Every idle scanner hour is revenue that never comes back",
+            "Cada hora de equipamento sem produzir é faturamento que não volta"),
+           ("Pedí tu demo y te mostramos, con tus propios equipos, dónde se escapa la capacidad.",
+            "Book a demo and we will show you, on your own units, where capacity slips away.",
+            "Peça sua demo e mostramos, com seus próprios equipamentos, onde a capacidade escapa."))
+
+
 def render_spoke(s):
     path = s["slug"] + "/"
     jsonld = [webpage_ld(path, s["t"][0]), crumbs(path, s["eye"][0]), faq_ld(s["faqs"])]
     body = (hero(s["eye"], s["h1"], s["intro"])
-            + section(mock_panel(), top=False)
+            + section(showcase(SHOW_START[s["sections"]]), top=False)
             + SECS[s["sections"]]()
+            + cta_band(*CTA_MID)
             + faq_section(s["faqs"])
             + related(s["slug"])
-            + cta())
+            + lead_form(path))
     page(path, s["t"], s["d"], jsonld, body)
 
 
@@ -742,7 +938,12 @@ def render_hub():
                  ("Conectado a tu PACS, el panel reconoce cada resonador, tomógrafo, rayos X, ecógrafo y mamógrafo que envía estudios, y te muestra en vivo cuánto produce, cuánto tiempo está parado y si llega a la meta del mes. Sin importar cuántos equipos tengas ni en cuántas sedes estén.",
                   "Connected to your PACS, the panel recognizes every MRI, CT, X-ray, ultrasound and mammography unit that sends studies, and shows you live how much it produces, how long it sits idle and whether it will hit this month's goal. However many units you have and however many sites they are in.",
                   "Conectado ao seu PACS, o painel reconhece cada ressonador, tomógrafo, raio-X, ultrassom e mamógrafo que envia estudos e mostra ao vivo quanto produz, quanto tempo fica parado e se chega à meta do mês. Não importa quantos equipamentos você tenha nem em quantas unidades estejam."))
-            + section(mock_panel(), top=False)
+            + section(showcase(0) + stats(), top=False)
+            + section(sec_head(("El problema", "The problem", "O problema"),
+                               ("Lo que hoy no ves en tus equipos te cuesta producción",
+                                "What you can't see on your units today costs you output",
+                                "O que você não vê hoje nos seus equipamentos custa produção"))
+                      + feature_cards(DOLORES, "cx-feats cx-4"))
             + section(sec_head(("Beneficios", "Benefits", "Benefícios"),
                                ("Control total sobre la producción de tus equipos", "Full control over your units' output", "Controle total sobre a produção dos seus equipamentos"),
                                ("Para hospitales, clínicas, sanatorios y centros de diagnóstico que necesitan saber qué pasa en cada sala sin recorrer las sedes.",
@@ -755,12 +956,13 @@ def render_hub():
                                 "Everything comes from the studies your units already send to the PACS.",
                                 "Tudo vem dos estudos que seus equipamentos já enviam ao PACS."))
                       + feature_cards(FUNCIONES), top=False)
+            + cta_band(*CTA_MID)
             + section(sec_head(("Modalidades y marcas", "Modalities and vendors", "Modalidades e marcas"),
                                ("Cualquier equipo que envíe DICOM", "Any unit that sends DICOM", "Qualquer equipamento que envie DICOM"))
                       + chips(MODALIDADES) + '<div style="height:14px"></div>' + chips(MARCAS), top=False)
             + faq_section(faqs)
             + related(HUB)
-            + cta())
+            + lead_form(path))
     desc = d[0]
     jsonld = [software_ld(path, desc), webpage_ld(path, t[0]), crumbs(path, ""), faq_ld(faqs)]
     page(path, t, d, jsonld, body)
