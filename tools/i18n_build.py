@@ -43,7 +43,8 @@ _EXCL = ("en/", "pt/", "presentacion/", "graphify-out/", "node_modules/")
 def discover():
     """Descubre las páginas ES fuente: index.html en raíz, subcarpetas y repuestos/*."""
     found = set()
-    for pat in ["index.html", "*/index.html", "repuestos/*/index.html", "reparacion/*/index.html"]:
+    for pat in ["index.html", "*/index.html", "repuestos/*/index.html", "reparacion/*/index.html",
+                "control-equipamiento-medico/*/index.html"]:
         for f in _glob.glob(os.path.join(ROOT, pat)):
             rel = os.path.relpath(f, ROOT).replace(os.sep, "/")
             if any(rel.startswith(x) for x in _EXCL):
@@ -187,7 +188,7 @@ def bake(raw, lang, P):
 def build_sitemap():
     today = datetime.date.today().isoformat()
     prio = {"": "1.0", "catalogo/": "0.9", "servicios/": "0.9", "productos/": "0.9",
-            "software/": "0.8", "monitoreo/": "0.8", "empresa/": "0.7", "contacto/": "0.6"}
+            "software/": "0.8", "monitoreo/": "0.8", "control-equipamiento-medico/": "0.9", "empresa/": "0.7", "contacto/": "0.6"}
     freq = {"": "weekly", "catalogo/": "daily", "productos/": "weekly"}
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
