@@ -62,7 +62,7 @@
       +'<div class="meta">'+meta+'</div>'
       +(p.descripcion?'<p class="meta">'+esc(p.descripcion)+'</p>':'')
       +'<div class="part-foot">'+badge(p.disponibilidad)
-      +'<a class="btn btn-primary" style="padding:9px 16px;font-size:14px" href="'+LP+'contacto/?parte='+encodeURIComponent(p.ref||p.nombre||'')+'">'+tt.consultar+'</a>'
+      +'<a class="btn btn-primary" style="padding:9px 16px;font-size:14px" href="'+LP+'contacto/#parte='+encodeURIComponent(p.ref||p.nombre||'')+'">'+tt.consultar+'</a>'
       +'<a class="btn btn-ghost cat-wa" style="padding:9px 14px;font-size:14px" target="_blank" rel="noopener" aria-label="WhatsApp" href="https://wa.me/5491167410993?text='+encodeURIComponent(tt.wamsg+(p.ref||p.nombre||''))+'"><svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" style="vertical-align:-2px"><path d="M12 2C6.5 2 2 6.5 2 12c0 1.8.5 3.4 1.3 4.9L2 22l5.2-1.3c1.4.8 3 1.2 4.7 1.2h.1c5.5 0 10-4.5 10-10S17.5 2 12 2zm5.5 12.4c-.3-.2-1.7-.9-2-1-.3-.1-.5-.1-.6.2-.2.3-.7 1-.9 1.1-.2.2-.3.2-.6.1-.3-.2-1.2-.5-2.3-1.4-.9-.8-1.4-1.7-1.6-2-.2-.3 0-.5.1-.6l.5-.5c.2-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.2-.6-1.5-.9-2-.2-.5-.4-.4-.6-.4h-.5c-.2 0-.5.1-.7.3-.3.3-1 1-1 2.3s1 2.7 1.1 2.9c.2.2 2 3.1 5 4.3 2.4 1 2.9.8 3.4.8.5 0 1.7-.7 1.9-1.3.2-.7.2-1.2.2-1.3-.1-.2-.3-.2-.6-.4z"/></svg> WhatsApp</a>'
       +'</div>'+(ext?'<div style="padding-top:4px">'+ext+'</div>':'')
       +'</div></article>';
@@ -177,7 +177,7 @@
           image:imgs.length?imgs:undefined,
           itemCondition:/usad|used|recond|recuper/i.test(p.estado||'')?'https://schema.org/UsedCondition':'https://schema.org/RefurbishedCondition',
           offers:{'@type':'Offer',availability:'https://schema.org/'+avail,priceCurrency:'USD',seller:{'@id':BASE+'/#organization'},
-                  url:BASE+'/contacto/?parte='+encodeURIComponent(p.ref||p.nombre||'')}
+                  url:BASE+'/contacto/#parte='+encodeURIComponent(p.ref||p.nombre||'')}
         };
         Object.keys(prod).forEach(function(k){if(prod[k]===undefined)delete prod[k];});
         return {'@type':'ListItem',position:i+1,item:prod};

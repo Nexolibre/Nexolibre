@@ -170,9 +170,9 @@
     finally{ if(btn){btn.disabled=false;btn.innerHTML=orig;} }
   });
 
-  /* ---------- prefill from catalog (?parte=) ---------- */
+  /* ---------- prefill from catalog (#parte=, legacy ?parte=) ---------- */
   if(form){
-    const pp=new URLSearchParams(location.search).get('parte');
+    const pp=new URLSearchParams(location.hash.slice(1)).get('parte')||new URLSearchParams(location.search).get('parte');
     if(pp){
       const m=form.querySelector('[name=mensaje]');
       if(m && !m.value) m.value=(document.documentElement.lang==='en'?'Inquiry about part: ':'Consulta por la pieza: ')+pp;

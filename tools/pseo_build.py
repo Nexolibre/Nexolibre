@@ -44,7 +44,7 @@ def card(p):
     return (f'<article class="pcard"><div class="pcard-img">{img}</div>'
             f'<div class="pcard-b"><h3>{esc(p.get("nombre",""))}</h3>'
             f'<div class="pcard-m">{"<br>".join(meta)}</div>'
-            f'<a class="btn btn-primary" style="padding:8px 15px;font-size:14px" href="/contacto/?parte={ref}" '
+            f'<a class="btn btn-primary" style="padding:8px 15px;font-size:14px" href="/contacto/#parte={ref}" '
             f'{L("Consultar","Ask","Consultar")}>Consultar</a></div></article>')
 
 def head(path, t_es, t_en, t_pt, d_es, d_en, d_pt, jsonld):
