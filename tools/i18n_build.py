@@ -91,6 +91,8 @@ def bake(raw, lang, P):
                 el.append(node)
     for el in soup.select(f"[data-{lang}-ph]"):
         el["placeholder"] = el.get(f"data-{lang}-ph")
+    for el in soup.select(f"[data-{lang}-alt]"):
+        el["alt"] = el.get(f"data-{lang}-alt")
 
     # 2) <html lang> + marca de idioma para app.js
     if soup.html:

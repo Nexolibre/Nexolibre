@@ -21,7 +21,7 @@ ejemplo son ficticios y lo dice en pantalla.
 Cada página es ES con data-en/data-pt; i18n_build.py genera /en/ y /pt/.
 Uso:  python3 tools/control_build.py && python3 tools/i18n_build.py
 """
-import os, sys
+import os, sys, json
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from landing_build import head, TAIL, L, esc, write, faq_section, CHECK, BASE  # noqa: E402
 
@@ -204,7 +204,7 @@ def showcase(start=0):
                  f'<span {L(*name)}>{esc(name[0])}</span><i class="cx-prog"></i></button>')
         load = "eager" if k == start else "lazy"
         shots += (f'<img class="cx-shot{on}" src="/assets/control/{slug}.webp" width="1400" height="762" '
-                  f'loading="{load}" decoding="async" alt="{esc(name[0])}: {esc(cap[0])}" '
+                  f'loading="{load}" decoding="async"{' fetchpriority="high"' if k == start else ''} alt="{esc(name[0])}: {esc(cap[0])}" data-en-alt="{esc(name[1])}: {esc(cap[1])}" data-pt-alt="{esc(name[2])}: {esc(cap[2])}" '
                   f'data-es-alt="{esc(name[0])}: {esc(cap[0])}" />')
         caps += f'<p class="cx-cap{on}" {L(*cap)}>{esc(cap[0])}</p>'
     return (f'<div class="cx-show reveal">'
@@ -394,67 +394,82 @@ def related(current):
 # JSON-LD
 # --------------------------------------------------------------------------
 
-FEATURE_LIST = [
-    "Panel en vivo de todos los equipos de diagnóstico por imágenes conectados al PACS",
-    "Detección automática de equipos a partir de los datos DICOM",
-    "Vista multisede y multicliente con filtro por sede, modalidad y equipo",
-    "Exámenes por día, por modalidad, por equipo y por hora",
-    "Utilización, duración mediana de estudios y tiempo de cambio de paciente por equipo",
-    "Metas mensuales por equipo con proyección de cierre",
-    "Mapa de calor de ocupación semanal por hora y día",
-    "Línea de tiempo por equipo con series y secuencias de cada estudio",
-    "Worklist: programado vs. realizado, puntualidad y pacientes no presentados",
-    "Productividad por turno (mañana, tarde, noche)",
-    "Comparación entre períodos por protocolo",
-    "Ranking de médicos solicitantes",
-    "Monitoreo de criogenia y acceso remoto para resonadores",
-]
+LANGS = ("es", "en", "pt")
+PREFIX = {"es": "", "en": "/en", "pt": "/pt"}
 
 
-def software_ld(path, desc):
+def u(lang, path):
+    return f"{BASE}{PREFIX[lang]}/{path}"
+
+
+ORG_LD = {"@context": "https://schema.org", "@type": "Organization", "@id": BASE + "/#organization",
+          "name": "Nexolibre", "url": BASE + "/",
+          "logo": {"@type": "ImageObject", "url": BASE + "/assets/nexolibre-logo.png"},
+          "email": "contacto@nexolibre.com", "telephone": "+5491167410993",
+          "sameAs": ["https://www.linkedin.com/company/nexo-libre/", "https://www.instagram.com/nexo.libre",
+                     "https://www.facebook.com/nexolibre"]}
+
+
+def software_ld(lang, i, path, desc):
+    # Sin nombre comercial a pedido de Maxi (nov 2026): todo genérico.
+    names = ("Sistema de control de equipamiento médico para diagnóstico por imágenes",
+             "Medical imaging equipment monitoring and control software",
+             "Sistema de controle de equipamentos médicos para diagnóstico por imagem")
+    aud = ("Hospitales, clínicas, sanatorios y centros de diagnóstico por imágenes",
+           "Hospitals, clinics and diagnostic imaging centers",
+           "Hospitais, clínicas e centros de diagnóstico por imagem")
     return {"@context": "https://schema.org", "@type": "SoftwareApplication",
-            "@id": f"{BASE}/{HUB}/#software",
-            # Sin nombre comercial a pedido de Maxi (nov 2026): todo genérico.
-            "name": "Sistema de control de equipamiento médico para diagnóstico por imágenes",
-            "alternateName": ["Panel de control de equipos de diagnóstico por imágenes",
-                              "Medical imaging equipment monitoring software",
-                              "Sistema de controle de equipamentos médicos"],
+            "@id": f"{BASE}/{HUB}/#software", "name": names[i],
+            "alternateName": [n for k, n in enumerate(names) if k != i],
             "applicationCategory": "HealthApplication", "applicationSubCategory": "Radiology operations analytics",
-            "operatingSystem": "Web", "url": f"{BASE}/{path}", "description": desc,
-            "featureList": FEATURE_LIST, "inLanguage": ["es", "en", "pt"],
-            "audience": {"@type": "Audience", "audienceType": "Hospitales, clínicas, sanatorios y centros de diagnóstico por imágenes"},
+            "operatingSystem": "Web", "url": u(lang, path), "description": desc[i],
+            "image": f"{BASE}/assets/control/og-{lang}.jpg",
+            "screenshot": [f"{BASE}/assets/control/{k}.webp" for k, _, _ in SCREENS],
+            "featureList": [f[0][i] for f in FUNCIONES], "inLanguage": lang,
+            "audience": {"@type": "Audience", "audienceType": aud[i]},
             "provider": ORG, "areaServed": {"@type": "Place", "name": "Worldwide"}}
 
 
-def webpage_ld(path, name, about=True):
-    j = {"@context": "https://schema.org", "@type": "WebPage", "@id": f"{BASE}/{path}#webpage",
-         "url": f"{BASE}/{path}", "name": name, "inLanguage": "es",
-         "isPartOf": {"@id": BASE + "/#website"}, "datePublished": "2026-11-17", "dateModified": "2026-11-17"}
-    if about:
-        j["about"] = {"@id": f"{BASE}/{HUB}/#software"}
-    return j
-
-
-def crumbs(path, name):
-    items = [{"@type": "ListItem", "position": 1, "name": "Inicio", "item": BASE + "/"},
-             {"@type": "ListItem", "position": 2, "name": "Software", "item": BASE + "/software/"},
-             {"@type": "ListItem", "position": 3, "name": "Control de equipamiento médico", "item": f"{BASE}/{HUB}/"}]
+def crumbs(lang, i, path, name):
+    items = [{"@type": "ListItem", "position": 1, "name": ("Inicio", "Home", "Início")[i], "item": u(lang, "")},
+             {"@type": "ListItem", "position": 2, "name": "Software", "item": u(lang, "software/")},
+             {"@type": "ListItem", "position": 3, "name": ("Control de equipamiento médico", "Medical equipment control",
+                                                           "Controle de equipamentos médicos")[i], "item": u(lang, HUB + "/")}]
     if path != HUB + "/":
-        items.append({"@type": "ListItem", "position": 4, "name": name, "item": f"{BASE}/{path}"})
+        items.append({"@type": "ListItem", "position": 4, "name": name[i], "item": u(lang, path)})
     return {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": items}
 
 
-def faq_ld(faqs):
-    return {"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": "es",
-            "mainEntity": [{"@type": "Question", "name": q[0],
-                            "acceptedAnswer": {"@type": "Answer", "text": a[0]}} for q, a in faqs]}
+def faq_ld(lang, i, faqs):
+    return {"@context": "https://schema.org", "@type": "FAQPage", "inLanguage": lang,
+            "mainEntity": [{"@type": "Question", "name": q[i],
+                            "acceptedAnswer": {"@type": "Answer", "text": a[i]}} for q, a in faqs]}
 
 
-def page(path, t, d, jsonld, body):
+def ld_scripts(build):
+    """Un <script> JSON-LD por objeto, con la versión de cada idioma en
+    data-es/en/pt: i18n_build.py reemplaza el contenido por el del idioma
+    que hornea. Antes los datos estructurados de /en/ y /pt/ quedaban en
+    español, y Google los veía desalineados con el texto de la página."""
+    per = {lang: build(lang, i) for i, lang in enumerate(LANGS)}
+    out = ""
+    for k in range(len(per["es"])):
+        js = {lang: json.dumps(per[lang][k], ensure_ascii=False, separators=(",", ":")) for lang in LANGS}
+        out += f'<script type="application/ld+json" {L(js["es"], js["en"], js["pt"])}>{js["es"]}</script>\n'
+    return out
+
+
+def page(path, t, d, build_ld, body):
     """head() de landing_build + estilos del panel. El body va en theme-dark
     como /monitoreo/, para que el pilar y la página de criogenia se sientan una
     misma línea de producto."""
-    h = head(path, t, d, jsonld).replace("</head>", CX_STYLE + "\n</head>", 1).replace("<body>", '<body class="theme-dark">', 1)
+    h = head(path, t, d, []).replace("</head>", ld_scripts(build_ld) + CX_STYLE + "\n</head>", 1)
+    h = h.replace("<body>", '<body class="theme-dark">', 1)
+    # og:image propia por idioma (i18n_build hornea el content desde data-*).
+    for prop in ('property="og:image"', 'name="twitter:image"'):
+        h = h.replace(f'<meta {prop} content="{BASE}/assets/og-image.jpg" />',
+                      f'<meta {prop} content="{BASE}/assets/control/og-es.jpg" '
+                      + L(*(f"{BASE}/assets/control/og-{x}.jpg" for x in LANGS)) + ' />', 1)
     # El header viene de index.html con "Inicio" activo; acá corresponde Software.
     h = h.replace('<a class="active" data-en="Home"', '<a data-en="Home"', 1).replace('<a class="nav-soft"', '<a class="nav-soft active"', 1)
     write(path.rstrip("/"), h + body + SHOW_JS + TAIL)
@@ -571,12 +586,12 @@ SPOKES = [
         "card": ("Los indicadores que mueven la producción: exámenes por hora, utilización, rotación, metas y turnos.",
                  "The KPIs that drive output: exams per hour, utilization, turnaround, goals and shifts.",
                  "Os indicadores que movem a produção: exames por hora, utilização, giro, metas e turnos."),
-        "t": ("Software de productividad para diagnóstico por imágenes: KPIs por equipo — Nexolibre",
-              "Radiology productivity software: per-unit imaging KPIs — Nexolibre",
-              "Software de produtividade para diagnóstico por imagem: KPIs por equipamento — Nexolibre"),
-        "d": ("Medí la producción de cada resonador, tomógrafo, ecógrafo y rayos X: exámenes por hora, utilización, tiempo de cambio de paciente, metas mensuales y turnos. Indicadores de gestión del servicio de imágenes en un panel.",
-              "Measure the output of every MRI, CT, ultrasound and X-ray unit: exams per hour, utilization, patient changeover time, monthly goals and shifts. Imaging department KPIs in one panel.",
-              "Meça a produção de cada ressonador, tomógrafo, ultrassom e raio-X: exames por hora, utilização, tempo de troca de paciente, metas mensais e turnos. Indicadores de gestão do serviço de imagem em um painel."),
+        "t": ('Software de productividad en diagnóstico por imágenes',
+              'Radiology Productivity Software: Imaging KPIs | Nexolibre',
+              'Software de produtividade em diagnóstico por imagem'),
+        "d": ('Medí exámenes por hora, utilización, tiempo entre pacientes, metas y turnos de cada resonador, tomógrafo y rayos X. Indicadores de gestión en un panel.',
+              'Measure exams per hour, utilization, changeover time, goals and shifts for every MRI, CT and X-ray unit. Imaging department KPIs on one panel.',
+              'Meça exames por hora, utilização, tempo entre pacientes, metas e turnos de cada ressonador, tomógrafo e raio-X. Indicadores de gestão em um painel.'),
         "h1": ("Indicadores de productividad para tu servicio de diagnóstico por imágenes",
                "Productivity KPIs for your imaging department",
                "Indicadores de produtividade para o seu serviço de diagnóstico por imagem"),
@@ -609,12 +624,12 @@ SPOKES = [
         "card": ("Cómo el panel lee los datos DICOM de tu PACS para mostrarte cada equipo, estudio y protocolo.",
                  "How the panel reads your PACS's DICOM data to show every unit, study and protocol.",
                  "Como o painel lê os dados DICOM do seu PACS para mostrar cada equipamento, estudo e protocolo."),
-        "t": ("Dashboard PACS / DICOM para controlar equipos y estudios — Nexolibre",
-              "PACS / DICOM dashboard to control imaging units and studies — Nexolibre",
-              "Dashboard PACS / DICOM para controlar equipamentos e estudos — Nexolibre"),
-        "d": ("Tablero de control conectado a tu PACS: detecta cada equipo por sus datos DICOM y muestra exámenes, protocolos, series y tiempos por modalidad, equipo y sede. Multimarca, para RM, TC, RX, ecografía y mamografía.",
-              "Control dashboard connected to your PACS: detects every unit from its DICOM data and shows exams, protocols, series and times by modality, unit and site. Multivendor, for MRI, CT, X-ray, ultrasound and mammography.",
-              "Painel de controle conectado ao seu PACS: detecta cada equipamento pelos dados DICOM e mostra exames, protocolos, séries e tempos por modalidade, equipamento e unidade. Multimarca, para RM, TC, RX, ultrassom e mamografia."),
+        "t": ('Dashboard PACS DICOM: control de equipos | Nexolibre',
+              'PACS DICOM Dashboard for Imaging Equipment | Nexolibre',
+              'Dashboard PACS DICOM: controle de equipamentos | Nexolibre'),
+        "d": ('Tablero conectado a tu PACS: detecta cada equipo por sus datos DICOM y muestra exámenes, protocolos y tiempos por equipo y sede. Multimarca.',
+              'Dashboard connected to your PACS: detects every unit from its DICOM data and shows exams, protocols and times per unit and site. Any vendor.',
+              'Painel conectado ao seu PACS: detecta cada equipamento pelos dados DICOM e mostra exames, protocolos e tempos por equipamento e unidade. Multimarca.'),
         "h1": ("Un tablero de control que lee tu PACS y te muestra cada equipo",
                "A control dashboard that reads your PACS and shows you every unit",
                "Um painel de controle que lê o seu PACS e mostra cada equipamento"),
@@ -647,12 +662,12 @@ SPOKES = [
         "card": ("Una sola vista para todas tus sedes y equipos, para la dirección, el servicio y la ingeniería.",
                  "One view for all your sites and units, for management, the department and engineering.",
                  "Uma só visão para todas as suas unidades e equipamentos, para direção, serviço e engenharia."),
-        "t": ("Control de equipamiento médico para hospitales, clínicas y sanatorios multisede — Nexolibre",
-              "Medical equipment control for hospitals, clinics and multi-site imaging networks — Nexolibre",
-              "Controle de equipamentos médicos para hospitais, clínicas e redes multiunidade — Nexolibre"),
-        "d": ("Gestión del equipamiento de diagnóstico por imágenes en hospitales, clínicas, sanatorios y redes con varias sedes: todos los equipos en un panel, metas por equipo y comparación entre sedes. Sin límite de equipos.",
-              "Imaging equipment management for hospitals, clinics and multi-site networks: every unit on one panel, per-unit goals and site-by-site comparison. No limit on units.",
-              "Gestão de equipamentos de diagnóstico por imagem em hospitais, clínicas e redes com várias unidades: todos os equipamentos em um painel, metas por equipamento e comparação entre unidades. Sem limite de equipamentos."),
+        "t": ('Control de equipos médicos para hospitales y clínicas',
+              'Imaging Equipment Control for Hospitals & Clinics',
+              'Controle de equipamentos para hospitais e clínicas'),
+        "d": ('Todo el equipamiento de imágenes de hospitales, clínicas y sanatorios en un panel: metas por equipo y comparación entre sedes. Sin límite de equipos.',
+              'All imaging equipment of hospitals, clinics and networks on one panel: per-unit goals and site-by-site comparison. No limit on units or sites.',
+              'Todos os equipamentos de imagem de hospitais e clínicas em um painel: metas por equipamento e comparação entre unidades. Sem limite de equipamentos.'),
         "h1": ("Control del equipamiento de imágenes para hospitales, clínicas y redes con varias sedes",
                "Imaging equipment control for hospitals, clinics and multi-site networks",
                "Controle dos equipamentos de imagem para hospitais, clínicas e redes com várias unidades"),
@@ -852,7 +867,7 @@ CTA_MID = (("Cada hora de equipo sin producir es facturación que no vuelve",
 
 def render_spoke(s):
     path = s["slug"] + "/"
-    jsonld = [webpage_ld(path, s["t"][0]), crumbs(path, s["eye"][0]), faq_ld(s["faqs"])]
+    jsonld = lambda lang, i: [ORG_LD, crumbs(lang, i, path, s["eye"]), faq_ld(lang, i, s["faqs"])]
     body = (hero(s["eye"], s["h1"], s["intro"])
             + section(showcase(SHOW_START[s["sections"]]), top=False)
             + SECS[s["sections"]]()
@@ -869,12 +884,12 @@ def render_spoke(s):
 
 def render_hub():
     path = HUB + "/"
-    t = ("Sistema de control de equipamiento médico para diagnóstico por imágenes — Nexolibre",
-         "Medical imaging equipment monitoring and control software — Nexolibre",
-         "Sistema de controle de equipamentos médicos para diagnóstico por imagem — Nexolibre")
-    d = ("Panel en vivo de todos tus equipos de diagnóstico por imágenes conectados al PACS/DICOM: resonancia, tomografía, rayos X, ecografía y mamografía. Producción, ocupación y metas por equipo y por sede, sin límite de equipos.",
-         "Live panel of every imaging unit connected to your PACS/DICOM: MRI, CT, X-ray, ultrasound and mammography. Output, occupancy and goals per unit and per site, with no limit on units.",
-         "Painel ao vivo de todos os seus equipamentos de diagnóstico por imagem conectados ao PACS/DICOM: ressonância, tomografia, raio-X, ultrassom e mamografia. Produção, ocupação e metas por equipamento e por unidade, sem limite de equipamentos.")
+    t = ('Sistema de control de equipamiento médico | Nexolibre',
+          'Medical Imaging Equipment Monitoring Software | Nexolibre',
+          'Sistema de controle de equipamentos médicos | Nexolibre')
+    d = ('Panel en vivo de todos tus equipos de diagnóstico por imágenes conectados al PACS: RM, TC, RX, ecografía y mamografía. Sin límite de equipos ni sedes.',
+          'Live panel of every imaging unit connected to your PACS: MRI, CT, X-ray, ultrasound and mammography. Output and goals per unit and site, no limits.',
+          'Painel ao vivo de todos os equipamentos de imagem conectados ao PACS: RM, TC, RX, ultrassom e mamografia. Sem limite de equipamentos nem unidades.')
     faqs = [
         (("¿Qué es un sistema de control de equipamiento médico?", "What is a medical equipment control system?", "O que é um sistema de controle de equipamentos médicos?"),
          ("Es un software que reúne en un panel el estado y la producción de los equipos médicos de una institución. En diagnóstico por imágenes, el de Nexolibre se conecta al PACS y muestra, para cada resonador, tomógrafo, rayos X, ecógrafo o mamógrafo, cuántos estudios hace, cuánto tiempo está ocupado o parado y si cumple su meta.",
@@ -935,9 +950,9 @@ def render_hub():
                  ("Todos tus equipos de diagnóstico por imágenes, en un solo panel en vivo",
                   "All your diagnostic imaging units on one live panel",
                   "Todos os seus equipamentos de diagnóstico por imagem em um só painel ao vivo"),
-                 ("Conectado a tu PACS, el panel reconoce cada resonador, tomógrafo, rayos X, ecógrafo y mamógrafo que envía estudios, y te muestra en vivo cuánto produce, cuánto tiempo está parado y si llega a la meta del mes. Sin importar cuántos equipos tengas ni en cuántas sedes estén.",
-                  "Connected to your PACS, the panel recognizes every MRI, CT, X-ray, ultrasound and mammography unit that sends studies, and shows you live how much it produces, how long it sits idle and whether it will hit this month's goal. However many units you have and however many sites they are in.",
-                  "Conectado ao seu PACS, o painel reconhece cada ressonador, tomógrafo, raio-X, ultrassom e mamógrafo que envia estudos e mostra ao vivo quanto produz, quanto tempo fica parado e se chega à meta do mês. Não importa quantos equipamentos você tenha nem em quantas unidades estejam."))
+                 ("Es un sistema de control de equipamiento médico conectado a tu PACS: reconoce cada resonador, tomógrafo, rayos X, ecógrafo y mamógrafo que envía estudios, y te muestra en vivo cuánto produce, cuánto tiempo está parado y si llega a la meta del mes. Sin importar cuántos equipos tengas ni en cuántas sedes estén.",
+                  "Medical equipment control software connected to your PACS: it recognizes every MRI, CT, X-ray, ultrasound and mammography unit that sends studies, and shows you live how much it produces, how long it sits idle and whether it will hit this month's goal. However many units you have and however many sites they are in.",
+                  "É um sistema de controle de equipamentos médicos conectado ao seu PACS: reconhece cada ressonador, tomógrafo, raio-X, ultrassom e mamógrafo que envia estudos e mostra ao vivo quanto produz, quanto tempo fica parado e se chega à meta do mês. Não importa quantos equipamentos você tenha nem em quantas unidades estejam."))
             + section(showcase(0) + stats(), top=False)
             + section(sec_head(("El problema", "The problem", "O problema"),
                                ("Lo que hoy no ves en tus equipos te cuesta producción",
@@ -964,7 +979,7 @@ def render_hub():
             + related(HUB)
             + lead_form(path))
     desc = d[0]
-    jsonld = [software_ld(path, desc), webpage_ld(path, t[0]), crumbs(path, ""), faq_ld(faqs)]
+    jsonld = lambda lang, i: [ORG_LD, software_ld(lang, i, path, d), crumbs(lang, i, path, None), faq_ld(lang, i, faqs)]
     page(path, t, d, jsonld, body)
 
 
