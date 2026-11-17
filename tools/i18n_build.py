@@ -176,13 +176,17 @@ def bake(raw, lang, P):
         head.append(sc)
 
     # 9) skip-to-content link (accesibilidad, WCAG 2.4.1) como primer foco
+    # Las páginas ES se regeneran in place y ya traen el link en español; antes
+    # solo se agregaba si faltaba, así que /en/ y /pt/ decían "Saltar al contenido".
     body = soup.body
-    if body and not body.find("a", class_="skip-link"):
-        txt = {"es": "Saltar al contenido", "en": "Skip to content", "pt": "Pular para o conteúdo"}[lang]
-        sk = soup.new_tag("a", href="#top")
-        sk["class"] = "skip-link"
+    txt = {"es": "Saltar al contenido", "en": "Skip to content", "pt": "Pular para o conteúdo"}[lang]
+    if body:
+        sk = body.find("a", class_="skip-link")
+        if not sk:
+            sk = soup.new_tag("a", href="#top")
+            sk["class"] = "skip-link"
+            body.insert(0, sk)
         sk.string = txt
-        body.insert(0, sk)
 
     return str(soup)
 
