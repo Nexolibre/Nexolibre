@@ -103,6 +103,10 @@ CX_STYLE = """<style>
 .cx-otro b{display:block;font-family:Exo,sans-serif;color:var(--text);font-size:15px}
 .cx-otro span{font-size:13.5px;color:var(--muted)}
 .cx-otro:hover{border-color:rgba(239,143,3,.45)}
+.cx-tambien{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 14px;margin:16px auto 0;font-size:13.5px;color:var(--muted)}
+.cx-tambien a{color:var(--accent);font-weight:600;text-decoration:none;border-bottom:1px solid rgba(239,143,3,.35)}
+.cx-tambien a::after{content:" →"}
+.cx-tambien a:hover{border-color:var(--accent)}
 .cx-tab.on{background:rgba(239,143,3,.14);color:#ffb23e;font-weight:600}
 .cx-prog{position:absolute;left:0;bottom:0;height:2px;width:0;background:#ef8f03}
 .cx-tab.on .cx-prog{animation:cxProg 6s linear forwards}
@@ -306,7 +310,7 @@ def cta_buttons(center=True):
             f'<a href="#demo" class="btn btn-ghost" data-cotizar="1" {L(*CTA_COT)}>{CTA_COT[0]}</a></div>')
 
 
-def hero(eye, h1, intro, ctas=True):
+def hero(eye, h1, intro, ctas=True, extra=''):
     trust = [("Multimarca", "Multivendor", "Multimarca"), ("Todas las modalidades", "Every modality", "Todas as modalidades"),
              ("Sin límite de equipos ni sedes", "No limit on units or sites", "Sem limite de equipamentos ou unidades"),
              ("Funcionando en el día", "Up and running the same day", "Funcionando no mesmo dia")]
@@ -319,7 +323,7 @@ def hero(eye, h1, intro, ctas=True):
             f'<p class="lead reveal" style="max-width:72ch;margin:12px auto 0" {L(*intro)}>{esc(intro[0])}</p>'
             + (f'<div class="reveal">{cta_buttons()}</div>' if ctas else '')
             + f'<div class="hero-badges reveal" style="margin-top:22px">{badges}</div>'
-            f'</div></section>')
+            + extra + '</div></section>')
 
 
 def cta_band(h, p):
@@ -1047,6 +1051,14 @@ OTROS = [("informes", "/software/informes-radiologicos-ia/",
            "Deep learning autorizado pela FDA: MRI mais rápida e menos dose em PET."))]
 
 
+def otros_arriba():
+    # Una línea bajo el hero para quien llega buscando informes o IA para MRI
+    # (Maxi, nov 2026): visible sin competir con el producto principal.
+    links = "".join(f'<a href="{h}" {L(*t)}>{esc(t[0])}</a>' for _, h, t, _ in OTROS)
+    return (f'<p class="cx-tambien reveal"><span {L("¿Buscás IA para informes o para MRI?","Looking for AI for reporting or MRI?","Procura IA para laudos ou para MRI?")}>'
+            f'¿Buscás IA para informes o para MRI?</span>{links}</p>')
+
+
 def otros():
     cards = "".join(f'<a class="cx-otro" id="{i}" href="{h}"><b {L(*t)}>{esc(t[0])}</b><span {L(*d)}>{esc(d[0])}</span></a>'
                     for i, h, t, d in OTROS)
@@ -1104,7 +1116,8 @@ def render_hub():
                   "Controle ao vivo todos os seus equipamentos médicos de diagnóstico por imagem"),
                  ("Un sistema de control de equipamiento médico conectado a tu PACS: cada resonador, tomógrafo, rayos X, ecógrafo y mamógrafo en un solo panel, sin importar cuántos equipos ni sedes tengas.",
                   "Medical equipment control software connected to your PACS: every MRI, CT, X-ray, ultrasound and mammography unit on one panel, no matter how many units or sites you have.",
-                  "Um sistema de controle de equipamentos médicos conectado ao seu PACS: cada ressonador, tomógrafo, raio-X, ultrassom e mamógrafo em um só painel, não importa quantos equipamentos ou unidades você tenha."))
+                  "Um sistema de controle de equipamentos médicos conectado ao seu PACS: cada ressonador, tomógrafo, raio-X, ultrassom e mamógrafo em um só painel, não importa quantos equipamentos ou unidades você tenha."),
+                 extra=otros_arriba())
             + section(showcase(0) + stats(), top=False)
             + section(sec_head(("El problema y la solución", "The problem and the fix", "O problema e a solução"),
                                ("Lo que hoy no ves te cuesta producción", "What you can't see today costs you output", "O que você não vê hoje custa produção"))
