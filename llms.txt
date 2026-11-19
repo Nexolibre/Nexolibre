@@ -39,7 +39,7 @@ Recuperar una bobina o una pieza crítica en lugar de comprarla nueva evita down
 - [Inicio](https://nexolibre.com/): visión general de servicios, productos y software.
 - [Empresa](https://nexolibre.com/empresa/): quiénes son, equipo y laboratorios.
 - [Servicios](https://nexolibre.com/servicios/): soporte e ingeniería MRI/CT en toda Latinoamérica, con laboratorios en Argentina, Chile y USA.
-- [Sistema de control de equipamiento médico](https://nexolibre.com/control-equipamiento-medico/): panel en vivo de todos los equipos de diagnóstico por imágenes conectados al PACS/DICOM (RM, TC, RX, ecografía, mamografía y más), sin límite de equipos ni de sedes: producción, ocupación, tiempos entre pacientes, metas mensuales, turnos y worklist.
+- [Sistema de control de equipamiento médico](https://nexolibre.com/software/): panel en vivo de todos los equipos de diagnóstico por imágenes conectados al PACS/DICOM (RM, TC, RX, ecografía, mamografía y más), sin límite de equipos ni de sedes: producción, ocupación, tiempos entre pacientes, metas mensuales, turnos y worklist.
   - [Indicadores de productividad en diagnóstico por imágenes](https://nexolibre.com/control-equipamiento-medico/productividad-diagnostico-por-imagenes/)
   - [Tablero conectado a PACS y DICOM](https://nexolibre.com/control-equipamiento-medico/tablero-pacs-dicom/)
   - [Hospitales, clínicas y redes multisede](https://nexolibre.com/control-equipamiento-medico/hospitales-clinicas-multisede/)
@@ -48,7 +48,6 @@ Recuperar una bobina o una pieza crítica en lugar de comprarla nueva evita down
 - [Glosario MRI/CT](https://nexolibre.com/glosario/): términos del dominio para desambiguación.
 - [Productos y stock](https://nexolibre.com/productos/): equipos MRI/CT y piezas críticas recuperadas.
 - [Catálogo de partes](https://nexolibre.com/catalogo/): repuestos MRI/CT con búsqueda por marca, modelo o número de parte.
-- [Software para diagnóstico por imágenes](https://nexolibre.com/software/): producto principal, panel de gestión y monitoreo de todos los equipos conectados al PACS, con criogenia MRI.
 - [Informes radiológicos con IA](https://nexolibre.com/software/informes-radiologicos-ia/): visor DICOM con dictado por voz con IA.
 - [Mejora de imagen con IA](https://nexolibre.com/software/mejora-imagen-ia/): deep learning autorizado por FDA para MRI, CT y PET-CT.
 - [Contacto](https://nexolibre.com/contacto/): email contacto@nexolibre.com · teléfono +54 9 11 6741-0993.

@@ -26,6 +26,10 @@ sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from landing_build import head, TAIL, L, esc, write, faq_section, CHECK, BASE  # noqa: E402
 
 HUB = "control-equipamiento-medico"
+# El pilar vive en /software/ (pedido de Maxi, nov 2026): es el producto
+# principal. /control-equipamiento-medico/ queda como redirección (ver
+# REDIRECTS en i18n_build.py) y las páginas satélite siguen colgando de HUB.
+PILLAR = "software"
 ORG = {"@id": BASE + "/#organization"}
 WA = ("https://wa.me/5491167410993?text=" +
       "Hola%20Nexolibre%2C%20quiero%20ver%20una%20demo%20del%20panel%20de%20control%20de%20equipos")
@@ -79,6 +83,26 @@ CX_STYLE = """<style>
 .cx-who ul{margin:0;padding-left:18px;color:var(--muted)}
 .cx-who li{margin:6px 0}
 .cx-fresh{font-size:13px;color:var(--muted-2);margin-top:14px}
+.cx-ad{border:1px solid var(--border);border-radius:18px;overflow:hidden;background:var(--surface)}
+.cx-ad-h,.cx-ad-r{display:grid;grid-template-columns:1fr 1fr}
+.cx-ad-h span{padding:14px 22px;font-family:Exo,sans-serif;font-weight:700;font-size:15px;letter-spacing:.02em}
+.cx-ad-h span:first-child{color:var(--muted)}
+.cx-ad-h span:last-child{color:var(--accent);background:rgba(239,143,3,.07)}
+.cx-ad-r p{display:flex;gap:12px;align-items:flex-start;margin:0;padding:16px 22px;border-top:1px solid var(--border);font-size:15.5px;line-height:1.45}
+.cx-ad-r p svg{flex:none;margin-top:2px}
+.cx-ad-r .no{color:var(--muted)}
+.cx-ad-r .no svg{color:#d06a5a}
+.cx-ad-r .si{color:var(--text);background:rgba(239,143,3,.07)}
+.cx-ad-r .si svg{color:var(--accent)}
+.cx-more{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:18px;font-size:14px;color:var(--muted)}
+.cx-more .chip{text-decoration:none}
+.cx-otros{margin-top:34px}
+.cx-otros-h{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);margin-bottom:12px}
+.cx-otros-g{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cx-otro{display:block;padding:14px 18px;border:1px solid var(--border);border-radius:14px;text-decoration:none;background:var(--surface)}
+.cx-otro b{display:block;font-family:Exo,sans-serif;color:var(--text);font-size:15px}
+.cx-otro span{font-size:13.5px;color:var(--muted)}
+.cx-otro:hover{border-color:rgba(239,143,3,.45)}
 .cx-tab.on{background:rgba(239,143,3,.14);color:#ffb23e;font-weight:600}
 .cx-prog{position:absolute;left:0;bottom:0;height:2px;width:0;background:#ef8f03}
 .cx-tab.on .cx-prog{animation:cxProg 6s linear forwards}
@@ -121,7 +145,7 @@ CX_STYLE = """<style>
 .cx-kpitable td{color:var(--muted)}
 .cx-links{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
 @media (max-width:900px){.cx-body{grid-template-columns:1fr}.cx-tabs{flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid rgba(255,255,255,.06);scrollbar-width:none}.cx-tab{white-space:nowrap;flex:none}.cx-stats,.cx-feats.cx-4{grid-template-columns:1fr 1fr}.cx-feats,.cx-aud,.cx-steps{grid-template-columns:1fr 1fr}.cx-win{transform:none}}
-@media (max-width:600px){.cx-func{grid-template-columns:1fr}.cx-who{grid-template-columns:1fr;gap:16px}.cx-who>ul{padding-top:0}.cx-cmp{font-size:14px}.cx-cmp th,.cx-cmp td{padding:10px 6px}.cx-feats,.cx-aud,.cx-steps,.cx-feats.cx-4{grid-template-columns:1fr}.cx-sticky{left:12px;right:84px;transform:translateY(140%);font-size:13px;padding:8px 8px 8px 14px;border-radius:16px}.cx-sticky.on{transform:none}.cx-sticky>span{display:none}.cx-sticky .btn{flex:1;justify-content:center}.cx-stat b{font-size:30px}.cx-kpitable th{width:40%}}
+@media (max-width:600px){.cx-ad-h{display:none}.cx-ad-r{grid-template-columns:1fr}.cx-ad-r p{padding:12px 16px}.cx-ad-r .si{border-top:0}.cx-ad-r{border-top:1px solid var(--border)}.cx-ad-r p.no{border-top:0;padding-bottom:4px}.cx-otros-g{grid-template-columns:1fr}.cx-func{grid-template-columns:1fr}.cx-who{grid-template-columns:1fr;gap:16px}.cx-who>ul{padding-top:0}.cx-cmp{font-size:14px}.cx-cmp th,.cx-cmp td{padding:10px 6px}.cx-feats,.cx-aud,.cx-steps,.cx-feats.cx-4{grid-template-columns:1fr}.cx-sticky{left:12px;right:84px;transform:translateY(140%);font-size:13px;padding:8px 8px 8px 14px;border-radius:16px}.cx-sticky.on{transform:none}.cx-sticky>span{display:none}.cx-sticky .btn{flex:1;justify-content:center}.cx-stat b{font-size:30px}.cx-kpitable th{width:40%}}
 </style>"""
 
 
@@ -480,8 +504,8 @@ def related(current):
         cards += (f'<a class="tcard reveal" href="/{s["slug"]}/" style="text-decoration:none">'
                   f'<h4 {L(*s["eye"])}>{esc(s["eye"][0])}</h4>'
                   f'<p {L(*s["card"])}>{esc(s["card"][0])}</p></a>')
-    if current != HUB:
-        cards = (f'<a class="tcard reveal" href="/{HUB}/" style="text-decoration:none">'
+    if current != PILLAR:
+        cards = (f'<a class="tcard reveal" href="/{PILLAR}/" style="text-decoration:none">'
                  f'<h4 {L("Sistema de control de equipamiento médico","Medical equipment control system","Sistema de controle de equipamentos médicos")}>Sistema de control de equipamiento médico</h4>'
                  f'<p {L(*PILLAR_CARD)}>{esc(PILLAR_CARD[0])}</p></a>') + cards
     return section(sec_head(("Seguí leyendo", "Keep reading", "Continue lendo"),
@@ -518,7 +542,7 @@ def software_ld(lang, i, path, desc):
            "Hospitals, clinics and diagnostic imaging centers",
            "Hospitais, clínicas e centros de diagnóstico por imagem")
     return {"@context": "https://schema.org", "@type": "SoftwareApplication",
-            "@id": f"{BASE}/{HUB}/#software", "name": names[i],
+            "@id": f"{BASE}/{PILLAR}/#software", "name": names[i],
             "alternateName": [n for k, n in enumerate(names) if k != i],
             "applicationCategory": "HealthApplication", "applicationSubCategory": "Radiology operations analytics",
             "operatingSystem": "Web", "url": u(lang, path), "description": desc[i],
@@ -531,11 +555,9 @@ def software_ld(lang, i, path, desc):
 
 def crumbs(lang, i, path, name):
     items = [{"@type": "ListItem", "position": 1, "name": ("Inicio", "Home", "Início")[i], "item": u(lang, "")},
-             {"@type": "ListItem", "position": 2, "name": "Software", "item": u(lang, "software/")},
-             {"@type": "ListItem", "position": 3, "name": ("Control de equipamiento médico", "Medical equipment control",
-                                                           "Controle de equipamentos médicos")[i], "item": u(lang, HUB + "/")}]
-    if path != HUB + "/":
-        items.append({"@type": "ListItem", "position": 4, "name": name[i], "item": u(lang, path)})
+             {"@type": "ListItem", "position": 2, "name": "Software", "item": u(lang, PILLAR + "/")}]
+    if path != PILLAR + "/":
+        items.append({"@type": "ListItem", "position": 3, "name": name[i], "item": u(lang, path)})
     return {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": items}
 
 
@@ -981,14 +1003,65 @@ def render_spoke(s):
 # Pilar
 # --------------------------------------------------------------------------
 
+# Sin y con el panel. Pedido de Maxi: menos texto, mostrar el problema y cómo
+# se resuelve. Cada lado es una línea; si crece, deja de leerse de un vistazo.
+ANTES_DESPUES = [
+    (("Un equipo deja de producir y nadie avisa", "A unit stops producing and nobody notices", "Um equipamento para de produzir e ninguém avisa"),
+     ("Ves el último estudio de cada equipo y cuánto hace que no produce", "You see each unit's latest study and how long since it last produced", "Você vê o último estudo de cada equipamento e há quanto tempo não produz")),
+    (("Los números llegan a fin de mes, en planillas armadas a mano", "Numbers arrive at month-end, in hand-built spreadsheets", "Os números chegam no fim do mês, em planilhas feitas à mão"),
+     ("Salen solos del PACS, en vivo y sin cargar nada", "They come straight from the PACS, live, with no data entry", "Saem direto do PACS, ao vivo e sem digitar nada")),
+    (("Cada sede y cada marca se mide distinto", "Every site and vendor is measured differently", "Cada unidade e cada marca é medida de um jeito"),
+     ("Mismos indicadores para todas las sedes, equipos y marcas", "The same KPIs for every site, unit and vendor", "Os mesmos indicadores para todas as unidades, equipamentos e marcas")),
+    (("La meta del mes se descubre al cierre", "The monthly goal is discovered at close", "A meta do mês é descoberta no fechamento"),
+     ("Proyección y exámenes por día que faltan, para corregir a tiempo", "Forecast and exams per day still needed, to correct in time", "Projeção e exames por dia que faltam, para corrigir a tempo")),
+    (("Huecos en la agenda y tiempos muertos que no aparecen en ningún informe", "Schedule gaps and idle time no report shows", "Buracos na agenda e tempos mortos que não aparecem em nenhum relatório"),
+     ("Ocupación por hora, tiempo entre pacientes y ausentes de la worklist", "Hourly occupancy, time between patients and worklist no-shows", "Ocupação por hora, tempo entre pacientes e faltas da worklist")),
+    (("Una falla de criogenia se nota cuando ya es un quench", "A cryogenics fault is noticed when it is already a quench", "Uma falha de criogenia é notada quando já é um quench"),
+     ("Helio, cold head y compresor vigilados 24/7, con alertas", "Helium, cold head and compressor watched 24/7, with alerts", "Hélio, cold head e compressor vigiados 24/7, com alertas")),
+]
+X_ICON = '<svg aria-hidden="true" fill="none" height="18" stroke="currentColor" stroke-width="2.4" viewBox="0 0 24 24" width="18"><path d="M18 6L6 18M6 6l12 12"/></svg>'
+
+
+def antes_despues():
+    head = (f'<div class="cx-ad-h"><span {L("Sin el panel","Without the panel","Sem o painel")}>Sin el panel</span>'
+            f'<span {L("Con el panel","With the panel","Com o painel")}>Con el panel</span></div>')
+    rows = "".join(f'<div class="cx-ad-r reveal"><p class="no">{X_ICON}<span {L(*a)}>{esc(a[0])}</span></p>'
+                   f'<p class="si">{CHECK}<span {L(*b)}>{esc(b[0])}</span></p></div>' for a, b in ANTES_DESPUES)
+    spk = "".join(f'<a class="chip" href="/{x["slug"]}/" {L(*x["eye"])}>{esc(x["eye"][0])}</a>' for x in SPOKES + [CRYO])
+    more = f'<div class="cx-more"><span {L("Profundizá:","Learn more:","Saiba mais:")}>Profundizá:</span>{spk}</div>'
+    return f'<div class="cx-ad">{head}{rows}</div>{more}'
+
+
+# Los otros dos productos de software: chicos, pero con link a su página
+# propia para no perder lo que ya posicionan. Las anclas #informes e #imagen
+# se mantienen porque hay links viejos que apuntan ahí.
+OTROS = [("informes", "/software/informes-radiologicos-ia/",
+          ("Informes Radiológicos con IA", "AI Radiology Reporting", "Laudos Radiológicos com IA"),
+          ("Visor DICOM con dictado por voz: el informe estructurado, en una fracción del tiempo.",
+           "DICOM viewer with voice dictation: the structured report in a fraction of the time.",
+           "Visualizador DICOM com ditado por voz: o laudo estruturado em uma fração do tempo.")),
+         ("imagen", "/software/mejora-imagen-ia/",
+          ("Mejora de Imagen con IA", "AI Image Enhancement", "Melhoria de Imagem com IA"),
+          ("Deep learning autorizado por FDA: MRI más rápida y menos dosis en PET.",
+           "FDA-cleared deep learning: faster MRI and lower PET dose.",
+           "Deep learning autorizado pela FDA: MRI mais rápida e menos dose em PET."))]
+
+
+def otros():
+    cards = "".join(f'<a class="cx-otro" id="{i}" href="{h}"><b {L(*t)}>{esc(t[0])}</b><span {L(*d)}>{esc(d[0])}</span></a>'
+                    for i, h, t, d in OTROS)
+    return (f'<div class="cx-otros"><div class="cx-otros-h" {L("También en software con IA","Also in AI software","Também em software com IA")}>También en software con IA</div>'
+            f'<div class="cx-otros-g">{cards}</div></div>')
+
+
 def render_hub():
-    path = HUB + "/"
-    t = ('Sistema de control de equipamiento médico | Nexolibre',
-          'Medical Imaging Equipment Monitoring Software | Nexolibre',
-          'Sistema de controle de equipamentos médicos | Nexolibre')
+    path = PILLAR + "/"
+    t = ('Software de control de equipamiento médico | Nexolibre',
+         'Medical Imaging Equipment Monitoring Software | Nexolibre',
+         'Software de controle de equipamentos médicos | Nexolibre')
     d = ('Panel en vivo de todos tus equipos de diagnóstico por imágenes conectados al PACS: RM, TC, RX, ecografía y mamografía. Sin límite de equipos ni sedes.',
-          'Live panel of every imaging unit connected to your PACS: MRI, CT, X-ray, ultrasound and mammography. Output and goals per unit and site, no limits.',
-          'Painel ao vivo de todos os equipamentos de imagem conectados ao PACS: RM, TC, RX, ultrassom e mamografia. Sem limite de equipamentos nem unidades.')
+         'Live panel of every imaging unit connected to your PACS: MRI, CT, X-ray, ultrasound and mammography. Output and goals per unit and site, no limits.',
+         'Painel ao vivo de todos os equipamentos de imagem conectados ao PACS: RM, TC, RX, ultrassom e mamografia. Sem limite de equipamentos nem unidades.')
     faqs = [
         (("¿Qué es un sistema de control de equipamiento médico?", "What is a medical equipment control system?", "O que é um sistema de controle de equipamentos médicos?"),
          ("Es un software que reúne en un panel el estado y la producción de los equipos médicos de una institución. En diagnóstico por imágenes, el de Nexolibre se conecta al PACS y muestra, para cada resonador, tomógrafo, rayos X, ecógrafo o mamógrafo, cuántos estudios hace, cuánto tiempo está ocupado o parado y si cumple su meta.",
@@ -1023,69 +1096,23 @@ def render_hub():
           "Worldwide, in Spanish, English and Portuguese. Nexolibre handles implementation and support with its own team in Latin America and the United States.",
           "No mundo todo, em espanhol, inglês e português. A Nexolibre faz a implantação e o suporte com equipe própria na América Latina e nos Estados Unidos.")),
     ]
-    beneficios = [
-        (("Ves todo, en vivo", "See everything, live", "Veja tudo, ao vivo"),
-         ("Todos tus equipos de imágenes en una pantalla, con el último estudio de cada uno. Si un equipo dejó de producir, lo ves sin esperar el reporte de fin de mes.",
-          "All your imaging units on one screen, with each one's latest study. If a unit stops producing, you see it without waiting for the month-end report.",
-          "Todos os seus equipamentos de imagem em uma tela, com o último estudo de cada um. Se um equipamento parou de produzir, você vê sem esperar o relatório do fim do mês.")),
-        (("Sacás más de cada equipo", "Get more from every unit", "Tire mais de cada equipamento"),
-         ("La ocupación por hora, los tiempos entre pacientes y la duración por protocolo te muestran dónde hay capacidad libre antes de pensar en comprar otro equipo.",
-          "Hourly occupancy, time between patients and duration per protocol show where there is free capacity before you think of buying another unit.",
-          "A ocupação por hora, o tempo entre pacientes e a duração por protocolo mostram onde há capacidade livre antes de pensar em comprar outro equipamento.")),
-        (("Llegás a la meta", "Hit your goals", "Chegue à meta"),
-         ("Con la meta de cada equipo, la proyección del mes y los exámenes por día que faltan, sabés a tiempo si hay que reforzar un turno.",
-          "With each unit's goal, the monthly forecast and the exams per day still needed, you know in time whether a shift needs reinforcing.",
-          "Com a meta de cada equipamento, a projeção do mês e os exames por dia que faltam, você sabe a tempo se precisa reforçar um turno.")),
-        (("Una sola medida para todas las sedes", "One standard across sites", "Um só critério para todas as unidades"),
-         ("Mismos indicadores en todas tus sedes y en todas las marcas. Comparás de igual a igual y decidís con datos.",
-          "The same KPIs across every site and vendor. Compare like for like and decide with data.",
-          "Os mesmos indicadores em todas as unidades e marcas. Compare de igual para igual e decida com dados.")),
-        (("Agenda que se cumple", "A schedule that holds", "Agenda que se cumpre"),
-         ("La worklist cruza lo programado con lo realizado y deja a la vista ausentes, demoras y estudios fuera de turno.",
-          "The worklist matches scheduled against performed and puts no-shows, delays and off-shift studies in plain sight.",
-          "A worklist cruza o agendado com o realizado e deixa à vista faltas, atrasos e estudos fora de turno.")),
-        (("Resonadores protegidos", "Protected MRI scanners", "Ressonadores protegidos"),
-         ("En el mismo sistema, la criogenia de cada resonador con historial y alertas, y acceso remoto a la consola para el soporte técnico.",
-          "In the same system, each MRI's cryogenics with history and alerts, and remote console access for technical support.",
-          "No mesmo sistema, a criogenia de cada ressonador com histórico e alertas, e acesso remoto ao console para o suporte técnico.")),
-    ]
-    body = (hero(("Sistema de control de equipamiento médico", "Medical equipment control system", "Sistema de controle de equipamentos médicos"),
+    # Página corta a pedido de Maxi: se quedan las 4 preguntas que más se buscan.
+    faqs = [faqs[0], faqs[1], faqs[2], faqs[5]]
+    body = (hero(("Software para diagnóstico por imágenes", "Software for diagnostic imaging", "Software para diagnóstico por imagem"),
                  ("Controlá en vivo todo tu equipamiento médico de diagnóstico por imágenes",
                   "Monitor and control all your medical imaging equipment, live",
                   "Controle ao vivo todos os seus equipamentos médicos de diagnóstico por imagem"),
-                 ("Un sistema de control de equipamiento médico que se conecta a tu PACS y te muestra en vivo cuánto produce cada resonador, tomógrafo, rayos X, ecógrafo y mamógrafo, cuánto tiempo está parado y si llega a la meta del mes. Para cualquier cantidad de equipos y de sedes.",
-                  "Medical equipment control software that connects to your PACS and shows you, live, how much every MRI, CT, X-ray, ultrasound and mammography unit produces, how long it sits idle and whether it will hit this month's goal. For any number of units and sites.",
-                  "Um sistema de controle de equipamentos médicos que se conecta ao seu PACS e mostra ao vivo quanto produz cada ressonador, tomógrafo, raio-X, ultrassom e mamógrafo, quanto tempo fica parado e se chega à meta do mês. Para qualquer quantidade de equipamentos e unidades."))
+                 ("Un sistema de control de equipamiento médico conectado a tu PACS: cada resonador, tomógrafo, rayos X, ecógrafo y mamógrafo en un solo panel, sin importar cuántos equipos ni sedes tengas.",
+                  "Medical equipment control software connected to your PACS: every MRI, CT, X-ray, ultrasound and mammography unit on one panel, no matter how many units or sites you have.",
+                  "Um sistema de controle de equipamentos médicos conectado ao seu PACS: cada ressonador, tomógrafo, raio-X, ultrassom e mamógrafo em um só painel, não importa quantos equipamentos ou unidades você tenha."))
             + section(showcase(0) + stats(), top=False)
-            + section(sec_head(("El problema", "The problem", "O problema"),
-                               ("Lo que hoy no ves en tus equipos te cuesta producción",
-                                "What you can't see on your units today costs you output",
-                                "O que você não vê hoje nos seus equipamentos custa produção"))
-                      + feature_cards(DOLORES, "cx-feats cx-4 cx-dolor", icon=False))
-            + section(sec_head(("Beneficios", "Benefits", "Benefícios"),
-                               ("Control total sobre la producción de tus equipos", "Full control over your units' output", "Controle total sobre a produção dos seus equipamentos"),
-                               ("Para hospitales, clínicas, sanatorios y centros de diagnóstico que necesitan saber qué pasa en cada sala sin recorrer las sedes.",
-                                "For hospitals, clinics and imaging centers that need to know what happens in every room without touring every site.",
-                                "Para hospitais, clínicas, sanatórios e centros de diagnóstico que precisam saber o que acontece em cada sala sem percorrer as unidades."))
-                      + feature_cards(beneficios))
-            + section(sec_head(("Funciones", "Features", "Funcionalidades"),
-                               ("Qué ves en el panel", "What you see on the panel", "O que você vê no painel"),
-                               ("Todo sale de los estudios que tus equipos ya envían al PACS.",
-                                "Everything comes from the studies your units already send to the PACS.",
-                                "Tudo vem dos estudos que seus equipamentos já enviam ao PACS."))
-                      + func_list(FUNCIONES), top=False)
-            + section(sec_head(("Comparación", "Comparison", "Comparação"),
-                               ("Panel de control vs. planillas y reportes manuales", "Control panel vs. spreadsheets and manual reports", "Painel de controle vs. planilhas e relatórios manuais"))
-                      + compare_table(), top=False)
+            + section(sec_head(("El problema y la solución", "The problem and the fix", "O problema e a solução"),
+                               ("Lo que hoy no ves te cuesta producción", "What you can't see today costs you output", "O que você não vê hoje custa produção"))
+                      + antes_despues())
             + cta_band(*CTA_MID)
-            + section(sec_head(("Modalidades y marcas", "Modalities and vendors", "Modalidades e marcas"),
-                               ("Cualquier equipo que envíe DICOM", "Any unit that sends DICOM", "Qualquer equipamento que envie DICOM"))
-                      + chips(MODALIDADES) + '<div style="height:14px"></div>' + chips(MARCAS), top=False)
-            + section(quien(), top=False)
+            + section(chips(MODALIDADES) + '<div style="height:10px"></div>' + chips(MARCAS) + otros(), top=False)
             + faq_section(faqs)
-            + related(HUB)
             + lead_form(path))
-    desc = d[0]
     jsonld = lambda lang, i: [ORG_LD, software_ld(lang, i, path, d), crumbs(lang, i, path, None), faq_ld(lang, i, faqs)]
     page(path, t, d, jsonld, body)
 
@@ -1094,7 +1121,7 @@ def main():
     render_hub()
     for s in SPOKES:
         render_spoke(s)
-    print(f"{1 + len(SPOKES)} páginas: /{HUB}/ + " + ", ".join(s["slug"].split("/")[-1] for s in SPOKES))
+    print(f"{1 + len(SPOKES)} páginas: /{PILLAR}/ + " + ", ".join(s["slug"].split("/")[-1] for s in SPOKES))
 
 
 if __name__ == "__main__":
