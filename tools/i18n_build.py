@@ -51,8 +51,13 @@ def discover():
                 continue
             found.add(rel[:-len("index.html")])   # "" o "empresa/" o "repuestos/ge/"
     return sorted(found)
+# Páginas que se mudaron. GitHub Pages no hace redirecciones del lado del
+# servidor, así que se escribe una página mínima con canonical y meta refresh
+# a 0 s, que Google toma como redirección permanente. No van al sitemap.
+REDIRECTS = {"control-equipamiento-medico/": "software/"}
+
 # rutas relativas de cada página ES (P termina en / o es "")
-PAGES = discover()
+PAGES = [P for P in discover() if P not in REDIRECTS]
 
 # prefijos de href que NO se localizan (assets, archivos, externos)
 SKIP = ("/assets", "/styles.css", "/parts.json", "/sitemap", "/robots",
@@ -194,7 +199,7 @@ def bake(raw, lang, P):
 def build_sitemap():
     today = datetime.date.today().isoformat()
     prio = {"": "1.0", "catalogo/": "0.9", "servicios/": "0.9", "productos/": "0.9",
-            "software/": "0.9", "software/informes-radiologicos-ia/": "0.8", "software/mejora-imagen-ia/": "0.8", "monitoreo/": "0.8", "control-equipamiento-medico/": "0.9", "empresa/": "0.7", "contacto/": "0.6"}
+            "software/": "1.0", "software/informes-radiologicos-ia/": "0.8", "software/mejora-imagen-ia/": "0.8", "monitoreo/": "0.8", "empresa/": "0.7", "contacto/": "0.6"}
     freq = {"": "weekly", "catalogo/": "daily", "productos/": "weekly"}
     out = ['<?xml version="1.0" encoding="UTF-8"?>',
            '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" '
@@ -223,6 +228,15 @@ def main():
             html = bake(raw, lang, P)
             open(out_path(lang, P), "w", encoding="utf-8").write(html)
             n += 1
+    for old, new in REDIRECTS.items():
+        for lang in LANGS:
+            dest = url_for(lang, new)
+            html = (f'<!DOCTYPE html><html lang="{lang}"><head><meta charset="utf-8"/>'
+                    f'<title>Nexolibre</title><link rel="canonical" href="{dest}"/>'
+                    f'<meta http-equiv="refresh" content="0; url={dest}"/>'
+                    f'<script>location.replace("{dest}"+location.hash)</script></head>'
+                    f'<body><a href="{dest}">{dest}</a></body></html>\n')
+            open(out_path(lang, old), "w", encoding="utf-8").write(html)
     build_sitemap()
     print(f"{n} páginas generadas ({len(PAGES)} × {len(LANGS)}) + sitemap.xml")
 
