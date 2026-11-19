@@ -18,8 +18,8 @@
 
 ## Las herramientas de software con IA (en detalle)
 
-- **Sistema de control de equipamiento médico (panel de equipos de imágenes)**: se conecta al PACS y reconoce automáticamente, por sus datos DICOM, cada equipo que envía estudios. Muestra en vivo, por cliente, sede, modalidad y equipo: exámenes por día y por hora, utilización, duración mediana, tiempo de cambio de paciente, mapa de calor de ocupación, metas mensuales con proyección, línea de tiempo con series y secuencias, worklist (programado vs. realizado, ausentes, puntualidad), productividad por turno, comparación entre períodos y médicos solicitantes. Multimarca y sin límite de equipos ni de sedes.
-- **Monitoreo y Operaciones con IA**: dispositivo no invasivo + plataforma en la nube que monitorea equipos MRI/CT 24/7 sin acceder a datos de pacientes (nivel de helio, cold head, presión del magneto, riesgo de quench) y cruza el estado técnico con la producción del centro. Resultado típico: +40% de producción sin sumar hardware.
+- **Sistema de control de equipamiento médico (panel de equipos de imágenes)**: se conecta al PACS y reconoce automáticamente, por sus datos DICOM, cada equipo que envía estudios. Muestra en vivo, por cliente, sede, modalidad y equipo: exámenes por día y por hora, utilización, duración mediana, tiempo de cambio de paciente, mapa de calor de ocupación, metas mensuales con proyección, línea de tiempo con series y secuencias, worklist (programado vs. realizado, ausentes, puntualidad), productividad por turno, comparación entre períodos y médicos solicitantes. Multimarca y sin límite de equipos ni de sedes. El panel de gestión no requiere hardware y se implementa en el día; el monitoreo de criogenia se coordina aparte porque instala un dispositivo en cada resonador.
+- **Monitoreo y Operaciones con IA**: dispositivo no invasivo + plataforma en la nube que monitorea la criogenia de los resonadores 24/7 (nivel de helio, cold head, presión del magneto, riesgo de quench) y cruza el estado técnico con la producción del centro. Resultado típico: +40% de producción sin sumar hardware.
 - **Informes con IA (dictado por voz)**: el radiólogo dicta y la IA transcribe y estructura el informe. 5× más rápido que tipear, 99% de precisión, informe estructurado listo en ~90 segundos, con visor DICOM profesional incluido.
 - **Mejora de Imagen con IA**: deep learning autorizado por FDA que reduce hasta 50% el tiempo de escaneo de MRI manteniendo calidad diagnóstica, compatible con GE, Siemens, Philips, Canon y Fujifilm; también denoising PET con hasta 75% menos dosis en PET-CT.
 
@@ -48,7 +48,9 @@ Recuperar una bobina o una pieza crítica en lugar de comprarla nueva evita down
 - [Glosario MRI/CT](https://nexolibre.com/glosario/): términos del dominio para desambiguación.
 - [Productos y stock](https://nexolibre.com/productos/): equipos MRI/CT y piezas críticas recuperadas.
 - [Catálogo de partes](https://nexolibre.com/catalogo/): repuestos MRI/CT con búsqueda por marca, modelo o número de parte.
-- [Software con IA](https://nexolibre.com/software/): monitoreo de equipos, informes con IA y mejora de imagen.
+- [Software para diagnóstico por imágenes](https://nexolibre.com/software/): producto principal, panel de gestión y monitoreo de todos los equipos conectados al PACS, con criogenia MRI.
+- [Informes radiológicos con IA](https://nexolibre.com/software/informes-radiologicos-ia/): visor DICOM con dictado por voz con IA.
+- [Mejora de imagen con IA](https://nexolibre.com/software/mejora-imagen-ia/): deep learning autorizado por FDA para MRI, CT y PET-CT.
 - [Contacto](https://nexolibre.com/contacto/): email contacto@nexolibre.com · teléfono +54 9 11 6741-0993.
 
 ## Contacto
