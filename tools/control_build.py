@@ -96,13 +96,18 @@ CX_STYLE = """<style>
 .cx-ad-r .si svg{color:var(--accent)}
 .cx-more{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin-top:18px;font-size:14px;color:var(--muted)}
 .cx-more .chip{text-decoration:none}
-.cx-otros{margin-top:34px}
-.cx-otros-h{font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted-2);margin-bottom:12px}
-.cx-otros-g{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.cx-otro{display:block;padding:14px 18px;border:1px solid var(--border);border-radius:14px;text-decoration:none;background:var(--surface)}
-.cx-otro b{display:block;font-family:Exo,sans-serif;color:var(--text);font-size:15px}
-.cx-otro span{font-size:13.5px;color:var(--muted)}
-.cx-otro:hover{border-color:rgba(239,143,3,.45)}
+.cx-otros-g{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+.cx-otro{display:flex;flex-direction:column;gap:10px;padding:26px;border:1px solid var(--border);border-radius:18px;text-decoration:none;background:var(--surface);transition:border-color .2s,transform .2s}
+.cx-otro:hover{border-color:rgba(239,143,3,.55);transform:translateY(-2px)}
+.cx-otro-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.cx-otro-ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:rgba(239,143,3,.13);color:var(--accent)}
+.cx-otro-para{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted-2)}
+.cx-otro h3{font-size:21px;margin:4px 0 0;color:var(--text)}
+.cx-otro p{color:var(--muted);font-size:15px;margin:0}
+.cx-otro-n{display:flex;gap:28px;margin-top:4px}
+.cx-otro-n b{display:block;font-family:Exo,sans-serif;font-size:26px;color:var(--accent);font-variant-numeric:tabular-nums}
+.cx-otro-n span{font-size:13px;color:var(--muted)}
+.cx-otro-cta{align-self:flex-start;margin-top:8px}
 .cx-tab.on{background:rgba(239,143,3,.14);color:#ffb23e;font-weight:600}
 .cx-prog{position:absolute;left:0;bottom:0;height:2px;width:0;background:#ef8f03}
 .cx-tab.on .cx-prog{animation:cxProg 6s linear forwards}
@@ -306,7 +311,7 @@ def cta_buttons(center=True):
             f'<a href="#demo" class="btn btn-ghost" data-cotizar="1" {L(*CTA_COT)}>{CTA_COT[0]}</a></div>')
 
 
-def hero(eye, h1, intro, ctas=True):
+def hero(eye, h1, intro, ctas=True, extra=''):
     trust = [("Multimarca", "Multivendor", "Multimarca"), ("Todas las modalidades", "Every modality", "Todas as modalidades"),
              ("Sin límite de equipos ni sedes", "No limit on units or sites", "Sem limite de equipamentos ou unidades"),
              ("Funcionando en el día", "Up and running the same day", "Funcionando no mesmo dia")]
@@ -319,7 +324,7 @@ def hero(eye, h1, intro, ctas=True):
             f'<p class="lead reveal" style="max-width:72ch;margin:12px auto 0" {L(*intro)}>{esc(intro[0])}</p>'
             + (f'<div class="reveal">{cta_buttons()}</div>' if ctas else '')
             + f'<div class="hero-badges reveal" style="margin-top:22px">{badges}</div>'
-            f'</div></section>')
+            + extra + '</div></section>')
 
 
 def cta_band(h, p):
@@ -1037,21 +1042,41 @@ def antes_despues():
 # se mantienen porque hay links viejos que apuntan ahí.
 OTROS = [("informes", "/software/informes-radiologicos-ia/",
           ("Informes Radiológicos con IA", "AI Radiology Reporting", "Laudos Radiológicos com IA"),
-          ("Visor DICOM con dictado por voz: el informe estructurado, en una fracción del tiempo.",
-           "DICOM viewer with voice dictation: the structured report in a fraction of the time.",
-           "Visualizador DICOM com ditado por voz: o laudo estruturado em uma fração do tempo.")),
+          ("Visor DICOM creado por radiólogos con dictado por voz. El radiólogo dicta, las mediciones se cargan solas y el informe estructurado queda listo en una fracción del tiempo.",
+           "A DICOM viewer built by radiologists, with voice dictation. The radiologist dictates, measurements load automatically and the structured report is ready in a fraction of the time.",
+           "Visualizador DICOM criado por radiologistas, com ditado por voz. O radiologista dita, as medições entram sozinhas e o laudo estruturado fica pronto em uma fração do tempo."),
+          [("-70%", ("tiempo de redacción", "writing time", "tempo de redação")),
+           ("-60%", ("tiempo de entrega", "turnaround time", "prazo de entrega"))],
+          ("Para radiólogos y servicios de informes", "For radiologists and reporting teams", "Para radiologistas e serviços de laudos"),
+          ("Ver informes con IA", "See AI reporting", "Ver laudos com IA"),
+          '<path d="M12 2a3 3 0 0 0-3 3v6a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3z"/><path d="M19 10v1a7 7 0 0 1-14 0v-1M12 18v4M8 22h8"/>'),
          ("imagen", "/software/mejora-imagen-ia/",
-          ("Mejora de Imagen con IA", "AI Image Enhancement", "Melhoria de Imagem com IA"),
-          ("Deep learning autorizado por FDA: MRI más rápida y menos dosis en PET.",
-           "FDA-cleared deep learning: faster MRI and lower PET dose.",
-           "Deep learning autorizado pela FDA: MRI mais rápida e menos dose em PET."))]
+          ("Mejora de Imagen con IA para MRI", "AI Image Enhancement for MRI", "Melhoria de Imagem com IA para MRI"),
+          ("Deep learning autorizado por FDA que acelera la adquisición de MRI y mejora la nitidez en CT y PET-CT, sobre los equipos que ya tenés y de cualquier marca.",
+           "FDA-cleared deep learning that speeds up MRI acquisition and sharpens CT and PET-CT, on the scanners you already have, from any vendor.",
+           "Deep learning autorizado pela FDA que acelera a aquisição de MRI e melhora a nitidez em CT e PET-CT, nos equipamentos que você já tem, de qualquer marca."),
+          [("80%", ("MRI más rápida", "faster MRI", "MRI mais rápida")),
+           ("-75%", ("dosis en PET-CT", "PET-CT dose", "dose em PET-CT"))],
+          ("Para resonancia, tomografía y PET-CT", "For MRI, CT and PET-CT", "Para ressonância, tomografia e PET-CT"),
+          ("Ver mejora de imagen", "See image enhancement", "Ver melhoria de imagem"),
+          '<rect x="3" y="3" width="18" height="18" rx="3"/><path d="M12 3v18"/><path d="M7 9l2 2-2 2M15 9h3M15 13h3"/>')]
 
 
 def otros():
-    cards = "".join(f'<a class="cx-otro" id="{i}" href="{h}"><b {L(*t)}>{esc(t[0])}</b><span {L(*d)}>{esc(d[0])}</span></a>'
-                    for i, h, t, d in OTROS)
-    return (f'<div class="cx-otros"><div class="cx-otros-h" {L("También en software con IA","Also in AI software","Também em software com IA")}>También en software con IA</div>'
-            f'<div class="cx-otros-g">{cards}</div></div>')
+    # Pedido de Maxi: al final, como tarjetas con sinopsis y no como línea
+    # suelta. Las anclas #informes e #imagen se mantienen por links viejos.
+    cards = ""
+    for i, h, t, d, nums, para, cta, ico in OTROS:
+        ns = "".join(f'<div><b>{n}</b><span {L(*lab)}>{esc(lab[0])}</span></div>' for n, lab in nums)
+        cards += (f'<a class="cx-otro reveal" id="{i}" href="{h}">'
+                  f'<div class="cx-otro-top"><span class="cx-otro-ic"><svg aria-hidden="true" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="22" height="22">{ico}</svg></span>'
+                  f'<span class="cx-otro-para" {L(*para)}>{esc(para[0])}</span></div>'
+                  f'<h3 {L(*t)}>{esc(t[0])}</h3><p {L(*d)}>{esc(d[0])}</p>'
+                  f'<div class="cx-otro-n">{ns}</div>'
+                  f'<span class="btn btn-ghost cx-otro-cta" {L(*(c + " →" for c in cta))}>{esc(cta[0])} →</span></a>')
+    return section(sec_head(("Más software con IA", "More AI software", "Mais software com IA"),
+                            ("¿Buscás IA para informes o para MRI?", "Looking for AI for reporting or MRI?", "Procura IA para laudos ou para MRI?"))
+                   + f'<div class="cx-otros-g">{cards}</div>', top=False)
 
 
 def render_hub():
@@ -1110,8 +1135,9 @@ def render_hub():
                                ("Lo que hoy no ves te cuesta producción", "What you can't see today costs you output", "O que você não vê hoje custa produção"))
                       + antes_despues())
             + cta_band(*CTA_MID)
-            + section(chips(MODALIDADES) + '<div style="height:10px"></div>' + chips(MARCAS) + otros(), top=False)
+            + section(chips(MODALIDADES) + '<div style="height:10px"></div>' + chips(MARCAS), top=False)
             + faq_section(faqs)
+            + otros()
             + lead_form(path))
     jsonld = lambda lang, i: [ORG_LD, software_ld(lang, i, path, d), crumbs(lang, i, path, None), faq_ld(lang, i, faqs)]
     page(path, t, d, jsonld, body)
